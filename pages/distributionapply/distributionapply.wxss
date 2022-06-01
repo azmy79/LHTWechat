@@ -1,0 +1,56 @@
+.xinzheng {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 702rpx;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    padding: 32rpx 24rpx;
+}
+
+.xinzheng button,.xinzheng button::after {
+    border: none;
+}
+
+.xinzheng button {
+    background: #fff;
+    color: #fff;
+    width: 702rpx;
+    margin: 0 auto;
+    line-height: 48rpx;
+    font-size: 36rpx;
+    padding: 20rpx 0rx;
+    border: none;
+    border-radius: 8rpx;
+    text-align: center;
+}
+
+.agreen {
+    display: flex;
+    line-height: 48rpx;
+    font-size: 24rpx;
+    color: #9b9b9b;
+    margin-bottom: 32rpx;
+}
+
+.agreen icon {
+    margin-top: -4rpx;
+    width: 48rpx;
+    height: 48rpx;
+    margin-right: 16rpx;
+}
+
+.agreen .induce {
+    color: #6a7fa6;
+    margin-left: 8rpx;
+}
+
+.agreen view {
+    border: 1px #d0d0d0 solid;
+    width: 28rpx;
+    height: 28rpx;
+    padding: 4rpx;
+    margin-top: 8rpx;
+    border-radius: 8rpx;
+    margin-right: 16rpx;
+}

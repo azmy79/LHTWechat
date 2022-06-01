@@ -1,0 +1,96 @@
+<view class="page-section">
+    <view class="coupontitle bg-white">
+        <view bindtap="bingApplyDraw" class="coupontitlel">
+            <view class="{{TabType==1?'active':''}}">申请提现</view>
+        </view>
+        <view bindtap="bingDrawList" class="coupontitlel">
+            <view class="{{TabType==2?'active':''}}">提现记录</view>
+        </view>
+    </view>
+    <view class="mt120" wx:if="{{TabType==1}}">
+        <form bindsubmit="formSubmit" reportSubmit="true">
+            <view class="Draw_total">
+                <text class="form-group-name">提现金额</text>
+                <view class="form-group-input">
+                    <input bindinput="InputValue" data-key="DrawMoney" name="money" placeholder="填写您的提现金额" placeholderStyle="color:#bdbdbd" type="number" value="{{DrawMoney}}"></input>
+                </view>
+            </view>
+            <view class="notice">最多可提现{{balance}}元，
+        <text>最少提现1元，</text>微信支付最少提现金额为1元</view>
+            <view bindtap="ShowType" class="form-group bg-white">
+                <view class="form-group-name">提现方式</view>
+                <view class="form-group-input deposit {{DrawIndex==-1?'selecttxt':''}}">{{DrawIndex==-1?'请选择提现方式':DrawTypeList[DrawIndex]}}</view>
+                <view class="iconfont arrow_right come-icon"></view>
+            </view>
+            <view class="form-group bg-white" hidden="{{Drawtype!=1}}">
+                <view class="form-group-name"> 开户银行</view>
+                <view class="form-group-input">
+                    <input bindinput="InputValue" data-key="txtBankName" name="txtBankName" placeholder="请输入开户银行" placeholderStyle="color:#bdbdbd" type="text" value="{{txtBankName}}"></input>
+                </view>
+            </view>
+            <view class="form-group bg-white" hidden="{{Drawtype!=1}}">
+                <view class="form-group-name"> 银行开户名</view>
+                <view class="form-group-input">
+                    <input bindinput="InputValue" data-key="BankAccountName" name="txtBankAccountName" placeholder="请输入银行开户名" placeholderStyle="color:#bdbdbd" type="text" value="{{BankAccountName}}"></input>
+                </view>
+            </view>
+            <view class="form-group bg-white" hidden="{{Drawtype!=1}}">
+                <view class="form-group-name"> 银行账号</view>
+                <view class="form-group-input">
+                    <input bindinput="InputValue" data-key="BankAccountNo" name="txtBankAccountNo" placeholder="请输入银行账号" placeholderStyle="color:#bdbdbd" type="text" value="{{BankAccountNo}}"></input>
+                </view>
+            </view>
+            <view class="form-group bg-white" hidden="{{Drawtype!=3}}">
+                <view class="form-group-name"> 支付宝账号</view>
+                <view class="form-group-input">
+                    <input bindinput="InputValue" data-key="AlipayRealName" name="AlipayRealName" placeholder="请输入支付宝账号" placeholderStyle="color:#bdbdbd" type="text" value="{{AlipayRealName}}"></input>
+                </view>
+            </view>
+            <view class="form-group bg-white" hidden="{{Drawtype!=3}}">
+                <view class="form-group-name"> 真实姓名</view>
+                <view class="form-group-input">
+                    <input bindinput="InputValue" data-key="RealName" name="RealName" placeholder="请输入真实姓名" placeholderStyle="color:#bdbdbd" type="text" value="{{RealName}}"></input>
+                </view>
+            </view>
+            <view class="form-group bg-white">
+                <view class="form-group-name">备注</view>
+                <view class="form-group-input">
+                    <input bindinput="InputValue" data-key="Remark" name="txtBankName" placeholder="选填，备注信息" placeholderStyle="color:#bdbdbd" type="text" value="{{Remark}}"></input>
+                </view>
+            </view>
+            <view class="form-group bg-white" hidden="{{IsSetTradePassword}}">
+                <view class="form-group-name">交易密码</view>
+                <view class="form-group-input">
+                    <input bindinput="InputValue" data-key="password" placeholder="请输入交易密码" placeholderStyle="color:#bdbdbd" type="password" value="{{password}}"></input>
+                </view>
+            </view>
+            <view class="line">
+                <view></view>
+            </view>
+            <view bindtap="forgetTap" class="forget" wx:if="{{!IsSetTradePassword}}">忘记密码？点击重置</view>
+            <view bindtap="SetTradeTap" class="forget fontStyle" wx:else>设置交易密码</view>
+            <view class="btn">
+                <button class="submit" formType="submit" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}};">申请提现</button>
+            </view>
+        </form>
+    </view>
+    <view class="mt120" wx:if="{{TabType==2}}">
+        <view class="points-list pl24">
+            <view class="point-li pd24-vertical pr24" wx:for="{{DrawList}}" wx:key="{{DrawList}}">
+                <view bindtap="goDrawDetail" data-requestId="{{item.ID}}">
+                    <view class="point-left">
+                        <view>{{item.AuditStatusStr}}</view>
+                        <view class="Drawtime" wx:if="{{item.AuditStatusStr=='审核中'}}">{{item.RequestTime}}</view>
+                        <view class="Drawtime" wx:else>{{item.AccountDate}}</view>
+                    </view>
+                    <view class="point-count">
+                        <text>¥</text>{{item.Amount}}</view>
+                </view>
+            </view>
+        </view>
+        <view class="kong" hidden="{{isEmpty}}">
+            <view bindtap="toproduct" class="bg_nullCounp" style="background:url({{nullDraw}}) center center no-repeat; "></view>
+      暂无提现
+    </view>
+    </view>
+</view>

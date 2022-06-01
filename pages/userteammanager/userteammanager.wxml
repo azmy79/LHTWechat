@@ -1,0 +1,109 @@
+<swiper bindchange="swiperChange" class="my-swiper" current="{{page}}" nextMargin="24rpx" previousMargin="24rpx">
+    <swiper-item>
+        <view class="my-swiper-item">
+            <image src="../../images/team-bg2.png" style="{{page==1?'left:auto;right:-24rpx':''}}"></image>
+            <view>总业绩（元）</view>
+            <view class="b">{{totalAmount}}</view>
+        </view>
+    </swiper-item>
+    <swiper-item>
+        <view class="my-swiper-item">
+            <image src="../../images/team-bg1.png" style="{{page==0?'left:-24rpx':''}} {{page==2?'left:auto;right:-24rpx':''}}"></image>
+            <view>会员数</view>
+            <view class="b">{{subMemberNumber}}</view>
+        </view>
+    </swiper-item>
+    <swiper-item>
+        <view class="my-swiper-item">
+            <image src="../../images/team-bg3.png" style="{{page==1?'left:-24rpx':''}}"></image>
+            <view>{{ReferralSettingInfo.ReferralName}}总数</view>
+            <view class="b">{{subReferralNumber}}</view>
+        </view>
+    </swiper-item>
+</swiper>
+<view class="list" wx:if="{{page==1&&!isEmpty}}">
+    <block wx:if="{{listData}}">
+        <view class="list-item" wx:for="{{listData}}" wx:key="{{index}}">
+            <image class="left-img" src="{{item.Picture}}"></image>
+            <view class="right-content">
+                <view class="list-item-row lh20">
+                    <view class="font13">{{item.UserName}}</view>
+                    <view>购买 {{item.OrderNumber}} 单</view>
+                </view>
+                <view class="list-item-row">
+                    <view class="color74">{{item.CreateDate}}</view>
+                    <view>¥ {{item.TotalAmount}}</view>
+                </view>
+            </view>
+        </view>
+    </block>
+</view>
+<view class="list performance" wx:if="{{page==0}}">
+    <view class="performance-act-row">
+        <view>当前业绩:
+      <text class="small">￥</text>
+            <text class="b">{{currentOrderTotal}}</text>
+        </view>
+        <view bindtap="toggleTimePicker">{{startPayDate}}~{{endPayDate}}
+      <text class="iconfont icon_calendar"></text>
+        </view>
+    </view>
+    <view bindtap="toggleTimePicker" class="mask" hidden="{{hideTimePicker}}"></view>
+    <view class="timepicker" hidden="{{hideTimePicker}}">
+        <view class="flex-row">
+            <view class="flex-item">开始日期</view>
+            <view class="flex-item">结束日期</view>
+        </view>
+        <picker-view bindchange="bindChange" indicatorStyle="height: 50px;" style="width: 100%; height: 300px;" value="{{value}}">
+            <picker-view-column>
+                <view style="line-height: 50px" wx:for="{{years}}" wx:key="startYear">{{item}}年</view>
+            </picker-view-column>
+            <picker-view-column>
+                <view style="line-height: 50px" wx:for="{{months}}" wx:key="startMonth">{{item}}月</view>
+            </picker-view-column>
+            <picker-view-column>
+                <view style="line-height: 50px" wx:for="{{years}}" wx:key="endYear">{{item}}年</view>
+            </picker-view-column>
+            <picker-view-column>
+                <view style="line-height: 50px" wx:for="{{months}}" wx:key="endYear">{{item}}月</view>
+            </picker-view-column>
+        </picker-view>
+        <view class="flex-row btns">
+            <view bindtap="toggleTimePicker" class="flex-item color-gray">取消</view>
+            <view bindtap="changeTimeSubmit" class="flex-item">确定</view>
+        </view>
+    </view>
+    <block wx:if="{{listData}}">
+        <view class="list-item" wx:for="{{listData}}" wx:key="{{index}}">
+            <view class="list-item-row lh20">
+                <view>{{item.orderId}}</view>
+                <view class="color74">{{item.payDate}}</view>
+            </view>
+            <view class="list-item-row">
+                <view class="color74">{{item.userName}} {{item.realName}}</view>
+                <view class="font13">¥ {{item.orderTotal}}</view>
+            </view>
+        </view>
+    </block>
+</view>
+<view class="list" wx:if="{{page==2&&!isEmpty}}">
+    <block wx:if="{{listData}}">
+        <view class="list-item" wx:for="{{listData}}" wx:key="{{index}}">
+            <image class="left-img" src="{{item.Picture}}"></image>
+            <view class="right-content">
+                <view class="list-item-row lh20">
+                    <view class="font13">{{item.UserName}}</view>
+                    <view class="color-gray">店铺产生</view>
+                </view>
+                <view class="list-item-row">
+                    <view class="color74">{{item.AuditDate}}</view>
+                    <view>{{item.OrderNumber}}单</view>
+                </view>
+            </view>
+        </view>
+    </block>
+</view>
+<view class="empty" wx:if="{{isEmpty}}">
+    <image src="../../images/no-search-new.png"></image>
+    <view class="txt">暂无记录</view>
+</view>

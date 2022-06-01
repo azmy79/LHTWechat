@@ -1,0 +1,110 @@
+<view class="header">
+    <view class="stroe pd24-horizontal pb24" style="background:{{PrimaryColor}}">
+        <view class="mt8 overflow outer">
+            <view class="pic">
+                <image src="{{Store.Logo}}"></image>
+            </view>
+            <view class="info">
+                <view class="overflow">
+                    <view catchtap="SelectStore" class="info_name">
+                        <view class="fl">
+                            <text class="name">{{Store.StoreName}}</text>
+                        </view>
+                        <text class="iconfont icon-"></text>
+                    </view>
+                    <view catchtap="CallTel" class="iconfont icon_phone-ios font40" data-tel="{{Store.Tel}}"></view>
+                </view>
+                <view class="mt16 font24 lh40">
+                    <view class="clearfix">
+                        <text class="iconfont icon-3 icon-width"></text>
+                        <text class="ml16">营业时间：{{Store.OpenTime}}</text>
+                    </view>
+                    <view class="clearfix" wx:if="{{Store.MinOrderPrice||Store.StoreFreight}}">
+                        <text class="iconfont icon__shipping icon-width"></text>
+                        <text class="ml16">￥{{Store.MinOrderPrice}}起送，配送费￥{{Store.StoreFreight}}</text>
+                    </view>
+                    <view class="clearfix">
+                        <view class="iconfont icon-1 icon-width"></view>
+                        <view catchtap="ChooseAddress" class="ml16 address">
+                {{storeAdress}}
+              </view>
+                        <text class="distance pl16">
+                            <text class="line-color">|</text>{{Store.Distance}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view wx:if="{{ActivityList.length>0}}">
+    <view class="store-active  {{opers=='up'?'select':''}} pd24">
+        <view class="activename" wx:for="{{ActivityList}}" wx:key="ActivityId">
+            <text class="iconfont {{item.icon}} font24"></text>
+            <text class="ml16 font24">{{item.ActivityName}}</text>
+        </view>
+        <view bindtap="OpenActive" class="store-active-num font24 lh48">
+            <view class="fl" wx:if="{{ActivityList.length>1}}">查看全部</view>
+            <view class="fr fontweight600 iconfont font24 ml8 {{opers=='up'?'icon__arrow_up':'icon__arrow_down'}}" hidden="{{ActivityList.length<=1}}"></view>
+        </view>
+    </view>
+</view>
+<view class="swiper mt32 pd24-horizontal" wx:if="{{SwiperList[0]}}">
+    <swiper autoplay="true" indicatorDots="true">
+        <swiper-item wx:for="{{SwiperList}}">
+            <image class="slide-image" mode="widthFix" src="{{item}}"></image>
+        </swiper-item>
+    </swiper>
+</view>
+<view class="menu clearfix" wx:if="{{marketingIcon.length>0}}">
+    <view bindtap="customTap" class="menu-icon" data-link="{{item.AppletRedirectUrl}}" style="width:{{100/marketingIcon.length}}%" wx:for="{{marketingIcon}}">
+        <view class="image-box">
+            <image class="image" mode="aspectFill" src="{{item.IconUrl}}"></image>
+        </view>
+        <view class="menu-name">{{item.MarktingTypeText}}</view>
+    </view>
+</view>
+<view class="pd24-horizontal mt48 coup-lineheight" hidden="true" wx:if="{{Coupons.length>0}}">
+    <view class="font36 fontbold">优惠券
+        <navigator class="more" url="../couponlist/couponlist">更多</navigator>
+    </view>
+    <view class="copulist mt16">
+        <navigator url="../couponlist/couponlist" wx:for="{{Coupons}}" wx:for-index="idx" wx:key="CouponId">
+            <view class="counpinfo">
+                <view class="coupinfo-content">
+                    <view class="coupinfo-price" style="background:url({{counpbgimg}})center center no-repeat; background-size:100% 100%;">
+                        <view class="icon font48">￥</view>{{item.Price}}
+                </view>
+                    <view class="coupinfo-des">满{{item.OrderUseLimit}}可用</view>
+                </view>
+            </view>
+        </navigator>
+    </view>
+</view>
+<view class="prodcut-list index-pro clearfix" wx:for="{{floorList}}" wx:for-index="floorindex" wx:for-item="floor" wx:key="floorid">
+    <view class="font36 mt32" wx:if="{{floor.FloorName}}">{{floor.FloorName}}</view>
+    <image catchtap="goToStoreMarketing" class="floor-img" data-imageid="{{floor.ImageId}}" mode="widthFix" src="{{floor.ImageUrl}}" wx:if="{{floor.ImageUrl}}"></image>
+    <view catchtap="goToProductDetail" class="product-info pd32-vertical" data-activeid="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-productid="{{item.ProductId}}" data-producttype="{{item.ProductType}}" wx:for="{{floor.Products}}" wx:key="goodcont">
+        <view class="product-pic mr16">
+            <image class="image" src="{{item.ProductImage}}"></image>
+        </view>
+        <view class="product-des">
+            <view class="product-name mb16">{{item.ProductName}}</view>
+            <view class="product-price">
+                <view class="sale-price font36" style="color:{{PrimaryColor}}">
+                    <text class="font28">￥</text>
+                    <text>{{item.Price}}</text>
+                </view>
+            </view>
+            <view class="search-pro-shop" wx:if="{{item.ProductType=='0'&&item.ActiveType<2}}">
+                <view catchtap="{{item.ActiveId&&item.ActiveType==1?'goToProductDetail':'catchAddCart'}}" class="iconfont icon-plus" data-activeid="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-floorindex="{{floorindex}}" data-index="{{index}}" data-operator="+" data-productid="{{item.ProductId}}" data-sku="{{item.SkuId}}" style="color:{{PrimaryColor}}" wx:if="{{item.HasSKU}}">
+                    <view class="num" hidden="{{item.CartQuantity<=0}}">{{item.CartQuantity}}</view>
+                </view>
+                <view class="buy-num" wx:else>
+                    <view catchtap="updateCart" class="iconfont icon-minus" data-floorindex="{{floorindex}}" data-index="{{index}}" data-sku="{{item.SkuId}}" hidden="{{item.CartQuantity<=0}}" style="color:{{PrimaryColor}}"></view>{{item.CartQuantity||''}}
+                <view catchtap="{{item.ActiveId&&item.ActiveType==1?'goToProductDetail':'updateCart'}}" class="iconfont icon-plus" data-activeid="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-floorindex="{{floorindex}}" data-index="{{index}}" data-operator="+" data-productid="{{item.ProductId}}" data-sku="{{item.SkuId}}" style="color:{{PrimaryColor}}"></view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<Addtocart bind:updateproduct="updateproduct" id="addToCart" productid="{{curProductid}}" storeid="{{storeid}}"></Addtocart>

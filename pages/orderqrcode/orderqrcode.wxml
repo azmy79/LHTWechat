@@ -1,0 +1,6 @@
+<view class="section" style="margin-top:90rpx">
+    <view style="text-align:center">
+        <image mode="aspectFill" src="{{imgurl}}"></image>
+    </view>
+    <view class="pd24" style="text-align:center">提货码：{{takecode}}</view>
+</view>

@@ -1,0 +1,54 @@
+.form-group {
+    padding: 24rpx;
+    font-size: 30rpx;
+    line-height: 48rpx;
+    overflow: hidden;
+    display: flex;
+    position: relative;
+    color: #212121;
+}
+
+.form-group:not(:last-child):after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 726rpx;
+    border-bottom: 1rpx solid #f0f0f0;
+}
+
+.form-group-name {
+    margin-right: 16rpx;
+    width: 160rpx;
+    overflow: hidden;
+}
+
+.form-group-input input {
+    width: 510rpx;
+}
+
+.form-group .selecttxt {
+    color: #bdbdbd;
+    text-align: right;
+    width: 490rpx;
+}
+
+.btn {
+    width: 702rpx;
+    margin: 0 auto;
+    overflow: hidden;
+    text-align: center;
+}
+
+.submit {
+    color: #fff;
+    width: 100%;
+    border-radius: 8rpx;
+    margin-top: 48rpx;
+    font-size: 32rpx;
+    line-height: 48rpx;
+    padding: 24rpx 0;
+    background: linear-gradient(to right,#ff5622 0%,#ff1a1a 100%);
+    border: none;
+    font-weight: bold;
+}

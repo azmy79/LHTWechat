@@ -1,0 +1,11 @@
+{
+    "navigationBarTitleText": "移动云商城",
+    "enablePullDownRefresh": true,
+    "backgroundTextStyle": "dark",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {
+        "platform": "/components/platform/platform",
+        "storelist": "/components/storelist/storelist",
+        "storehome": "/components/storehome/storehome"
+    }
+}

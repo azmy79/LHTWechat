@@ -1,0 +1,17 @@
+<view class="section">
+    <view class="section__title"> 共
+    <text>{{CodeList.length}}</text>张，有效期:
+    <text class="code-time" wx:if="{{!CodeList[0].ValidEndDate}}">长期有效</text>
+        <text class="code-time" wx:else>至 {{CodeList[0].ValidEndDate}}</text>
+    </view>
+    <swiper class="swiper_box" indicatorDots="true">
+        <swiper-item wx:for="{{CodeList}}" wx:key="CodeKey">
+            <image class="slide-image {{item.status!=0?'show-opacity':''}}" height="150" src="{{item.qrcode}}" width="355"></image>
+            <view class="password" style="background:url({{password_imgUrl}}) center center no-repeat; background-size:100% auto">密码</view>
+            <text class="password-txt">{{item.code}}</text>
+            <view class="status-icon" hidden="{{item.status!=3}}" style="background:url({{overCode}}) center center no-repeat; background-size:100% auto"></view>
+            <view class="status-icon" hidden="{{item.status!=1}}" style="background:url({{useCode}}) center center no-repeat; background-size:100% auto"></view>
+            <view class="status-icon" hidden="{{item.status!=5}}" style="background:url({{refundCode}}) center center no-repeat; background-size:100% auto"></view>
+        </swiper-item>
+    </swiper>
+</view>

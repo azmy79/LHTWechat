@@ -1,0 +1,73 @@
+<view class="">
+    <view class="search-box">
+        <view bindtap="bindAddressTap" class="city text-overflow">{{cityname}}
+      <text class="iconfont icon- seladdress"></text>
+        </view>
+        <view class="search">
+            <text catchtap="searchKeyword" class="iconfont icon-searchempty"></text>
+            <input bindconfirm="searchKeyword" bindinput="onInputKeyword" class="text" confirmType="search" focus="true" placeholder="请输入地址" placeholderStyle="color:#fff" type="text" value="{{KeyWord}}"></input>
+            <text catchtap="clearKeyword" class="iconfont icon-clear"></text>
+        </view>
+    </view>
+    <view class="currentAddr">
+        <view class="title">当前地址</view>
+        <view class="bg-white">
+            <view class="addrtxt {{fromLatLng?'':'disabled'}}">{{location}}</view>
+            <view bindtap="reGetLocation" class="btn">
+                <text class="iconfont icon-2 regetlocation"></text>
+                <text class="relo">重新定位</text>
+            </view>
+        </view>
+    </view>
+    <view class="aroundAddr" hidden="{{!showSearch}}">
+        <view class="title">搜索结果</view>
+        <view class="bg-white">
+            <view bindtap="setAddr" class="addr-li" data-fromLatLng="{{item.location.lat}},{{item.location.lng}}" wx:for="{{searchList}}" wx:key="{{index}}">
+                <view class="name">{{item.title}}</view>
+                <view class="detail">{{item.address}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="deliverAddr">
+        <view class="title">收货地址</view>
+        <view class="notLogin" wx:if="{{deliverAddrList.length==0}}">
+            <text class="disabled">暂无收货地址</text>
+        </view>
+        <view class="bg-white {{isShowAll?'active':''}}" wx:if="{{deliverAddrList.length>0}}">
+            <view bindtap="setAddr" class="addr-li" data-fromLatLng="{{item.LatLng}}" wx:if="{{item.LatLng}}" wx:for="{{deliverAddrList}}" wx:key="{{index}}">
+                <view class="name">{{item.FullAddress}}</view>
+                <view class="detail">{{item.ShipTo}}, {{item.CellPhone}}</view>
+            </view>
+        </view>
+        <view bindtap="setShowAll" class="showall" data-isshow="{{isShowAll}}" wx:if="{{deliverAddrList.length>2}}">
+            <view class="showtxt">
+                <text>所有地址</text>
+                <text class="iconfont iconsize {{isShowAll?'icon__arrow_up':'icon__arrow_down'}}"></text>
+            </view>
+        </view>
+    </view>
+    <view class="aroundAddr" hidden="{{showSearch}}">
+        <view class="title">附近地址</view>
+        <view class="bg-white">
+            <view bindtap="setAddr" class="addr-li" data-fromLatLng="{{item.location.lat}},{{item.location.lng}}" wx:for="{{aroundAddrList}}" wx:key="{{index}}">
+                <view class="name">{{item.title}}</view>
+                <view class="detail">{{item.address}}</view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="distpicker {{showDistpicker?'':'hidden'}}" wx:if="{{showDistpicker}}">
+    <view class="distpicker-btn">
+        <view bindtap="distpickerCancel" class="distpicker-cancel-btn">取消</view>
+        <view catchtap="distpickerSure" class="distpicker-sure-btn">确定</view>
+    </view>
+    <picker-view bindchange="changeArea" class="distpicker-content" indicatorStyle="height: 40px;" value="{{value}}">
+        <picker-view-column>
+            <view class="area-item" wx:for="{{provinceName}}" wx:key="province">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+            <view class="area-item" wx:for="{{cityName}}" wx:key="city">{{item}}</view>
+        </picker-view-column>
+    </picker-view>
+</view>
+<view catchtap="distpickerCancel" class="mask" hidden="{{!showDistpicker}}"></view>

@@ -1,0 +1,26 @@
+.xinzheng navigator {
+    background: linear-gradient(to right,#fe5722 0%,#ff191b 100%);
+    color: #fff;
+    width: 702rpx;
+    margin: 0 auto;
+    line-height: 48rpx;
+    font-size: 36rpx;
+    padding: 24rpx 0;
+    border: 1rpx #fe5722 solid;
+    border-radius: 8rpx;
+    text-align: center;
+}
+
+.xinzheng {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 702rpx;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    padding: 32rpx 24rpx;
+}
+
+.xinzheng navigator,.xinzheng navigator::after {
+    border: none;
+}

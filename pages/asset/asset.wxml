@@ -1,0 +1,32 @@
+<view class="cash-commission" style="background:{{PrimaryColor}}">
+    <text>可用余额 (元)</text>
+    <view class="cash-num">{{balance}}</view>
+</view>
+<view wx:for="{{monthData}}" wx:key="{{index}}">
+    <view class="time-row">
+        <view class="time">{{item.YearMonthStr}}</view>
+        <view>收入: <text>￥{{item.InComeTotal}}</text>支出: <text>￥{{item.ExpensesTotal}}</text>
+        </view>
+    </view>
+    <view class="cell" wx:for="{{item.Details}}" wx:for-item="detail" wx:key="{{index}}">
+        <view class="cell-top">
+            <view>{{detail.TradeTypeName}}<block wx:if="{{detail.TradeType==1}}">({{detail.InpourId}})</block>
+            </view>
+            <view class="out" wx:if="{{detail.TradeType==4||detail.TradeType==3}}"> - {{detail.Expenses}}</view>
+            <view class="out" wx:elif="{{detail.Income<0}}">{{detail.Income}}</view>
+            <view class="in" wx:else>+ {{detail.Income}}</view>
+        </view>
+        <view class="cell-bottom">
+            <view>{{detail.TradeDateStr}}</view>
+            <view>{{detail.Balance}}</view>
+        </view>
+    </view>
+</view>
+<view class="empty" wx:if="{{recordCount<=0}}">
+    <image src="../../images/no-search-new.png"></image>
+    <view class="txt">暂时没有记录</view>
+</view>
+<view class="bottom-btns">
+    <view bindtap="bindDraw" class="btn" data-balance="{{balance}}" style="color:{{PrimaryColor}};border-color:{{PrimaryColor}}" wx:if="{{CanDrawRequest}}">提现</view>
+    <view bindtap="Recharge" class="btn recharge" hidden="{{!EnableBalanceRecharge}}" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}};border-color:{{PrimaryColor}}">充值</view>
+</view>

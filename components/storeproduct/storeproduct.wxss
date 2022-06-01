@@ -1,0 +1,180 @@
+@import "../../app.wxss";
+
+.container {
+    background: #f7f7f7;
+    overflow: hidden;
+}
+
+.search-box {
+    padding: 16rpx 24rpx;
+    background-color: #fff;
+    margin-bottom: 24rpx;
+}
+
+.search {
+    position: relative;
+}
+
+.search .iconfont {
+    position: absolute;
+    top: 16rpx;
+    left: 18rpx;
+    color: #bdbdbd;
+    font-size: 34rpx;
+}
+
+.search input {
+    width: 100%;
+    height: 64rpx;
+    line-height: normal;
+    border: 0;
+    padding-left: 64rpx;
+    box-sizing: border-box;
+    background: #f3f3f3;
+}
+
+.store-item {
+    background: #fff;
+    padding: 24rpx 24rpx 0;
+    margin-bottom: 24rpx;
+    overflow: hidden;
+}
+
+.store-info {
+    padding-bottom: 24rpx;
+}
+
+.store-info .store-logo {
+    width: 88rpx;
+    height: 88rpx;
+    border-radius: 100%;
+    float: left;
+    margin-right: 16rpx;
+}
+
+.store-info .store-name {
+    margin-bottom: 8rpx;
+    font-size: 30rpx;
+    line-height: 42rpx;
+    color: #212121;
+    font-weight: bold;
+}
+
+.store-info .store-name image {
+    width: 32rpx;
+    height: 32rpx;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.store-info text {
+    float: right;
+    font-size: 26rpx;
+    font-weight: normal;
+}
+
+.store-express {
+    display: inline-block;
+}
+
+.store-express view {
+    padding: 0 8rpx;
+    line-height: 32rpx;
+    margin-right: 16rpx;
+    color: #ff5722;
+    background: #fff4ed;
+    display: inline-block;
+    font-size: 20rpx;
+    vertical-align: top;
+    position: relative;
+    border-radius: 16rpx;
+}
+
+.store-express .border {
+    border: 1rpx solid #ff5722;
+    border-radius: 32rpx;
+}
+
+.store-express .border::before {
+    border: none;
+}
+
+.store-express text {
+    float: right;
+    color: #747474;
+    font-size: 24rpx;
+}
+
+.products {
+    max-height: 352rpx;
+    overflow: hidden;
+    margin-bottom: 32rpx;
+}
+
+.products.is-open {
+    max-height: none;
+}
+
+.products .item {
+    padding-top: 32rpx;
+    min-height: 144rpx;
+}
+
+.products .item .price {
+    color: #ff5722;
+    margin-top: 16rpx;
+    font-size: 32rpx;
+    font-weight: bold;
+}
+
+.products .item .price text {
+    font-size: 28rpx;
+}
+
+.products .item .name {
+    line-height: 40rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    color: #424242;
+}
+
+.products image {
+    width: 144rpx;
+    height: 144rpx;
+    float: left;
+    margin-right: 16rpx;
+    border-radius: 4rpx;
+}
+
+.no-search {
+    width: 100%;
+    padding: 88rpx 0;
+    text-align: center;
+}
+
+.no-search image {
+    width: 320rpx;
+    height: 200rpx;
+    display: block;
+    margin: auto;
+    margin-bottom: 16rpx;
+}
+
+.no-search view {
+    line-height: 40rpx;
+    color: #747474;
+}
+
+.more-product {
+    text-align: center;
+    line-height: 80rpx;
+}
+
+.more-product text.iconfont {
+    color: #999;
+    font-size: 40rpx;
+    vertical-align: middle;
+}

@@ -1,0 +1,68 @@
+<view class="page-section bg-white">
+    <view class="bg-white search-titles">
+        <view class="search border-bottom">
+            <input bindfocus="gotoKeyWordPage" placeholder="请输入搜索关键词" placeholderStyle="color:#bdbdbd" type="text"></input>
+            <text class="iconfont icon-search"></text>
+        </view>
+        <view class="container-r-title border-bottom">
+            <scroll-view scrollX class="container-r-title-table">
+                <view bindtap="ChooseCategory" class="{{Cid==CurrentCategory.cid?'active':''}}" data-cid="{{CurrentCategory.cid}}" data-grade="2" style="{{Cid==CurrentCategory.cid?'color:'+PrimaryColor+';':''}}">
+        全部
+         <text style="background:{{PrimaryColor}}"></text>
+                </view>
+                <view bindtap="ChooseCategory" class="{{Cid==item.cid?'active':''}}" data-cid="{{item.cid}}" data-grade="2" style="{{Cid==item.cid?'color:'+PrimaryColor+';':''}}" wx:for="{{CurrentCategory.subs}}">{{item.name}}
+        <text style="background:{{PrimaryColor}}"></text>
+                </view>
+            </scroll-view>
+        </view>
+    </view>
+    <view class="search-container">
+        <view class="container-l border-right">
+            <view bindtap="ChooseCategory" class="categroy {{CurrentCategory.cid==item.cid?'active':''}}" data-cid="{{item.cid}}" data-grade="1" data-index="{{idx}}" wx:for="{{CategoryList}}" wx:for-index="idx" wx:key="{{item.cid}}">
+                <view style="{{CurrentCategory.cid==item.cid?'background:'+PrimaryColor+';'+'color:'+PrimaryTxtColor+';':''}}">{{item.name}}</view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="pro-comm-area">
+    <view class="pro-comm-l"></view>
+    <view class="pro-comm-r">
+        <view class="pro-comm-t"></view>
+        <view class="pro-list">
+            <view bindtap="ChooseProduct" data-activeid="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-productId="{{item.ProductId}}" wx:for="{{ProductList}}" wx:key="{{item.ProductId}}">
+                <view class="search-pro">
+                    <view class="search-pro-pic">
+                        <image mode="aspectFill" src="{{item.Pic}}"></image>
+                    </view>
+                    <view class="search-pro-txt">
+                        <view class="search-pro-txt-name">{{item.ProductName}}</view>
+                        <view class="search-rpo-txt-price">
+                            <view class="saleprice">
+                                <view class="sell">￥<text>{{item.SalePrice}}</text>
+                                    <text class="product-volume">销量：{{item.SaleCounts}}</text>
+                                </view>
+                            </view>
+                            <view class="search-pro-shop" wx:if="{{item.ProductType=='0'&&item.ActiveType<2}}">
+                                <view catchtap="{{item.ActiveId&&item.ActiveType==1?'ChooseProduct':'catchAddCart'}}" class="iconfont icon-plus" data-activeid="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-index="{{index}}" data-operator="+" data-productid="{{item.ProductId}}" data-sku="{{item.SkuId}}" style="color:{{PrimaryColor}}" wx:if="{{item.HasSKU}}">
+                                    <view class="num" hidden="{{item.CartQuantity<=0}}">{{item.CartQuantity}}</view>
+                                </view>
+                                <view class="buy-num" wx:else>
+                                    <view catchtap="{{item.ActiveId&&item.ActiveType==1?'ChooseProduct':'catchAddCart'}}" class="iconfont icon-plus" data-activeid="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-index="{{index}}" data-operator="+" data-productid="{{item.ProductId}}" data-sku="{{item.SkuId}}" style="color:{{PrimaryColor}}"></view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="no-search" hidden="{{ProductList&&ProductList.length}}">
+                <image src="../../images/no-search-new.png"></image>
+                <view>没找到商品</view>
+            </view>
+        </view>
+    </view>
+</view>
+<Addtocart bind:updateproduct="updateproduct" id="addToCart" productid="{{curProductid}}" storeid="{{storeid}}"></Addtocart>
+<view class="shop_box" hidden="true">
+    <view class="shop_icon iconfont icon__cart font48"></view>
+    <text class="shop_num font28">{{TotalNum}}</text>
+</view>

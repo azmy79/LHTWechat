@@ -1,0 +1,25 @@
+<platform id="newlist" wx:if="{{Store_PositionRouteTo==='Platform'}}"></platform>
+<block wx:if="{{Store_PositionRouteTo&&Store_PositionRouteTo!=='Platform'&&!fromLatLng}}">
+    <view class="tip" hidden="{{pageType!=0}}">
+        <view class="tip-mes">获取定位中...</view>
+        <view class="tip-submes">定位后进入周边门店</view>
+    </view>
+    <view class="tip" hidden="{{pageType!=1}}">
+        <view class="tip-mes">定位失败</view>
+        <view class="tip-submes">请重新定位并同意授权</view>
+        <view catchtap="toChooseAddr" class="button">手动定位</view>
+    </view>
+    <view class="tip" hidden="{{pageType!=2}}">
+        <view class="tip-mes">定位成功</view>
+        <view class="tip-submes">附近还没有运营中的门店</view>
+        <view catchtap="toChooseAddr" class="button">手动定位</view>
+    </view>
+</block>
+<storelist fromLatLng="{{fromLatLng}}" id="storelist" wx:if="{{Store_PositionRouteTo==='StoreList'&&fromLatLng}}"></storelist>
+<storehome fromLatLng="{{fromLatLng}}" id="storehome" storeid="{{storeid}}" wx:if="{{Store_PositionRouteTo==='NearestStore'&&fromLatLng&&storeid}}"></storehome>
+<view bindtap="{{isJumpLink?'goToCopyright':''}}" class="copyright" style="display:{{isShowHishopCopyRight?'block':'none'}}"></view>
+<view class="deg" style="background:{{PrimaryColor}}">
+    <button openType="contact">
+        <text class="iconfont icon__service-"></text>
+    </button>
+</view>

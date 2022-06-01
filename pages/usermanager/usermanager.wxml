@@ -1,0 +1,12 @@
+<view class="producthd mt15">
+    <view bindtap="bindPhone" class="hdonglist" data-tel="{{userInfo.CellPhone}}">绑定手机
+    <text hidden="{{userInfo.CellPhone==null}}">{{userInfo.CellPhone}}</text>
+    </view>
+    <view bindtap="bindEmail" class="hdonglist" data-EmailVerification="{{userInfo.EmailVerification}}" data-email="{{userInfo.Email}}">验证绑定邮箱
+  <text hidden="{{userInfo.Email==null}}">{{userInfo.Email}}</text>
+    </view>
+    <view bindtap="bindSetPassword" class="hdonglist" data-IsSetUserPassword="{{userInfo.IsSetUserPassword||''}}">{{userInfo.IsSetUserPassword?'修改登录密码':'设置登录密码'}}</view>
+    <view bindtap="bindSetTradePwd" class="hdonglist" data-OpenBalance="{{userInfo.IsOpenBalance||''}}" data-SetTradePwd="{{userInfo.IsSetTradePassword||''}}">{{userInfo.IsOpenBalance&&userInfo.IsSetTradePassword?'修改交易密码':'设置交易密码'}}</view>
+    <view bindtap="bindUserProfile" class="hdonglist">个人信息</view>
+    <view bindtap="ExitLoginout" class="hdonglist outlogin" style="color:{{PrimaryColor}}">退出登录</view>
+</view>

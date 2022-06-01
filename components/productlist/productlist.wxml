@@ -1,0 +1,80 @@
+<view class="searchk padding24 border-bottom">
+    <view class="searchl width679">
+        <view class="iconfont icon__search font40 search_btn"></view>
+        <input bindblur="bindBlurInput" bindconfirm="onConfirmSearch" bindinput="bindKeyWordInput" class="ptb16" confirmType="search" focus="true" placeholder="搜索商品" value="{{keyword}}"></input>
+    </view>
+</view>
+<block wx:if="{{productList&&productList.length>0}}">
+    <view class="coupontitle border-bottom">
+        <view class="coupontitlel">
+            <view bindtap="onSortClick" class="{{Num==0?'active':''}}" data-num="0" data-sortby="ProductId" style="{{Num==0?'color:'+PrimaryColor:''}}">默认</view>
+        </view>
+        <view class="coupontitlel">
+            <view bindtap="onSortClick" class="jiages {{Num==1?'active'+' '+SortClass:''}}" data-num="1" data-sortby="SaleCounts" style="{{Num==1?'color:'+PrimaryColor:''}}">销量 <i class="up" style="{{Num==1&&classname=='shengxu'?'border-bottom:8rpx solid '+PrimaryColor:''}}"></i>
+                <i class="down" style="{{Num==1&&classname=='jiangxu'?'border-top:8rpx solid '+PrimaryColor:''}}"></i>
+            </view>
+        </view>
+        <view class="coupontitlel">
+            <view bindtap="onSortClick" class="jiages {{Num==2?'active'+' '+SortClass:''}}" data-num="2" data-sortby="SalePrice" style="{{Num==2?'color:'+PrimaryColor:''}}">价格<i class="up" style="{{Num==2&&classname=='shengxu'?'border-bottom:8rpx solid '+PrimaryColor:''}}"></i>
+                <i class="down" style="{{Num==2&&classname=='jiangxu'?'border-top:8rpx solid '+PrimaryColor:''}}"></i>
+            </view>
+        </view>
+        <view class="coupontitlel">
+            <view bindtap="onSortClick" class="jiages1s jiages {{Num==3?'active'+' '+SortClass:''}}" data-num="3" data-sortby="VistiCounts" style="{{Num==3?'color:'+PrimaryColor:''}}">浏览量<i class="up" style="{{Num==3&&classname=='shengxu'?'border-bottom:8rpx solid '+PrimaryColor:''}}"></i>
+                <i class="down" style="{{Num==3&&classname=='jiangxu'?'border-top:8rpx solid '+PrimaryColor:''}}"></i>
+            </view>
+        </view>
+    </view>
+    <view class="prodcut-list search-list">
+        <view class="prodcut-comm">
+            <view class="prodcut border-bottom" wx:for="{{productList}}" wx:key="{{item.ProductId}}">
+                <view class="product-info">
+                    <view catchtap="goToProductDetail" class="product-pic" data-activeid="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-productid="{{item.ProductId}}">
+                        <image class="image" mode="aspectFill" src="{{item.Pic}}"></image>
+                    </view>
+                    <view class="product-des">
+                        <view atchtap="goToProductDetail" class="product-name" data-activeid="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-productid="{{item.ProductId}}">{{item.ProductName}}</view>
+                        <view class="product-into">
+                            <view class="product-price">￥
+                  <text>{{item.SalePrice}}</text>
+                                <text class="product-volume">销量：{{item.SaleCounts}}</text>
+                            </view>
+                            <view class="search-pro-shop" wx:if="{{item.ProductType=='0'&&item.ActiveType<2}}">
+                                <view catchtap="{{item.ActiveId&&item.ActiveType==1?'goToProductDetail':'catchAddCart'}}" class="iconfont icon-plus" data-activeid="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-index="{{index}}" data-operator="+" data-productid="{{item.ProductId}}" data-sku="{{item.SkuId}}" style="color:{{PrimaryColor}}" wx:if="{{item.HasSKU}}">
+                                    <view class="num" hidden="{{item.CartQuantity<=0}}">{{item.CartQuantity}}</view>
+                                </view>
+                                <view class="buy-num" wx:else>
+                                    <view catchtap="{{item.ActiveId&&item.ActiveType==1?'goToProductDetail':'catchAddCart'}}" class="iconfont icon-plus" data-activeid="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-index="{{index}}" data-operator="+" data-productid="{{item.ProductId}}" data-sku="{{item.SkuId}}" style="color:{{PrimaryColor}}"></view>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</block>
+<block wx:if="{{!keyword&&!productList&&KeyWordList&&!storeid}}">
+    <view class="searls padding24 border-bottom">
+        <view class="searlsl">历史搜索</view>
+    </view>
+    <view class="searchlslist ml24" hidden="{{KeyWordList==null||KeyWordList.length<=0}}">
+        <view class="searclibut border-bottom ptb24" wx:for="{{KeyWordList}}" wx:key="*this">
+            <button bindtap="onHistoryKeyWordClick" data-keyword="{{item}}">{{item}}</button>
+            <text bindtap="removeKeyWord" class="iconfont icon__close1 font32" data-keyword="{{item}}"></text>
+        </view>
+    </view>
+    <view class="searchlslistq pt24 pb24">
+        <button bindtap="ClearKeyWord" class="qkls pt16 pb16">清空历史记录</button>
+    </view>
+</block>
+<view class="kong" wx:if="{{productList&&productList.length===0}}">
+    <image src="/images/null_search.png"></image>
+</view>
+<Addtocart bind:setcartcount="setcartcount" bind:updateproduct="updateproduct" id="addToCart" productid="{{curProductid}}" storeid="{{storeid}}"></Addtocart>
+<view class="shop_box display" hidden="{{TotalNum<=0||!ShowCartIcon}}">
+    <navigator openType="switchTab" url="../cart/cart">
+        <view class="shop_icon iconfont icon__cart font48"></view>
+        <text class="shop_num font28">{{TotalNum}}</text>
+    </navigator>
+</view>

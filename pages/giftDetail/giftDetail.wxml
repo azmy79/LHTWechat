@@ -1,0 +1,23 @@
+<import src="../wxParse/wxParse.wxml"></import>
+<view class="giftimg">
+    <image mode="widthFix" src="{{giftimg}}"></image>
+</view>
+<view class="giftContent">
+    <text>{{giftname}}</text>
+    <text class="ded" style="color:{{PrimaryColor}}" wx:if="{{recordid}}">市场参考价:{{MarketPrice}}</text>
+    <text class="del" wx:else>市场价:{{MarketPrice}}</text>
+    <block wx:if="{{!recordid}}">
+        <text>积分兑换:<text class="fontcolor">{{NeedPoint}}分</text>
+        </text>
+        <text>可用积分: {{canusepoint}}分</text>
+    </block>
+</view>
+<view class="hdbox">
+    <view class="point_info_title"></view>
+    <text class="hd">奖品描述</text>
+</view>
+<view class="wxParse">
+    <template is="wxParse" data="{{wxParseData:descript.nodes}}"></template>
+</view>
+<view bindtap="gotodetail" class="other-button-hover" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}" wx:if="{{recordid&&nonebtn}}">领取奖品</view>
+<view bindtap="change" class="other-button-hover" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}" wx:if="{{!recordid}}">立即兑换</view>

@@ -1,0 +1,95 @@
+<view class="purchase">
+    <view bindtap="gotodetail" class="masterproduct" data-productid="{{masterProduct.ProductId}}">
+        <image src="{{masterProduct.ThumbnailUrl180}}"></image>
+        <view class="productname">
+            <view class="name">{{masterProduct.ProductName}}</view>
+            <block wx:if="{{masterProduct.HasSKU}}">
+                <view catchtap="getsku" class="sku" data-img="{{masterProduct.imgbf}}" data-pirce="{{masterProduct.MinCombinationPrice}}" data-productid="{{masterProduct.ProductId}}" data-type="1" wx:if="{{masterProduct.HasSKU&&masSkuContent.length==0}}">选择规格<text class="iconfont icon__arrow_down"></text>
+                </view>
+                <view catchtap="getsku" class="sku1" data-img="{{masterProduct.imgbf}}" data-pirce="{{masterProduct.MinCombinationPrice}}" data-productid="{{masterProduct.ProductId}}" data-type="1" wx:else>
+                    <view>已选：</view>
+                    <view class="guige1">{{masSkuContent}}</view>
+                    <view class="iconfont icon__arrow_down" style="color:#333;"></view>
+                </view>
+            </block>
+        </view>
+        <view class="pirce">
+            <view>¥{{masterProduct.MinCombinationPrice}}</view>
+            <view>x{{buyamount}}</view>
+        </view>
+    </view>
+    <view class="productlist" wx:for="{{CombinationProducts}}" wx:key="{{index}}">
+        <view class="icon">
+            <view bindtap="selectList" class="iconfont {{item.select?'icon-checked':'icon-checkbox'}}" data-index="{{index}}" data-productid="{{item.ProductId}}" style="color:{{item.select?PrimaryColor:''}}"></view>
+        </view>
+        <view bindtap="gotodetail" class="masterproduct" data-productid="{{item.ProductId}}">
+            <image src="{{item.ThumbnailUrl180}}"></image>
+            <view class="productname">
+                <view class="name">{{item.ProductName}}</view>
+                <block wx:if="{{item.HasSKU}}">
+                    <view catchtap="getsku" class="sku" data-img="{{item.imgbf}}" data-pirce="{{item.MinCombinationPrice}}" data-productid="{{item.ProductId}}" data-type="2" wx:if="{{item.HasSKU&&item.textsku.length==0}}">选择规格<text class="iconfont icon__arrow_down"></text>
+                    </view>
+                    <view catchtap="getsku" class="sku1" data-img="{{item.imgbf}}" data-pirce="{{item.MinCombinationPrice}}" data-productid="{{item.ProductId}}" data-type="2" wx:else>
+                        <view>已选：</view>
+                        <view class="guige1">{{item.textsku}}</view>
+                        <view class="iconfont icon__arrow_down" style="color:#333;"></view>
+                    </view>
+                </block>
+            </view>
+            <view class="pirce">
+                <view>¥{{item.MinCombinationPrice}}</view>
+                <view>x{{buyamount}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="amount">
+        <view>总价：<text>¥{{Amount}}</text>
+        </view>
+        <view>优惠合计:¥{{yhAmount}}</view>
+    </view>
+    <view class="submit">
+        <view class="box">
+            <view class="buy">
+                <text>套数</text>
+                <view class="shopcart">
+                    <view class="shpcart-item">
+                        <text bindtap="MuseNum" class="iconfont minus_regular" data-index="{{index}}"></text>
+                        <input bindblur="bindblurNum" class="m" data-index="{{index}}" type="number" value="{{buyamount}}"></input>
+                        <text bindtap="AddNum" class="iconfont plus_regular" data-index="{{index}}"></text>
+                    </view>
+                </view>
+            </view>
+            <view bindtap="gosubmit" class="sub" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">
+        立即购买
+      </view>
+        </view>
+    </view>
+</view>
+<view class="lqyhq skuchoose {{SkuShow}}">
+    <view class="positionre">
+        <view class="guige border-bottom">
+            <image bindtap="parseImgTap" class="lqicon guigeimg" data-src="{{skuImg}}" mode="aspectFill" src="{{skuImg}}"></image>
+            <view class="guigecont">
+                <view class="sku-price" style="color:{{PrimaryColor}}">￥<text>{{skuPrice}}</text>
+                </view>
+                <view>库存:{{selectskulist.Totalstock}}</view>
+                <view class="guigeyxhs">已选：{{type==1?thSkuContent:zuhetext}}</view>
+            </view>
+            <view bindtap="onSkuHide" class="guigecha">
+                <view class="iconfont icon__close font40"></view>
+            </view>
+        </view>
+        <view class="nronggaodu">
+            <view class="sezhi" wx:for="{{selectskulist.skuItemList}}" wx:for-index="i" wx:key="AttributeId">
+                <view class="sezhititle font28 line_height40">{{item.AttributeName}}</view>
+                <view class="sezhicont mt8">
+                    <text bindtap="{{sku.disabled?'':'swithSku'}}" class="{{sku.disabled?'disable':''}} {{sku.ValueId==skuArr[i+1]?'active':''}}" data-attributeid="{{item.AttributeId}}" data-id="{{sku.ValueId}}" data-img="{{sku.ImageUrl}}" data-index="{{i}}" data-skuvalue="{{sku.Value}}" style="{{sku.ValueId==skuArr[i+1]?'background:'+PrimaryColor+';'+'color:'+PrimaryTxtColor+';'+'border-color:'+PrimaryColor:''}}" wx:for="{{item.AttributeValue}}" wx:for-item="sku" wx:key="ValueId">{{sku.Value}}</text>
+                </view>
+            </view>
+            <view class="sezhi_last_child" hidden="{{SkuItemList==''||SkuItemList.length==0}}"></view>
+        </view>
+        <view class="skubtn">
+            <button bindtap="addSku" class="btn-confirm" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">确定</button>
+        </view>
+    </view>
+</view>

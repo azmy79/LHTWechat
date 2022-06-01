@@ -1,0 +1,47 @@
+<view class="yongjingbox" style="background:{{PrimaryColor}}">
+    <view class="leftbox">
+        <text class="title">已赚取(元)</text>
+        <text class="money">{{HistorySplittin}}</text>
+    </view>
+    <view bindtap="bindSplittinDraw" class="rightbox">提现</view>
+</view>
+<view class="drawalsBox pd24">
+    <view class="drawals fl">
+        <view class="drawals_width">
+            <view class="yuan">¥</view>
+            <text>{{CanDrawSplittin}}</text>
+        </view>
+        <text>可提现</text>
+    </view>
+    <view class="drawals fl">
+        <view class="drawals_width">
+            <view class="yuan">¥</view>
+            <text>{{DrawSplittinTotal}}</text>
+        </view>
+        <text>已提现</text>
+    </view>
+    <view class="drawals fr">
+        <view class="drawals_width">
+            <view class="yuan">¥</view>
+            <text>{{NoSettlementSplttin}}</text>
+        </view>
+        <text>未结算</text>
+    </view>
+</view>
+<view class="list-title">佣金记录</view>
+<view class="yongjin_list">
+    <view class="list_li" wx:for="{{SplittinList}}" wx:key="{{SplittinList}}">
+        <view class="list_id">
+            <text class="idnum">{{item.OrderId}}</text>
+            <text class="time">{{item.TradeDate}}</text>
+        </view>
+        <view class="list_id width">
+            <text class="idnum">{{item.TradeTypeText}}</text>
+            <text class="time">{{item.IsUse?'已结算':'未结算'}}</text>
+        </view>
+        <view class="list_money">
+            <text class="icon_money">¥</text>
+            <text class="count">{{item.Income}}</text>
+        </view>
+    </view>
+</view>

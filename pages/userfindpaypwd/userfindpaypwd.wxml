@@ -1,0 +1,64 @@
+<view class="Box">
+    <view class="page1" hidden="{{isHidePage1}}">
+        <view bindtap="ShowType" class="form-group bg-white mt24">
+            <view class="form-group-name">重置方式</view>
+            <view class="form-group-input deposit {{TypeIndex==-1?'selecttxt':''}}">{{TypeIndex==-1?'请选择重置方式':TypeList[TypeIndex]}}</view>
+            <view class="iconfont arrow_right come-icon"></view>
+        </view>
+        <button bindtap="bindReset" class="btn" disabled="{{disabled}}" style="{{disabled?'background:'+SecondaryColor+';color:'+SecondaryTxtColor:'background:'+PrimaryColor+';color:'+PrimaryTxtColor}}">
+            <text class="submit">下一步</text>
+        </button>
+    </view>
+    <view class="page2 mt24" hidden="{{!isHidePage1}}">
+        <view class="ml24" hidden="{{CodeType==2}}">
+            <view class="loginpassword borderbott0m ">
+                <text>手机号码</text>
+                <input disabled="true" type="text" value="{{Phone}}"></input>
+            </view>
+        </view>
+        <view class="ml24" hidden="{{CodeType==1}}">
+            <view class="loginpassword borderbott0m ">
+                <text>邮箱</text>
+                <input disabled="true" type="text" value="{{Email}}"></input>
+            </view>
+        </view>
+        <view class="ml24">
+            <view class="loginpassword">
+                <text class="">密码</text>
+                <input password bindinput="InputValue" data-key="Password" maxlength="20" name="password" placeholder="请输入密码" placeholderStyle="color:#bdbdbd"></input>
+            </view>
+        </view>
+        <view class="ml24">
+            <view class="loginpassword">
+                <text class="">重复密码</text>
+                <input password bindinput="InputValue" data-key="RePassword" maxlength="20" name="password" placeholder="请输入密码" placeholderStyle="color:#bdbdbd"></input>
+            </view>
+        </view>
+        <view class="ml24" hidden="{{CodeType==1}}">
+            <view class="loginpassword borderbott0m ">
+                <text class="code_img">邮箱验证</text>
+                <input bindinput="InputValue" data-key="PhoneCode" maxlength="20" placeholder="请输入邮箱验证码" placeholderStyle="color:#bdbdbd" type="text"></input>
+                <text bindtap="bindSendEmailCode" class="btncode">{{PhoneText}}</text>
+            </view>
+        </view>
+        <view class="ml24" hidden="{{CodeType==2}}">
+            <view class="loginpassword">
+                <text class="code_img">图形验证码</text>
+                <input bindinput="InputValue" class="mui-input input-half codeinput" data-key="ImageCode" id="phoneImgCode" placeholder="请输入图形验证码" placeholderStyle="color:#bdbdbd" type="number" value="{{ImageCode}}"></input>
+                <view class="imgCodeSrc">
+                    <image bindtap="bindImgCode" class="codeimg" src="{{VerifyCode}}"></image>
+                </view>
+            </view>
+        </view>
+        <view class="ml24" hidden="{{CodeType==2}}">
+            <view class="loginpassword">
+                <text class="phone">手机验证</text>
+                <input bindinput="InputValue" class="phone_input" data-key="PhoneCode" maxlength="20" placeholder="请输入手机验证码" placeholderStyle="color:#bdbdbd" type="number" value="{{PhoneCode}}"></input>
+                <text bindtap="bindSendTelCode" class="btncode" style="color:{{PrimaryColor}};border-color:{{PrimaryColor}}">{{PhoneText}}</text>
+            </view>
+        </view>
+        <view bindtap="bindPhoneBtn" class="btn" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}};">
+            <text class="submit">确认</text>
+        </view>
+    </view>
+</view>

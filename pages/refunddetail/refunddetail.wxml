@@ -1,0 +1,124 @@
+<view class="container {{RefundInfo.RefundId?'':'transparent'}}">
+    <view class="refunddetail-con">
+        <view class="item">
+            <view class="hd">
+                <view class="num">售后编号：
+          <text class="font-arial">{{RefundInfo.RefundId}}</text>
+                </view>
+                <view class="state" style="color:{{PrimaryColor}}">{{RefundInfo.StatusText}}</view>
+            </view>
+            <view class="bd">
+                <view bindtap="goToProductDetail" class="comm" data-productid="{{item.ProductId}}" data-storeid="{{item.StoreId}}" wx:for="{{RefundInfo.ProductInfo}}">
+                    <view class="pic">
+                        <image mode="aspectFill" src="{{item.ThumbnailsUrl}}"></image>
+                    </view>
+                    <view class="info">
+                        <view class="name">{{item.ProductName}}</view>
+                        <view class="para">{{item.SKUContent}}</view>
+                    </view>
+                    <view class="price">
+                        <view class="sell">¥
+                <text class="font-arial">{{item.Price}}</text>
+                        </view>
+                        <view class="num">×
+                <text class="font-arial">{{item.Quantity}}</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="fd">
+                <view class="li">
+                    <view class="title">订单编号</view>
+                    <view class="con">
+                        <text class="font-arial">{{RefundInfo.OrderId}}</text>
+                    </view>
+                </view>
+                <view class="li">
+                    <view class="title">退款原因</view>
+                    <view class="con">{{RefundInfo.Reason}}</view>
+                </view>
+                <view class="li">
+                    <view class="title">退款金额</view>
+                    <view class="con">¥
+            <text class="font-arial">{{RefundInfo.RefundMoney}}</text>
+                    </view>
+                </view>
+                <view class="li">
+                    <view class="title">退款方式</view>
+                    <view class="con">{{RefundInfo.RefundType}}</view>
+                </view>
+                <view class="li">
+                    <view class="title">退款备注</view>
+                    <view class="con">{{RefundInfo.Remark}}</view>
+                </view>
+            </view>
+            <view class="fd" wx:if="{{Credentials.length}}">
+                <view class="li">
+                    <view class="title">售后凭证</view>
+                    <view class="con"></view>
+                </view>
+                <view class="li2" wx:for="{{Credentials}}">
+                    <image bindtap="prevImage" data-src="{{item}}" mode="aspectFill" src="{{item}}"></image>
+                </view>
+            </view>
+            <view class="fd">
+                <view class="customer">
+                    <view class="title">售后进度</view>
+                    <view class="con iconfont icon-more"></view>
+                </view>
+                <view class="schedule">
+                    <view class="dl">
+                        <view class="dd active">
+                            <view class="lis">
+                                <view class="icon iconfont icon-spot">
+                                    <view></view>
+                                </view>
+                                <view class="exp">
+                                    <view class="name">申请退款</view>
+                                    <view class="time">{{ProgressStatue.time}}</view>
+                                </view>
+                            </view>
+                            <view class="line"></view>
+                        </view>
+                        <view class="dd {{ProgressStatue.status==1?'active':''}}" hidden="{{ProgressStatue.status==2}}">
+                            <view class="lis">
+                                <view class="icon {{ProgressStatue.status==1?'iconfont icon-spot':''}}">
+                                    <view></view>
+                                </view>
+                                <view class="exp">
+                                    <view class="name">商家同意退款</view>
+                                    <view class="time">{{ProgressStatue.finishedTime}}</view>
+                                </view>
+                            </view>
+                            <view class="line"></view>
+                        </view>
+                        <view class="dd {{ProgressStatue.status==2?'active':''}}" hidden="{{ProgressStatue.status==0||ProgressStatue.status==1}}">
+                            <view class="lis">
+                                <view class="icon {{ProgressStatue.status==2?'iconfont icon-spot':''}}">
+                                    <view></view>
+                                </view>
+                                <view class="exp">
+                                    <view class="name">商家拒绝退款</view>
+                                    <view class="time">{{ProgressStatue.finishedTime}}</view>
+                                </view>
+                            </view>
+                            <view class="line"></view>
+                        </view>
+                        <view class="dd {{ProgressStatue.status==1||ProgressStatue.status==2?'active':''}}">
+                            <view class="lis">
+                                <view class="icon {{ProgressStatue.status==1||ProgressStatue.status==2?'iconfont icon-spot':''}}">
+                                    <view></view>
+                                </view>
+                                <view class="exp">
+                                    <view class="name">{{ProgressStatue.status==2?'退款失败':'退款完成'}}</view>
+                                    <view class="time">{{ProgressStatue.finishedTime}}</view>
+                                </view>
+                            </view>
+                            <view class="line"></view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

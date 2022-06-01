@@ -1,0 +1,87 @@
+page {
+    background: #f0f0f0;
+}
+
+.points-hd {
+    background: #fff;
+    padding: 24rpx;
+    padding-bottom: 16rpx;
+    color: #fff;
+    margin-bottom: 24rpx;
+    display: flex;
+}
+
+.points-hd .totalPoint {
+    font-size: 64rpx;
+    margin-right: 16rpx;
+}
+
+.txt {
+    font-size: 36rpx;
+    line-height: 96rpx;
+}
+
+.points-list {
+    background: #fff;
+}
+
+.point-li {
+    border-bottom: 1rpx #f0f0f0 solid;
+    overflow: hidden;
+}
+
+.point-li:last-child {
+    border-bottom: none;
+}
+
+.point-left {
+    float: left;
+    width: 540rpx;
+    color: #212121;
+    font-size: 32rpx;
+}
+
+.point-left view {
+    float: left;
+    line-height: 48rpx;
+}
+
+.time {
+    font-size: 24rpx;
+    color: #bdbdbd;
+    width: 100%;
+}
+
+.point-count {
+    font-size: 32rpx;
+    color: #212121;
+    line-height: 96rpx;
+    float: left;
+    width: 160rpx;
+    text-align: right;
+}
+
+.income {
+    color: #ff5722;
+}
+
+.expend {
+    color: #4caf50;
+}
+
+.list {
+    float: right;
+    width: 28%;
+    border: 1px #fff solid;
+    padding: 12rpx 16rpx;
+    font-size: 28rpx;
+    border-radius: 40rpx;
+    text-align: center;
+    height: 40rpx;
+    line-height: 40rpx;
+    margin-top: 16rpx;
+}
+
+.pointwidth {
+    width: 76%;
+}

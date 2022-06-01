@@ -1,0 +1,62 @@
+<view class="live-list">
+    <view bindtap="handleOpen" class="item first" data-id="{{firstScene.RoomId}}" data-status="{{firstScene.Status}}" wx:if="{{firstScene.RoomId}}">
+        <view class="img-area">
+            <image mode="aspectFill" src="{{firstScene.CoverImg}}"></image>
+            <view class="mask">
+                <image src="/images/play.png"></image>
+            </view>
+            <view class="status {{firstScene.Status!==101?'no-start':''}}">
+                <text>{{firstScene.Status===101?'直播中':firstScene.Status===102?'预告':'结束'}}</text>{{firstScene.StartTimeDesc}}</view>
+            <view class="room-large">
+                <view class="room-name">
+                    <image mode="aspectFill" src="{{firstScene.AnchorImg}}"></image>
+						{{firstScene.AnchorName}}
+					</view>
+                <view class="title">{{firstScene.Name}}</view>
+                <view class="flex">
+                    <view class="product-image">
+                        <view :key="{{index}}" class="img" wx:for="{{firstScene.ProductList}}" wx:for-item="pro">
+                            <image mode="aspectFill" src="{{pro.Image}}"></image>
+                            <view wx:if="{{index===2&&firstScene.ProductCount>3}}">
+									{{firstScene.ProductCount}}
+									<text>宝贝</text>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view bindtap="handleOpen" class="item" data-id="{{item.RoomId}}" data-status="{{item.Status}}" wx:for="{{list}}" wx:key="RoomId">
+        <view class="img-area">
+            <image mode="aspectFill" src="{{item.CoverImg}}"></image>
+            <view class="mask"></view>
+            <view class="status {{item.Status!==101?'no-start':''}}">
+                <text>{{item.Status===101?'直播中':item.Status===102?'预告':'结束'}}</text>{{item.FormatStartTime}}</view>
+            <view class="room">
+                <view class="room-name">
+                    <image mode="aspectFill" src="{{item.AnchorImg}}"></image>
+						{{item.AnchorName}}
+					</view>
+            </view>
+        </view>
+        <view class="text-area">
+            <view class="name">
+					{{item.Name}}
+				</view>
+            <view class="product">
+                <block wx:if="{{item.LiveProduct}}">
+                    <view class="text">
+                        <view>{{item.LiveProduct.Name}}</view>
+                        <view>
+                            <text>￥</text>{{item.LiveProduct.Price}}</view>
+                    </view>
+                    <image mode="aspectFill" src="{{item.LiveProduct.Image}}"></image>
+                </block>
+            </view>
+        </view>
+    </view>
+    <view class="no-more-default" wx:if="{{isEnd}}">
+			没有更多数据了
+		</view>
+</view>

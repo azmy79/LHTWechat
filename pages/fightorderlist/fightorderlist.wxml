@@ -1,0 +1,35 @@
+<view class="container {{list?'':'transparent'}}">
+    <view class="group-list {{isEnd?'isEnd':''}}" wx:if="{{list.length}}">
+        <view class="item" wx:for="{{list}}" wx:key="{{item.ActivityId}}">
+            <view class="info border-bottom">
+                <image mode="aspectFill" src="{{item.ProductImage}}"></image>
+                <view>{{item.ProductName}}</view>
+                <view>火拼价：￥{{item.FightPrice}}</view>
+                <view wx:if="{{item.GroupStatus==1}}">成团时间：{{item.CreateTime}}</view>
+                <view wx:elif="{{item.RemainTime}}">
+                    <text style="color:{{PrimaryColor}}">{{item.timeOver}}</text>后组团结束</view>
+                <view wx:else>成团失败</view>
+            </view>
+            <view class="member border-bottom">
+                <view>已参团的小伙伴<block wx:if="{{item.MaxJoinCount-item.GroupMembers.length>0}}">，还差 <text style="color:{{PrimaryColor}}">{{item.MaxJoinCount-item.GroupMembers.length}}</text>人</block>：</view>
+                <view class="photo border" wx:for="{{item.GroupMembers}}" wx:for-item="user" wx:key="{{user.UserId}}">
+                    <image mode="aspectFill" src="{{user.HeadImage}}"></image>
+                    <image class="star" src="/images/star.png" wx:if="{{user.IsMaster}}"></image>
+                </view>
+                <view class="photo" wx:if="{{item.MaxJoinCount-item.GroupMembers.length>0}}">
+                    <image src="/images/more.png"></image>
+                </view>
+            </view>
+            <view class="btn-area">
+                <view bindtap="goFightDetail" data-activeid="{{item.ActivityId}}" data-id="{{item.GroupId}}" data-status="{{item.GroupStatus}}" style="color:{{PrimaryColor}};border-color:{{PrimaryColor}}">拼团详情</view>
+                <view bindtap="goOrderDetail" data-orderid="{{item.OrderId}}" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}">查看订单</view>
+            </view>
+            <image class="status" mode="{{item.GroupStatus==2?'center':'top'}}" src="/images/group-status.png" wx:if="{{item.GroupStatus!=0}}"></image>
+        </view>
+    </view>
+    <view class="group-empty" wx:if="{{list&&list.length===0}}">
+        <image mode="aspectFill" src="/images/group-empty.png"></image>
+        <view>您还没有参加任何团哦，赶快去火拼吧！</view>
+        <button bindtap="goGroupList" class="group-btn" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">去火拼</button>
+    </view>
+</view>

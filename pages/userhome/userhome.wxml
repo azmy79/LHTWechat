@@ -1,0 +1,164 @@
+<view class="user-header {{showVipDetail?'user-header-vip-detail':''}} {{xmodel?'xmodel':''}}" style="padding-top:{{statusBarHeight}}px;background:{{PrimaryColor}};height:{{showVipDetail&&xmodel?'475rpx':''}}">
+    <text bindtap="bindAccount" class="iconfont icon_setting" data-tel="{{userInfo.ServicePhone}}"></text>
+    <view class="distribution">
+        <text bindtap="bindExtension" wx:if="{{!userInfo.IsReferral}}">{{ReferralSettingInfo.IGoingOpenShopName}}</text>
+        <text bindtap="bindDistribution" wx:if="{{userInfo.IsReferral}}">{{ReferralSettingInfo.DistributionName}}</text>
+    </view>
+    <view class="user-info">
+        <image bindtap="bindAccount" class="user-logo" src="{{userInfo.picture||'/images/default-user.png'}}"></image>
+        <view class="user-info-content">
+            <view class="name" wx:if="{{!userInfo.OpenId}}">未登录</view>
+            <view class="name" wx:else>{{userInfo.realName&&userInfo.realName!=='null'?userInfo.realName:userInfo.NickName||'--'}}</view>
+            <view class="">
+                <view bindtap="bindPointTap" class="user-score" hidden="{{!userInfo.OpenId}}">
+                    <image src="/images/score.png"></image>
+                    <text>{{userInfo.points||'0'}}分</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="user-info-vip" hidden="{{!userInfo.OpenId}}">
+        <view bindtap="vipShowDetialHandle" class="user-info-vip-inner">
+            <view class="use-info-vip-type">
+                <text class="iconfont icon-diamond"></text>
+                <text>{{userInfo.gradeName||'--'}}</text>
+            </view>
+            <view class="user-info-vip-content">
+                <view class="user-info-vip-item  {{userInfo.discount?'':'vip-item-hide'}}">
+                    <view class="user-info-ivp-item-row">
+                        <text class="vip-item-number">{{userInfo.discount||'--'}}</text>
+                        <text class="vip-item-suffix">折</text>
+                    </view>
+                    <text class="vip-item-explain">当前可享折扣</text>
+                </view>
+                <view class="user-info-vip-item">
+                    <view class="user-info-ivp-item-row">
+                        <text class="vip-item-number">{{userInfo.integral||'--'}}</text>
+                        <text class="vip-item-suffix">积分</text>
+                    </view>
+                    <text class="vip-item-explain">距离下次升级还需</text>
+                </view>
+            </view>
+        </view>
+        <image class="user-info-vip-bg" mode="aspectFill" src="/images/user-info-vip-bg.png"></image>
+    </view>
+</view>
+<view class="block user-order">
+    <view class="block-title">
+        <view>我的订单</view>
+        <view bindtap="bindStatue" class="act" data-key="0">查看全部
+      <text class="iconfont arrow_right"></text>
+        </view>
+    </view>
+    <view class="flex-row">
+        <view bindtap="bindStatue" class="flex-item" data-key="1">
+            <view class="iconfont icon__wallet"></view>
+            <text class="label">待付款</text>
+            <view class="order_num" wx:if="{{userInfo.waitPayCount}}">{{userInfo.waitPayCount}}</view>
+        </view>
+        <view bindtap="bindStatue" class="flex-item" data-key="3">
+            <view class="iconfont icon_truck"></view>
+            <text class="label">待收货</text>
+            <view class="order_num" wx:if="{{userInfo.waitFinishCount}}">{{userInfo.waitFinishCount}}</view>
+        </view>
+        <view bindtap="bindStatue" class="flex-item" data-key="999">
+            <view class="iconfont icon_package"></view>
+            <text class="label">自提/消费</text>
+            <view class="order_num" wx:if="{{userInfo.WaitTakeOrConsume}}">{{userInfo.WaitTakeOrConsume}}</view>
+        </view>
+        <view bindtap="bindStatue" class="flex-item" data-key="21">
+            <view class="iconfont icon_comment"></view>
+            <text class="label">待评论</text>
+            <view class="order_num" wx:if="{{userInfo.waitReviewCount}}">{{userInfo.waitReviewCount}}</view>
+        </view>
+        <view bindtap="bindApply" class="flex-item">
+            <view class="iconfont icon_shield"></view>
+            <text class="label">售后</text>
+            <view class="order_num" wx:if="{{userInfo.afterSalesCount}}">{{userInfo.afterSalesCount}}</view>
+        </view>
+    </view>
+</view>
+<view class="block team" wx:if="{{isPartner}}">
+    <view class="block-title">
+        <view>团队管理</view>
+    </view>
+    <view class="flex-row">
+        <view bindtap="goToTeamPage" class="flex-item" data-page="0">
+            <view class="num">
+                <text>￥</text>{{totalAmount}}</view>
+            <view class="label">总业绩
+        <text class="iconfont icon_arrow_right_solid"></text>
+            </view>
+        </view>
+        <view bindtap="goToTeamPage" class="flex-item" data-page="1">
+            <view class="num">{{subMemberNumber}}</view>
+            <view class="label">会员数
+        <text class="iconfont icon_arrow_right_solid"></text>
+            </view>
+        </view>
+        <view bindtap="goToTeamPage" class="flex-item" data-page="2">
+            <view class="num">{{subReferralNumber}}</view>
+            <view class="label">{{ReferralSettingInfo.ReferralName}}数
+        <text class="iconfont icon_arrow_right_solid"></text>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="block noraml">
+    <view class="block-title">
+        <view>常用功能</view>
+    </view>
+    <view class="flex-row">
+        <view bindtap="bindDeposit" class="flex-item">
+            <view class="iconfont icon_card"></view>
+            <view class="label">预存款</view>
+            <block wx:if="{{userInfo.OpenId}}">
+                <view class="info label" wx:if="{{userInfo.IsSetTradePassword&&!IsOpenRechargeGift}}">{{userInfo.Balance}}</view>
+                <view class="info label" hidden="{{!EnableBalanceRecharge}}" wx:elif="{{userInfo.IsSetTradePassword&&IsOpenRechargeGift}}">充值享优惠</view>
+                <view class="info label" wx:else>未设置交易密码</view>
+            </block>
+        </view>
+        <view bindtap="bindPointTap" class="flex-item">
+            <view class="iconfont icon_bean"></view>
+            <view class="label">我的积分</view>
+            <view class="label num" wx:if="{{userInfo.points}}">{{userInfo.points}}</view>
+            <view class="info label" wx:else></view>
+        </view>
+        <view bindtap="bindMyCouponsTap" class="flex-item">
+            <view class="iconfont icon_coupon"></view>
+            <view class="label">优惠券</view>
+            <view class="label" wx:if="{{userInfo.couponsCount}}">{{userInfo.couponsCount}}张</view>
+        </view>
+    </view>
+    <view class="flex-row">
+        <view bindtap="bindMyRedCouponsTap" class="flex-item">
+            <view class="iconfont _redpacket"></view>
+            <view class="label">代金红包</view>
+        </view>
+        <view bindtap="bindMyGiftTap" class="flex-item">
+            <view class="iconfont icon_award"></view>
+            <view class="label">我的奖品</view>
+        </view>
+        <view bindtap="{{userInfo.IsReferral?'goShare':'bindExtension'}}" class="flex-item">
+            <view class="iconfont _speaker"></view>
+            <view class="label">我要推广</view>
+            <view class="label num"></view>
+        </view>
+    </view>
+    <view class="flex-row">
+        <view bindtap="bindGroupTap" class="flex-item">
+            <view class="iconfont icon_fire"></view>
+            <view class="label">火拼团</view>
+        </view>
+        <view bindtap="bindMyAddressTap" class="flex-item">
+            <view class="iconfont icon_locate"></view>
+            <view class="label">收货地址</view>
+        </view>
+        <view bindtap="bindTelPhone" class="flex-item" data-tel="{{userInfo.ServicePhone}}">
+            <view class="iconfont icon_phone"></view>
+            <view class="label">客服电话</view>
+            <view class="label num"></view>
+        </view>
+    </view>
+</view>
+<view bindtap="{{isJumpLink?'goToCopyright':''}}" class="copyright" style="display:{{isShowHishopCopyRight?'block':'none'}}"></view>

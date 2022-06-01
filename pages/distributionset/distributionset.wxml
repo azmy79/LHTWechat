@@ -1,0 +1,35 @@
+<view class="content mt32 font30 borderbott0m">
+    <view class="w100">
+        <view class="borderbott0m ml24 mt24">
+            <view>店铺logo：</view>
+            <view class="logo">
+                <view class="logoimg">
+                    <image bindtap="ChooseImg" src="{{UserCredentials}}" style="width:158rpx;height:158rpx;"></image>
+                    <view bindtap="DeleteImg" class="iconfont trush- delete" hidden="{{BannerUrl.length<=0}}"></view>
+                </view>
+                <view class="logoinfo">点击左边的图片修改，建议尺寸：240*240像素，小于1M，支持jpg,gif,png格式</view>
+            </view>
+        </view>
+    </view>
+    <view class="w100">
+        <view class="loginpassword borderbott0m ">
+            <text>店铺名称</text>
+            <input bindinput="InputValue" data-key="ShopName" maxlength="20" placeholder="请输入店铺名称" placeholderStyle="color:#bdbdbd" type="text" value="{{ShopName}}"></input>
+        </view>
+    </view>
+    <view class="w100">
+        <view class="loginpassword borderbott0m ">
+            <text>邮箱账号</text>
+            <input bindinput="InputValue" data-key="Email" maxlength="20" placeholder="请输入邮箱账号" placeholderStyle="color:#bdbdbd" type="text" value="{{Email}}"></input>
+        </view>
+    </view>
+    <view class="w100">
+        <view class="loginpassword">
+            <text>手机号码</text>
+            <input bindinput="InputValue" data-key="Phone" maxlength="20" placeholder="请输入手机号码" placeholderStyle="color:#bdbdbd" type="number" value="{{Phone}}"></input>
+        </view>
+    </view>
+</view>
+<view class="tjiaoname mt32 ">
+    <button bindtap="SaveStore" class="other-button-hover font36 pt24 pb24 line_height40" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">保存 </button>
+</view>

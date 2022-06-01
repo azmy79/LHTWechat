@@ -1,0 +1,36 @@
+<view class="search-box pd24-horizontal pb16 bg-fff">
+    <input bindconfirm="onConfirmSearch" bindinput="bindKeyWordInput" class="search-input" confirmType="search" placeholder="输入门店名称查询" placeholderClass="color51" type="text" value="{{KeyWord}}"></input>
+    <view class="iconfont icon__search iconsearch mr8 {{foucsState?'div_none':''}}"></view>
+</view>
+<view class="group">
+    <view class="group-title">当前门店</view>
+    <view class="bg-fff pd24">
+        <view class="group-item font32" wx:if="{{!IsRefuse}}">
+            <text class="item-txt color-red">获取不到你的地址</text>
+            <view bindtap="ChooseLocation" class="iconfont icon-2">
+                <text>重新定位</text>
+            </view>
+        </view>
+        <view class="group-item font32 border-b" wx:else>
+            <view class="local-name">
+                <view class="left-name">{{StoreInfo.StoreName}}</view>
+                <view bindtap="ChooseLocation" class="iconfont icon-2">
+                    <text>重新定位</text>
+                </view>
+            </view>
+            <view class="group-desc font28">{{StoreInfo.Address}}</view>
+        </view>
+    </view>
+</view>
+<view class="group">
+    <view class="group-title">附近门店</view>
+    <view class="bg-fff pd24-horizontal">
+        <view bindtap="ChooseStore" class="group-item font32 pd24-vertical border-b" data-index="{{index}}" data-storeId="{{item.StoreId}}" wx:for="{{StoreList}}">
+            <view class="overflow">
+                <text class="stroename">{{item.StoreName}}</text>
+                <text class="distance">{{item.Distance}}</text>
+            </view>
+            <view class="group-desc font28">{{item.Address}}</view>
+        </view>
+    </view>
+</view>

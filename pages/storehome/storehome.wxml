@@ -1,0 +1,19 @@
+<view class="">
+    <view class="store-box">
+        <storehome fromLatLng="{{fromLatLng}}" id="storehome" storeid="{{storeid}}" wx:if="{{fromLatLng&&storeid}}"></storehome>
+    </view>
+    <view class="store-nav">
+        <view bindtap="handleNavTap" data-url="../home/home">
+            <image src="../../images/home.png"></image>
+            <text>首页</text>
+        </view>
+        <view bindtap="goProductlist">
+            <image src="../../images/search.png"></image>
+            <text>商品</text>
+        </view>
+        <view bindtap="handleNavTap" data-url="../cart/cart">
+            <image src="../../images/cart.png"></image>
+            <text>购物车</text>
+        </view>
+    </view>
+</view>

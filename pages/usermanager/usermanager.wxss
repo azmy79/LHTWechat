@@ -1,0 +1,47 @@
+.hdonglist {
+    padding: 32rpx 24rpx;
+    line-height: 40rpx;
+    font-size: 32rpx;
+    position: relative;
+    background: #fff;
+    margin-top: 24rpx;
+    border-bottom: 1rpx solid #e0e0e0;
+}
+
+.hdonglist::after,.hdonglist::before {
+    border: 6px solid transparent;
+    border-left: 6px solid #fff;
+    width: 0;
+    position: absolute;
+    right: 10px;
+    height: 0;
+    top: 40rpx;
+    content: ' ';
+}
+
+.hdonglist::before {
+    border-left-color: #bbb;
+    right: 8px;
+}
+
+page {
+    background: #f5f5f5;
+}
+
+.hdonglist text {
+    float: right;
+    margin-right: 40rpx;
+    font-size: 28rpx;
+    color: #747474;
+    line-height: 36rpx;
+}
+
+.hdonglist.outlogin {
+    text-align: center;
+    border-top: 1rpx solid #e0e0e0;
+    border-bottom: 1rpx solid #e0e0e0;
+}
+
+.hdonglist.outlogin::after,.hdonglist.outlogin::before {
+    display: none;
+}

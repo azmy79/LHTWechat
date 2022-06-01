@@ -1,0 +1,18 @@
+<view class="content mt32 font32 borderbott0m">
+    <view class="w100">
+        <view class="loginpassword borderbott0m ">
+            <text>邮箱号</text>
+            <input bindinput="InputValue" data-key="email" maxlength="20" placeholder="请输入邮箱号" placeholderStyle="color:#bdbdbd" type="text" value="{{email=='null'?'':email}}"></input>
+        </view>
+    </view>
+    <view class="w100">
+        <view class="loginpassword threerow">
+            <text>验证码</text>
+            <input bindinput="InputValue" data-key="EmailCode" maxlength="20" placeholder="请输入邮箱验证码" placeholderStyle="color:#bdbdbd" type="text" value="{{EmailCode}}"></input>
+            <view bindtap="GetEmailCode" class="btncode w20" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}">{{SendCode}}</view>
+        </view>
+    </view>
+</view>
+<view class="tjiaoname mt32 ">
+    <button bindtap="SaveEmail" class="other-button-hover font36 pt24 pb24 line_height40" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">立即绑定</button>
+</view>

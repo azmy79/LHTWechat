@@ -1,0 +1,9 @@
+<import src="../wxParse/wxParse.wxml"></import>
+<view class="padding24 font28">
+    <view class="wxParse">
+        <template is="wxParse" data="{{wxParseData:Agreement.nodes}}"></template>
+    </view>
+</view>
+<view class="xinzheng">
+    <navigator openType="redirect" url="../distributionapply/distributionapply?source=agreen">了解并同意</navigator>
+</view>

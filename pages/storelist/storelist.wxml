@@ -1,0 +1,1 @@
+<storelist fromLatLng="{{fromLatLng}}" id="storelist" wx:if="{{fromLatLng}}"></storelist>

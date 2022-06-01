@@ -1,0 +1,50 @@
+<block wx:if="{{openbalance&&settradepwd}}">
+    <view class="content mt32 font32 borderbott0m">
+        <view class="w100">
+            <view class="loginpassword borderbott0m ">
+                <text>原密码</text>
+                <input password bindinput="InputValue" data-key="oldpwd" maxlength="20" placeholder="请输入您的交易密码" placeholderStyle="color:#bdbdbd" type="text" value="{{oldpwd}}"></input>
+            </view>
+        </view>
+        <view class="w100">
+            <view class="loginpassword borderbott0m ">
+                <text>新密码</text>
+                <input password bindinput="InputValue" data-key="newpwd" maxlength="20" placeholder="请输入要设置的新交易密码" placeholderStyle="color:#bdbdbd" type="text" value="{{newpwd}}"></input>
+            </view>
+        </view>
+        <view class="w100">
+            <view class="loginpassword">
+                <text>确认密码</text>
+                <input password bindinput="InputValue" data-key="surepwd" maxlength="20" placeholder="请确认输入要设置的新交易密码" placeholderStyle="color:#bdbdbd" type="text" value="{{surepwd}}"></input>
+            </view>
+        </view>
+    </view>
+    <view class="setpwdbox">
+        <text bindtap="fogetpwd" class="fogetpwd" style="color:{{PrimaryColor}}">忘记密码</text>
+    </view>
+    <view class="tjiaoname mt32 ">
+        <button bindtap="ChangeTradePassword" class="other-button-hover font36 pt24 pb24 line_height40" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">修改密码 </button>
+    </view>
+</block>
+<block wx:if="{{!openbalance&&!settradepwd}}">
+    <view class="content mt32 font32 borderbott0m">
+        <view class="w100">
+            <view class="loginpassword borderbott0m ">
+                <text>密码</text>
+                <input bindinput="InputValue" data-key="Initpwd" maxlength="20" placeholder="请输入您的交易密码" placeholderStyle="color:#bdbdbd" type="text" value="{{Initpwd}}"></input>
+            </view>
+        </view>
+        <view class="w100">
+            <view class="loginpassword">
+                <text>确认密码</text>
+                <input bindinput="InputValue" data-key="Initsurepwd" maxlength="20" placeholder="请输入要设置的交易密码" placeholderStyle="color:#bdbdbd" type="text" value="{{Initsurepwd}}"></input>
+            </view>
+        </view>
+    </view>
+    <view class="tjiaoname mt32 ">
+        <button bindtap="InitTradePassword" class="other-button-hover font36 pt24 pb24 line_height40" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">确认</button>
+    </view>
+</block>
+<view class="tjiaoname mt32 ">
+    <button bindtap="cancelbtn" class="cancel font36 pt24 pb24 line_height40" style="color:{{PrimaryColor}}">取消</button>
+</view>

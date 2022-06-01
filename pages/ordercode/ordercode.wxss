@@ -1,0 +1,66 @@
+page {
+    background: #f0f0f0;
+}
+
+.section__title {
+    background: #fff5d9;
+    font-size: 28rpx;
+    color: #212121;
+    text-align: center;
+    border: 1px #fc3 solid;
+    padding: 24rpx 0;
+    margin-bottom: 56rpx;
+}
+
+.section__title text {
+    margin: 0 8rpx;
+}
+
+.show-opacity {
+    filter: alpha(opacity=50);
+    -khtml-opacity: 0.5;
+    opacity: 0.5;
+}
+
+.password {
+    text-align: center;
+}
+
+.swiper_box {
+    margin: 56rpx;
+    height: 800rpx;
+    border: 1rpx #d7d7d7 solid;
+    border-radius: 16rpx;
+    background: #fff;
+    padding: 24rpx;
+    box-shadow: 0 40rpx 40rpx #bdbdbd;
+}
+
+.slide-image {
+    position: relative;
+    width: 497rpx;
+    height: 497rpx;
+    padding: 16rpx;
+    margin: 0 auto;
+    margin-bottom: 32rpx;
+    display: block;
+}
+
+.password-txt {
+    text-align: center;
+    font-size: 48rpx;
+    color: #212121;
+    line-height: 64rpx;
+    float: left;
+    width: 100%;
+    margin-top: 16rpx;
+}
+
+.status-icon {
+    position: absolute;
+    bottom: 11%;
+    z-index: 999;
+    width: 251rpx;
+    height: 228rpx;
+    left: 57%;
+}

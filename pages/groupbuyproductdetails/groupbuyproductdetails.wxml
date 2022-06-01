@@ -1,0 +1,112 @@
+<import src="../wxParse/wxParse.wxml"></import>
+<view class="container">
+    <swiper autoplay indicatorDots class="swiper-box">
+        <swiper-item wx:if="{{videoPath}}">
+            <image class="slide-image" mode="aspectFill" src="{{defaultImg}}"></image>
+            <image bindtap="showVideo" class="fake-start-btn" mode="aspectFill" src="../../images/start.png"></image>
+        </swiper-item>
+        <swiper-item wx:for="{{ProductImgs}}" wx:key="*this">
+            <image class="slide-image" mode="aspectFit" src="{{item}}"></image>
+        </swiper-item>
+    </swiper>
+    <view class="productcont">
+        <view class="productname">{{ProductName}}</view>
+        <view class="des">{{Content}}</view>
+        <view class="pirce">抢购价：¥{{Price}}<text class="oldpirce">原价¥{{MaxSalePrice}}</text>
+        </view>
+        <view class="team" wx:if="{{showteam}}">已团{{SoldCount}}(还需{{Count-SoldCount}}成团)</view>
+        <view class="team" wx:else>已团{{SoldCount}}(团购最多可团：{{MaxCount}}{{Unit?Unit:'件'}})</view>
+        <view class="time" wx:if="{{startshow}}">距团购开始时间：{{time[0]}}天{{time[1]}}时{{time[2]}}分{{time[3]}}秒</view>
+        <view class="time" wx:if="{{endshow}}">团购结束时间：{{time[0]}}天{{time[1]}}时{{time[2]}}分{{time[3]}}秒</view>
+        <view class="time" wx:elif="{{!endshow&&timeshow}}">
+      团购已经结束
+    </view>
+    </view>
+</view>
+<view class="productcont">
+    <view bindtap="clickSku" class="hdonglist other" data-type="1">
+        <view class="counpon-icon overtxt">{{SelectSpecifications}}</view>
+        <view class="iconfont arrow_right font32"></view>
+    </view>
+    <navigator class="hdonglist other" url="../commentlist/commentlist?id={{ProductId}}">
+        <view class="counpon-icon">商品评价({{ReviewCount!=null?ReviewCount:0}})</view>
+        <view class="iconfont arrow_right font32"></view>
+    </navigator>
+    <view class="productxq">
+        <view class="xqtitle" wx:if="{{ExtendAttribute.length>0}}">
+            <view class="coupontitle">
+                <view class="coupontitlel">
+                    <view bindtap="onTabClick" class="{{DetailStatus}}" data-status="0">详情描述</view>
+                </view>
+                <view class="coupontitlel" wx:if="{{ExtendAttribute.length>0}}">
+                    <view bindtap="onTabClick" class="{{AttributeStatus}}" data-status="1">产品参数</view>
+                </view>
+            </view>
+        </view>
+        <view class="xqcont" wx:if="{{DetailStatus=='active'}}">
+            <view class="wxParse">
+                <template is="wxParse" data="{{wxParseData:metaDescription.nodes}}"></template>
+            </view>
+        </view>
+        <view class="xqattr" wx:if="{{AttributeStatus=='active'}}">
+            <text wx:for="{{ExtendAttribute}}" wx:key="*this">{{item.ExtAttrName+'：'+item.ExtAttrValue}}</text>
+        </view>
+    </view>
+    <button bindtap="clickSku" class="groupbtn" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}" wx:if="{{startshow}}">即将开始</button>
+    <button bindtap="clickSku" class="groupbtn" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}" wx:elif="{{endshow}}">立即参团</button>
+    <button class="groupbtn btn-disabled" wx:elif="{{!endshow&&timeshow}}">团购已经结束</button>
+</view>
+<view class="poster-box-nav" style="background:{{PrimaryColor}}">
+    <button bindtap="showSharePoster">
+        <text class="iconfont icon-poster"></text>
+    </button>
+</view>
+<view bindtap="{{isJumpLink?'goToCopyright':''}}" class="copyright" style="display:{{isShowHishopCopyRight?'block':'none'}}"></view>
+<view bindtap="clickback" class="btmbg {{backShow}}"></view>
+<view class="lqyhq skuchoose {{SkuShow}}">
+    <view class="positionre">
+        <view class="guige border-bottom">
+            <image bindtap="parseImgTap" class="lqicon guigeimg" data-src="{{skuImg}}" mode="aspectFill" src="{{skuImg}}"></image>
+            <view class="guigecont">
+                <view class="sku-price" style="color:{{PrimaryColor}}">￥<text>{{skuPrice}}</text>
+                </view>
+                <view class="guigeyxhs" hidden="{{SkuItemList==''||SkuItemList.length==0}}">已选：{{selectedSkuContent}}</view>
+            </view>
+            <view bindtap="onSkuHide" class="guigecha">
+                <view class="iconfont icon__close font40"></view>
+            </view>
+        </view>
+        <view class="nronggaodu">
+            <view class="sezhi" wx:for="{{SkuItemList}}" wx:for-index="i" wx:key="AttributeId">
+                <view class="sezhititle font28 line_height40">{{item.AttributeName}}</view>
+                <view class="sezhicont mt8">
+                    <text bindtap="{{sku.disabled?'':'swithSku'}}" class="{{sku.disabled?'disable':''}} {{sku.ValueId==skuArr[i+1]?'active':''}}" data-id="{{sku.ValueId}}" data-img="{{sku.ImageUrl}}" data-index="{{i}}" data-skuvalue="{{sku.Value}}" style="{{sku.ValueId==skuArr[i+1]?'background:'+PrimaryColor+';'+'color:'+PrimaryTxtColor+';'+'border-color:'+PrimaryColor:''}}" wx:for="{{item.AttributeValue}}" wx:for-item="sku" wx:key="ValueId">{{sku.Value}}</text>
+                </view>
+            </view>
+            <view class="sezhi_last_child" hidden="{{SkuItemList==''||SkuItemList.length==0}}"></view>
+            <view class="goumaisl">
+                <text>数量</text>
+                <view class="goumkuang">
+                    <view bindtap="reduceAmount" class="jian">
+                        <view class="iconfont icon__minus_L  font24"></view>
+                    </view>
+                    <input bindblur="changeAmount" bindconfirm="changeAmount" type="number" value="{{buyAmount}}"></input>
+                    <view bindtap="addAmount" class="jia">
+                        <view class="iconfont icon__plus_L  font24"></view>
+                    </view>
+                </view>
+                <view class="guigeconkc">剩余{{skuStock}}{{Unit?Unit:'件'}}</view>
+            </view>
+        </view>
+        <button class="btn-confirm" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}" wx:if="{{startshow}}">即将开始</button>
+        <button bindtap="commitBuy" class="btn-confirm" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}" wx:elif="{{endshow}}">确定</button>
+    </view>
+</view>
+<view class="poster-bg" wx:if="{{showPoster}}">
+    <view class="poster">
+        <painter bind:imgOK="onImgOK" palette="{{posterData}}"></painter>
+    </view>
+    <view bindtap="savePoster" class="poster-btn" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">保存海报</view>
+</view>
+<video autoplay="true" class="fake-full-video" src="{{videoPath}}" wx:if="{{showVideo}}"></video>
+<cover-view bindtap="closeVideo" class="close-video" style="background-color:{{PrimaryColor}}" wx:if="{{showVideo}}">关闭视频</cover-view>

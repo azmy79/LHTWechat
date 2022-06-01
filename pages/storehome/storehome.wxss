@@ -1,0 +1,31 @@
+.store-box {
+    padding-bottom: 96rpx;
+}
+
+.store-nav {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    background: #fff;
+    border-top: 1rpx solid #c8c8c8;
+    height: 96rpx;
+    left: 0;
+    bottom: 0;
+    font-size: 20rpx;
+}
+
+.store-nav view {
+    flex: 1;
+    text-align: center;
+}
+
+.store-nav view text {
+    display: block;
+    color: #747474;
+}
+
+.store-nav view image {
+    width: 50rpx;
+    height: 50rpx;
+    margin-top: 8rpx;
+}

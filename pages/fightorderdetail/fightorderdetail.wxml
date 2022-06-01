@@ -1,0 +1,39 @@
+<import src="../wxParse/wxParse.wxml"></import>
+<view class="container {{info?'':'transparent'}}">
+    <view class="group-list">
+        <view class="item">
+            <view class="info">
+                <image mode="aspectFill" src="{{info.ProductImage}}"></image>
+                <view>{{info.ProductName}}</view>
+                <view>火拼价：￥{{info.FightPrice}}</view>
+                <view>
+                    <text>距结束：{{timeOver}}</text>
+                </view>
+            </view>
+        </view>
+        <view class="member">
+            <view class="join-text">已参团的小伙伴，还差 <text style="color:{{PrimaryColor}}">{{info.MaxJoinCount-info.GroupMembers.length}}</text> 人：</view>
+            <view class="member-item" wx:for="{{info.GroupMembers}}" wx:for-item="user" wx:key="{{user.UserId}}">
+                <view class="photo border">
+                    <image mode="aspectFill" src="{{user.HeadImage}}"></image>
+                    <image class="star" src="/images/star.png" wx:if="{{user.IsMaster}}"></image>
+                </view>
+                <text class="name">{{user.NickName}}</text>
+                <text class="time">{{user.JoinTime}}</text>
+                <text class="type" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}">{{user.IsMaster?'团长':'参团'}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="group-rule">
+        <text class="iconfont icon-info" style="color:{{PrimaryColor}}"></text>活动规则：{{info.MaxJoinCount}}人即可成团，人数不足自动退款 </view>
+    <navigator class="navigation-line" url="../commentlist/commentlist?id={{info.ProductInfo.ProductId}}">
+    商品评价 <text>{{info.ProductInfo.ReviewCount}}</text>
+        <text class="iconfont arrow_right"></text>
+    </navigator>
+    <view class="wxParse">
+        <template is="wxParse" data="{{wxParseData:metaDescription.nodes}}"></template>
+    </view>
+    <view class="fixed-bottom">
+        <button openType="share" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}">邀请好友参团</button>
+    </view>
+</view>

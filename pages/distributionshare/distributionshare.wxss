@@ -1,0 +1,22 @@
+page {
+    height: 100%;
+}
+
+.btn {
+    position: fixed;
+    bottom: 24rpx;
+    right: 24rpx;
+    left: 24rpx;
+}
+
+.btn .other-button-hover {
+    display: block;
+    margin-top: 48rpx;
+    font-size: 36rpx;
+    height: 88rpx;
+    line-height: 88rpx;
+    text-align: center;
+    color: #fff;
+    background: #fff;
+    border-radius: 8rpx;
+}

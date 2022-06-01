@@ -1,0 +1,14 @@
+<view class="shopcart-no">
+    <view class="shopcart-no-item">
+        <view class="pic">
+            <image src="{{ResultIcon}}"></image>
+        </view>
+        <view class="title">{{ResultStatueText}}</view>
+        <view class="font28 result line_height48" hidden="{{ResultMessage==null}}" style="padding-left:80rpx;padding-right:80rpx;" wx:if="{{ResultStatue==1}}">{{ResultMessage}}</view>
+        <view class="font28 result line_height48" hidden="{{ResultMessage==null}}" style="padding-left:80rpx;padding-right:80rpx;" wx:if="{{ResultStatue==3}}">拒绝理由：{{ResultMessage}}</view>
+    </view>
+</view>
+<view class="result pd24-horticla" hidden="{{ResultStatue!=3}}">
+    <button bindtap="ApplicationReqeust" class="btnsure" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}">重新申请</button>
+    <button bindtap="ReturnUp" class="btncancel mt32" style="border-color:{{PrimaryColor}};color:{{PrimaryColor}}">返回</button>
+</view>

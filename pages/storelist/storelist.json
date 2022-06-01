@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "周边门店",
+    "usingComponents": {
+        "storelist": "/components/storelist/storelist"
+    }
+}

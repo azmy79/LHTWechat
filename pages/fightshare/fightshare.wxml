@@ -1,0 +1,12 @@
+<view class="group-share">
+    <block wx:if="{{needJoinNumber>0}}">
+        <view>您已{{joinGroupId?'参':'开'}}团成功，再邀请{{needJoinNumber}}个好友就能拼团成功！</view>
+        <image mode="aspectFill" src="/images/group-share.jpg"></image>
+        <button class="share-btn" openType="share" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">去呼唤朋友</button>
+    </block>
+    <block wx:else>
+        <view>恭喜您拼团成功！</view>
+        <icon color="#0aba07" size="100" type="success"></icon>
+        <button bindtap="goGroupList" class="share-btn" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">更多拼团</button>
+    </block>
+</view>

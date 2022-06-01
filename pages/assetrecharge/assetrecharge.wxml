@@ -1,0 +1,22 @@
+<view class="content mt32 font32">
+    <view wx:if="{{IsOpenRechargeGift=='true'}}">
+        <view class="listbox">
+            <view bindtap="selectinfo" class="listinfo {{money==item.RechargeMoney?'listactive':''}}" data-name="{{item.RechargeMoney}}" wx:for="{{RechargeGiftInfo}}" wx:key="recharge">
+                <view>充{{item.RechargeMoney}}</view>
+                <view>送{{item.GiftMoney}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="w100 borderbott0m" wx:if="{{IsOpenRechargeGift=='false'}}">
+        <view class="loginpassword">
+            <text>金额</text>
+            <input bindinput="InputValue" data-key="money" placeholder="请输入充值金额" placeholderStyle="color:#bdbdbd" type="text" value="{{money}}"></input>
+        </view>
+    </view>
+</view>
+<view class="tjiaoname mt32 ">
+    <button bindtap="Recharge" class="other-button-hover pt24 pb24 line_height40" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}};border-color:{{PrimaryColor}}">立即充值 </button>
+</view>
+<view class="tjiaoname mt32" wx:if="{{IsOpenRechargeGift=='true'}}">
+    <text class="red">参与充值及赠送的金额仅用于商城消费不能提现</text>
+</view>

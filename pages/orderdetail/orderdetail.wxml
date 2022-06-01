@@ -1,0 +1,311 @@
+<view class="container {{loaded?'':'transparent'}}">
+    <block wx:if="{{OrderInfo.OrderType!==6}}">
+        <view class="xuanzhed pb40" hidden="{{LogisticsData==''||LogisticsData==null}}">
+            <navigator url="../orderlogistics/orderlogistics?orderid={{OrderInfo.OrderId}}">
+                <view class="hdonglist hdonglist1">
+                    <text class="iconfont icon__delivery"></text>
+                    <view class="classnames">
+                        <text class="yhname" wx:if="{{LogisticsData.traces[0].acceptStation!=null}}">{{LogisticsData.traces[0].acceptStation}}</text>
+                        <text class="yhname" wx:else>{{OrderInfo.ExpressCompanyName}}: {{OrderInfo.ShipOrderNumber}}</text>
+                        <text class="acceptTime" wx:if="{{LogisticsData.traces[0].acceptTime!=null}}">{{LogisticsData.traces[0].acceptTime}}</text>
+                    </view>
+                    <text class="iconfont arrow_right"></text>
+                </view>
+            </navigator>
+        </view>
+        <view class="store-info" wx:if="{{OrderInfo.ModeName=='上门自提'}}">
+            <view class="storedetail">
+                <text class="storebeizhu">自提备注</text>
+                <block wx:if="{{OrderInfo.StoreInfo.StoreName}}">
+                    <text class="storeName">{{OrderInfo.StoreInfo.StoreName}} [{{OrderInfo.StoreInfo.OpenTime}}]</text>
+                    <text class="storeAddress">{{OrderInfo.StoreInfo.Address}}</text>
+                    <text class="storeTel">联系电话：{{OrderInfo.StoreInfo.Tel}}</text>
+                </block>
+                <text>{{OrderInfo.PickeupInStoreRemark}}</text>
+            </view>
+            <view class="addr-xuanbg">
+                <image src="/images/order_06.jpg"></image>
+            </view>
+        </view>
+        <view class="address-info {{LogisticsData==''||LogisticsData==null?'':'mt24'}}" wx:else>
+            <view class="address-outer">
+                <text class="iconfont icon__locate"></text>
+                <view class="infos">
+                    <text class="name">{{OrderInfo.ShipTo}}{{OrderInfo.Cellphone?', ':''}} {{OrderInfo.Cellphone}}</text>
+                    <text class="address"> {{OrderInfo.Address}}</text>
+                </view>
+            </view>
+            <view class="addr-xuanbg">
+                <image src="/images/order_06.jpg"></image>
+            </view>
+        </view>
+    </block>
+    <view class="orderlist">
+        <block wx:for="{{Suppliers}}" wx:key="item.SupplierId">
+            <view class="supplier {{index==0?'mt100':''}}">
+                <view class="supplier-icon">
+                    <block wx:if="{{item.SupplierId>0&&!item.IsShowPay}}">
+                        <icon class="iconfont _gongyingshang ptcolor" style="color:{{PrimaryColor}}"></icon>
+                        <text>{{item.SupplierName}}</text>
+                    </block>
+                    <block wx:elif="{{item.LineItems[index].StoreName.length>0}}">
+                        <icon class="iconfont icon_2 ptcolor" style="color:{{PrimaryColor}}"></icon>
+                        <text>{{item.LineItems[index].StoreName}}</text>
+                    </block>
+                    <view class="orderhao" wx:elif="{{item.SupplierId==0&&item.ShipperName.length<=0}}">订单号：{{item.OrderId}}</view>
+                    <block wx:else>
+                        <icon class="iconfont _pingtai ptcolor" style="color:{{PrimaryColor}}"></icon>
+                        <text>{{item.SupplierName}}</text>
+                    </block>
+                </view>
+            </view>
+            <view class="orderlistcont {{i+1==item.LineItems.length?'lastitem':''}}" wx:for="{{item.LineItems}}" wx:for-index="i" wx:for-item="items" wx:key="Id">
+                <image bindtap="goToProductDetail" data-productid="{{items.ProductId}}" data-storeid="{{items.StoreId}}" src="{{items.Image}}"></image>
+                <view bindtap="goToProductDetail" class="orderlisc" data-productid="{{items.ProductId}}" data-storeid="{{items.StoreId}}">
+                    <view class="ordername">{{items.Name}}</view>
+                    <view class="ordersize">{{items.SkuText}}</view>
+                </view>
+                <view class="orderlistright">
+                    <text>￥{{items.Price}}</text>
+                    <view>x {{items.Amount}}{{items.SendCount>0?' 赠 '+items.SendCount:''}}</view>
+                    <view catchtap="refundgoods" class="orderzt" data-id="{{items.AfterSalerId}}" data-skuid="{{items.Id}}" data-stauts="{{items.Status}}" hidden="{{item.Status==0}}" style="color:{{PrimaryColor}}" wx:if="{{OrderInfo.OrderType!==6}}">{{items.StatusText}}</view>
+                    <view hidden="{{OrderInfo.Status!=3&&OrderInfo.Status!=5||items.Status!=0&&items.Status!=12&&items.Status!=25||OrderInfo.PaymentTypeId==7&&OrderInfo.Status!=5}}" style="color:{{PrimaryColor}}" wx:if="{{OrderInfo.OrderType!==6}}">
+                        <navigator url="../refundapplygoods/refundapplygoods?orderid={{OrderInfo.OrderId}}&skuId={{items.Id}}&pro={{items.Name}}&num={{items.Amount}}&m={{items.Price}}">退货</navigator>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <view class="orderhao pl24" wx:if="{{SendGifts.length>0}}">礼品清单</view>
+        <view class="sendgiftbox" wx:for="{{SendGifts}}" wx:for-item="items" wx:key="{{item.GiftId}}">
+            <view class="sendgift">
+                <text class="sendtxt">送</text>
+                <text>{{items.GiftName}}X{{items.Quantity}}</text>
+            </view>
+        </view>
+        <view class="orderhao pl24 pd24" wx:if="{{giftlist.length>0}}">已兑换礼品</view>
+        <view class="orderlistcont" wx:for="{{giftlist}}" wx:for-item="items" wx:key="{{item.GiftId}}">
+            <image mode="aspectFit" src="{{items.ImageUrl}}"></image>
+            <view class="orderlisc">
+                <view class="ordername">{{items.GiftName}}</view>
+            </view>
+            <view class="orderlistright">
+                <text class="iconfont icon__close submit_count"></text>{{items.Quantity}}
+        </view>
+        </view>
+        <block wx:if="{{OrderInfo.PreSaleId>0}}">
+            <view class="orderlistzong flex-item">
+                <view class="{{OrderInfo.PresaleStatusTxt1=='已付款'?'':'color-red'}}">{{OrderInfo.PresaleStatusTxt1}}</view>
+                <view class="{{OrderInfo.PresaleStatusTxt1=='已付款'?'':'color-red'}}">定金：￥{{OrderInfo.Deposit}}</view>
+            </view>
+            <view class="orderlistzong flex-item">
+                <view class="{{OrderInfo.PresaleStatusTxt2=='等待支付尾款'||OrderInfo.PresaleStatusTxt2=='未开始'?'color-red':''}}">{{OrderInfo.PresaleStatusTxt2}}</view>
+                <view>尾款（尾款含运费及优惠）：<text class="{{OrderInfo.PresaleStatusTxt2=='等待支付尾款'||OrderInfo.PresaleStatusTxt2=='未开始'?'color-red':''}}">￥{{OrderInfo.FinalPayment}}</text>
+                </view>
+            </view>
+            <view class="orderlistzong flex-item">
+                <view></view>
+                <view>运费：{{OrderInfo.Freight}}   订单实付：<text class="color-red">￥{{OrderInfo.PayTotal}}</text>
+                </view>
+            </view>
+        </block>
+        <view class="orderlistzong" wx:else>商品总计 ￥{{OrderInfo.OrderAmount}}</view>
+    </view>
+    <view class="submfs submfs1" wx:if="{{OrderInfo.OrderType==6&&OrderInfo.VerificationItems.length>0}}">
+        <view class="check-info">
+            <view class="h3">核销码</view>
+            <view class="p" wx:if="{{OrderInfo.VerificationItems[0].ValidEndDate}}">有效期 {{OrderInfo.VerificationItems[0].ValidStartDate}} ~ {{OrderInfo.VerificationItems[0].ValidEndDate}}</view>
+            <view class="p" wx:else>长期有效</view>
+        </view>
+        <view class="check-qrcode">
+            <view class="item {{item.status==0?'to-use':item.status==4?'to-refund':''}}" wx:for="{{OrderInfo.VerificationItems}}" wx:key="item">
+                <text class="iconfont icon-qrcode"></text>密码{{index+1}}
+        <text class="span">{{item.code}}</text>
+                <text class="pull-right" wx:if="{{item.status==0}}">待核销</text>
+                <text class="pull-right" wx:elif="{{item.status==1}}">已核销</text>
+                <text class="pull-right" wx:elif="{{item.status==3}}">已过期</text>
+                <text class="pull-right" wx:elif="{{item.status==4}}">退款中</text>
+                <text class="pull-right" wx:else>已退款</text>
+            </view>
+        </view>
+    </view>
+    <view class="submfs submfs1">
+        <view class="yunfei">
+            <view class="yunfeil">商品金额</view>
+            <view class="yunfeir"> ￥{{OrderInfo.OrderAmount}} </view>
+        </view>
+        <view class="yunfei" wx:if="{{OrderInfo.OrderType!==6&&OrderInfo.ModeName!=='上门自提'}}">
+            <view class="yunfeil">{{OrderInfo.StoreId?'配送费':'运费'}}
+        <text wx:if="{{OrderInfo.FreightFreePromotionName}}">(满免)</text>
+            </view>
+            <view class="yunfeir">￥{{OrderInfo.AdjustedFreight}}</view>
+        </view>
+        <view class="yunfei" wx:if="{{OrderInfo.CouponAmount>0}}">
+            <view class="yunfeil">优惠券</view>
+            <view class="yunfeir">-￥{{OrderInfo.CouponAmount}}</view>
+        </view>
+        <view class="yunfei" wx:if="{{OrderInfo.ReducedPromotionAmount>0}}">
+            <view class="yunfeil">满减</view>
+            <view class="yunfeir">-￥{{OrderInfo.ReducedPromotionAmount}}</view>
+        </view>
+        <view class="yunfei" wx:if="{{OrderInfo.DeductionMoney>0}}">
+            <view class="yunfeil">积分抵扣</view>
+            <view class="yunfeir">-￥{{OrderInfo.DeductionMoney}}</view>
+        </view>
+        <view class="yunfei" wx:if="{{OrderInfo.AdjustedDiscount!=0}}">
+            <view class="yunfeil">价格调整</view>
+            <view class="yunfeir" wx:if="{{OrderInfo.AdjustedDiscount>=0}}">￥{{OrderInfo.AdjustedDiscount}}</view>
+            <view class="yunfeir" wx:else>-￥{{-OrderInfo.AdjustedDiscount}}</view>
+        </view>
+        <view class="yunfei" wx:if="{{OrderInfo.Tax>0}}">
+            <view class="yunfeil">税费</view>
+            <view class="yunfeir">￥{{OrderInfo.Tax}}</view>
+        </view>
+        <view class="yunfei" wx:if="{{OrderInfo.BalanceAmount>0}}">
+            <view class="yunfeil">余额抵扣</view>
+            <view class="yunfeir">￥{{OrderInfo.BalanceAmount}}</view>
+        </view>
+        <view class="yunfei">
+            <view class="yunfeil">合计</view>
+            <view class="yunfeir">￥{{OrderInfo.OrderTotal}}</view>
+        </view>
+    </view>
+    <view class="submfs submfs1 mb24">
+        <view class="yunfei">
+            <view class="yunfeil">订单号</view>
+            <view class="yunfeir">{{OrderInfo.OrderId}} </view>
+        </view>
+        <view class="yunfei">
+            <view class="yunfeil">订单状态</view>
+            <view class="yunfeir">{{OrderInfo.StatusText}} </view>
+        </view>
+        <view class="yunfei">
+            <view class="yunfeil">支付方式</view>
+            <view class="yunfeir">{{OrderInfo.PaymentType}} </view>
+        </view>
+        <view class="yunfei">
+            <view class="yunfeil">下单时间</view>
+            <view class="yunfeir">{{OrderInfo.OrderDate}} </view>
+        </view>
+        <view class="yunfei">
+            <view class="yunfeil">订单备注</view>
+            <view class="yunfeir">{{OrderInfo.Remark==null?'':OrderInfo.Remark}}</view>
+        </view>
+    </view>
+    <view class="submfs submfs1 mb24" wx:if="{{OrderInfo.OrderType==6&&OrderInfo.InputItems[0]}}">
+        <view class="yunfei">
+            <view class="yunfeil">补充信息</view>
+            <view class="yunfeir"></view>
+        </view>
+        <view class="yunfei" style="height:auto" wx:for="{{OrderInfo.InputItems[0]}}">
+            <view class="yunfeil">{{item.title}}</view>
+            <view class="yunfeir" wx:if="{{item.vtype!==6}}">{{item.value}} </view>
+            <view class="yunfeir" style="height:auto" wx:else>
+                <image bindtap="previewImg" data-imgs="{{item.value}}" data-index="{{imgIndex}}" mode="aspectFill" src="{{img}}" wx:for="{{item.value}}" wx:for-index="imgIndex" wx:for-item="img"></image>
+            </view>
+        </view>
+    </view>
+    <view class="submfs submfs1 mb24" hidden="{{OrderInfo.HasInvoice&&OrderInfo.InvoiceType==4||!OrderInfo.HasInvoice}}">
+        <view class="yunfei">
+            <view class="yunfeil">发票类型</view>
+            <view class="yunfeir">{{OrderInfo.InvoceTypeText}}</view>
+        </view>
+        <view class="yunfei">
+            <view class="yunfeil">发票抬头</view>
+            <view class="yunfeir">{{OrderInfo.InvoiceTitle}} </view>
+        </view>
+        <view class="yunfei" hidden="{{OrderInfo.InvoiceType==0||OrderInfo.InvoiceType==2}}">
+            <view class="yunfeil">纳税人识别号</view>
+            <view class="yunfeir">{{OrderInfo.InvoiceTaxpayerNumber}} </view>
+        </view>
+        <view class="collector_box" hidden="{{OrderInfo.InvoiceType==0||OrderInfo.InvoiceType==1}}">
+            <view class="yunfei">
+                <view class="yunfeil">收票人手机</view>
+                <view class="yunfeir">{{OrderInfo.ReceivePhone}}</view>
+            </view>
+            <view class="yunfei">
+                <view class="yunfeil">收票人邮箱</view>
+                <view class="yunfeir">{{OrderInfo.ReceiveEmail}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="submfs submfs1 mb24" hidden="{{OrderInfo.HasInvoice&&OrderInfo.InvoiceType!=4||!OrderInfo.HasInvoice}}">
+        <view class="yunfei">
+            <view class="yunfeil">发票类型</view>
+            <view class="yunfeir">增值发票</view>
+        </view>
+        <view class="yunfei">
+            <view class="yunfeil">单位名称</view>
+            <view class="yunfeir">{{OrderInfo.InvoiceTitle}} </view>
+        </view>
+        <view class="yunfei">
+            <view class="yunfeil">纳税人识别号</view>
+            <view class="yunfeir">{{OrderInfo.InvoiceTaxpayerNumber}} </view>
+        </view>
+        <view class="yunfei Invoice_lineheight">
+            <view class="yunfeil">注册地址</view>
+            <view class="yunfeir Invoice_lineheight w580">{{OrderInfo.RegisterAddress}} </view>
+        </view>
+        <view class="yunfei">
+            <view class="yunfeil">注册电话</view>
+            <view class="yunfeir">{{OrderInfo.RegisterTel}}</view>
+        </view>
+        <view class="yunfei">
+            <view class="yunfeil">开户银行</view>
+            <view class="yunfeir">{{OrderInfo.OpenBank}} </view>
+        </view>
+        <view class="yunfei">
+            <view class="yunfeil">银行账户</view>
+            <view class="yunfeir">{{OrderInfo.BankAccount}} </view>
+        </view>
+        <view class="yunfei">
+            <view class="yunfeil">收票人姓名</view>
+            <view class="yunfeir">{{OrderInfo.ReceiveName}} </view>
+        </view>
+        <view class="yunfei">
+            <view class="yunfeil">收票人手机</view>
+            <view class="yunfeir">{{OrderInfo.ReceivePhone}}</view>
+        </view>
+        <view class="yunfei">
+            <view class="yunfeil">收票人地区</view>
+            <view class="yunfeir">{{OrderInfo.ReceiveRegionName}} </view>
+        </view>
+        <view class="yunfei detail_Invoice">
+            <view class="yunfeil">收票人详细地址</view>
+            <view class="yunfeir Invoice_lineheight">{{OrderInfo.ReceiveAddress}} </view>
+        </view>
+    </view>
+    <view class="jinge">
+        <view class="tuikuan" wx:if="{{OrderInfo.IsShowRefund&&OrderInfo.OrderTotal}}">
+            <navigator style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}" url="../refundapply/refundapply?orderid={{OrderInfo.OrderId}}&&m={{OrderInfo.OrderTotal}}">申请退款</navigator>
+        </view>
+        <button bindtap="orderPay" data-orderid="{{OrderInfo.OrderId}}" hidden="{{!OrderInfo.IsShowPay}}" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">付款</button>
+        <button bindtap="orderFinish" data-orderid="{{OrderInfo.OrderId}}" hidden="{{OrderInfo.Status!=3||OrderInfo.ItemStatus!=0}}" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">确认收货</button>
+        <view class="classtext">
+            <text wx:if="{{OrderInfo.PresaleStatusTxt2=='等待支付尾款'}}">尾款:￥ {{OrderInfo.FinalPayment}}</text>
+            <text wx:else>{{OrderInfo.PreSaleId>0&&OrderInfo.Status==1?'定金':'总价'}}￥ {{OrderInfo.PreSaleId>0&&OrderInfo.Status==1?OrderInfo.Deposit:OrderInfo.OrderTotal}}</text>
+        </view>
+    </view>
+</view>
+<view class="deg" style="background:{{PrimaryColor}}">
+    <button openType="contact">
+        <text class="iconfont icon__service-" style="color:{{PrimaryTxtColor}}"></text>
+    </button>
+</view>
+<view catchtap="gouserhome" class="backusehome">
+    <icon class="iconfont icon__my backicon" style="color:{{PrimaryColor}}"></icon>
+</view>
+<view class="redlogo" wx:if="{{redshow}}">
+    <image bindtap="showred" src="../../images/SendRedEnvelope.png"></image>
+</view>
+<view class="tcbg" hidden="{{!bgshow}}"></view>
+<view class="djhb" hidden="{{!bgshow}}">
+    <view class="box">
+        <view class="title">恭喜你获得拼手气红包</view>
+        <view class="sharef">分享给好友一起领红包</view>
+        <image src="/images/redr.png"></image>
+        <button class="btn" openType="share">分享领红包</button>
+    </view>
+    <view bindtap="bghide" class="icon">
+        <text class="icon__close iconfont"></text>
+    </view>
+</view>

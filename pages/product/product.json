@@ -1,0 +1,10 @@
+{
+    "navigationBarTitleText": "移动云商城",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+        "productcategory": "/components/productcategory/productcategory",
+        "storeproduct": "/components/storeproduct/storeproduct",
+        "productlist": "/components/productlist/productlist"
+    }
+}

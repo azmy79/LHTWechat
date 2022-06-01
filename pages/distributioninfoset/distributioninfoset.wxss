@@ -1,0 +1,241 @@
+page {
+    background: #f5f5f5;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+    background: #fff;
+}
+
+.loginpassword {
+    display: flex;
+    height: 98rpx;
+    line-height: 98rpx;
+    margin-left: 24rpx;
+    padding-right: 24rpx;
+}
+
+.borderbott0m {
+    border-bottom: 1rpx solid #dcdcdc;
+}
+
+.bordertop0m {
+    border-top: 1rpx solid #dcdcdc;
+}
+
+.loginpassword input {
+    height: 98rpx;
+    line-height: 98rpx;
+    color: #000;
+    padding-left: 5rpx;
+    width: 100%;
+}
+
+.loginpassword text {
+    width: 180rpx;
+    margin-right: 24rpx;
+}
+
+.tjiaoname button {
+    margin-top: 16rpx;
+    width: 702rpx;
+    font-size: 36rpx;
+}
+
+.tjiaoname button::after {
+    border: none;
+}
+
+button[type="default"] {
+    color: #fff;
+    background: #fff;
+    border: 1rpx #fff solid;
+}
+
+button[disabled].other-button-hover {
+    color: #fff;
+    background: #fff;
+    border: 1rpx #fff solid;
+}
+
+button[type="primary"] {
+    color: #09bb07;
+    background-color: #fff;
+    border: 1rpx solid #e0e0e0;
+}
+
+.tjiaoname image {
+    width: 44rpx;
+    height: 40rpx;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.huoze {
+    height: 20rpx;
+    border-bottom: 1rpx solid #e0e0e0;
+    width: 400rpx;
+    margin: 48rpx auto;
+    text-align: center;
+}
+
+.huoze view {
+    width: 100rpx;
+    margin: 0 auto;
+    background: #f5f5f5;
+    color: #757575;
+}
+
+button.other-button-hover {
+    color: #fff;
+    margin-top: 16rpx;
+    background: #fff;
+}
+
+.button-hover[type="primary"] {
+    background: none;
+    color: #09bb07;
+}
+
+.wechat_size {
+    font-size: 56rpx;
+    width: 44rpx;
+    height: 36rpx;
+    vertical-align: middle;
+}
+
+.codeimg {
+    width: 160rpx;
+    height: 65rpx;
+    line-height: 65rpx;
+    overflow: hidden;
+    margin-top: 20rpx;
+    margin-right: 48rpx;
+}
+
+.btncode {
+    border: 1rpx solid #ff5722;
+    border-radius: 8rpx;
+    width: 260rpx;
+    text-align: center;
+    color: #ff5722;
+    height: 65rpx;
+    line-height: 65rpx;
+    overflow: hidden;
+    font-size: 24rpx;
+    margin-right: 48rpx;
+    margin-top: 16rpx;
+}
+
+.w100 {
+    width: 100%;
+}
+
+.threerow input {
+    width: 380rpx!important;
+}
+
+.threerow text {
+    width: 20%!important;
+}
+
+.threerow .w20 {
+    width: 194rpx!important;
+}
+
+.distpicker {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 999;
+    width: 100%;
+    height: 560rpx;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: #fff;
+}
+
+.distpicker-btn {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0 40rpx;
+    height: 80rpx;
+    line-height: 80rpx;
+    background-color: #fafafa;
+    color: #586c94;
+}
+
+.area-item {
+    line-height: 40px;
+}
+
+.distpicker-content {
+    box-sizing: border-box;
+    width: 100%;
+    height: 560rpx;
+    background-color: #fff;
+    text-align: center;
+}
+
+.mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 998;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.regionname-color {
+    color: #bdbdbd;
+    width: 100%;
+}
+
+.regionname {
+    width: 100%;
+}
+
+.logo {
+    display: flex;
+    margin-top: 24rpx;
+}
+
+.logoinfo {
+    margin-left: 24rpx;
+    font-size: 24rpx;
+    color: #808080;
+    line-height: 48rpx;
+}
+
+.logoimg {
+    width: 160rpx;
+    margin-right: 16rpx;
+    margin-bottom: 25rpx;
+    position: relative;
+}
+
+.logoimg image {
+    border: 1rpx solid #ddd;
+}
+
+.logoimg .delete {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+    text-align: center;
+    color: #fff;
+}
+
+.font30 {
+    font-size: 30rpx;
+}

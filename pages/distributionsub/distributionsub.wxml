@@ -1,0 +1,32 @@
+<view class="tab flex-row">
+    <view bindtap="switchTab" class="flex-item {{isOpenSecondLevelCommission&&referralLevel==1?'tab-active':''}}" data-level="1">{{firstMemberName}}<text wx:if="{{subMemberTotal.FirstMemberNumber>0}}">({{subMemberTotal.FirstMemberNumber}})</text>
+    </view>
+    <view bindtap="switchTab" class="flex-item {{referralLevel==2?'tab-active':''}}" data-level="2" wx:if="{{isOpenSecondLevelCommission}}">{{secondMemberName}}<text wx:if="{{subMemberTotal.SecondMemberNumber>0}}">({{subMemberTotal.SecondMemberNumber}})</text>
+    </view>
+    <view bindtap="switchTab" class="flex-item {{referralLevel==3?'tab-active':''}}" data-level="3" wx:if="{{isOpenThirdLevelCommission}}">{{thirdMemberName}}<text wx:if="{{subMemberTotal.ThirdMemberNumber>0}}">({{subMemberTotal.ThirdMemberNumber}})</text>
+    </view>
+</view>
+<view class="member-list">
+    <view class="list-item" wx:for="{{listData}}" wx:key="{{index}}">
+        <view class="flex-row header">
+            <view class="flex-item header-left">
+                <image src="{{item.Picture}}"></image>
+                <text class="color21 overflow">{{item.UserName}}</text>
+            </view>
+            <view class="flex-item header-right">
+                {{item.CreateDate}}
+            </view>
+        </view>
+        <view class="flex-row list-content">
+            <view class="flex-item">
+                <view class="h4">{{item.SubSumOrderTotal}}</view>累计消费金额</view>
+            <view class="flex-item">
+                <view class="h4">{{item.SubMemberAllSplittin}}</view>提供佣金</view>
+        </view>
+    </view>
+</view>
+<view class="empty" wx:if="{{isEmpty}}">
+    <image src="../../images/no_subordinates.png"></image>
+    <view class="h2">暂无记录</view>
+    <view>还没有对应的会员哦</view>
+</view>

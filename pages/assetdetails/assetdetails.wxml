@@ -1,0 +1,24 @@
+<view class="mt120">
+    <view class="points-list">
+        <view class="point-li" wx:for="{{assetlist}}" wx:key="{{assetlist}}">
+            <view wx:for="{{item.Details}}" wx:key="{{details}}">
+                <view data-requestId="{{item.JournalNumber}}">
+                    <view class="point-left">
+                        <view>{{item.TradeTypeName}}</view>
+                        <view class="Drawtime">{{item.TradeDateStr}}</view>
+                    </view>
+                    <view class="point-count redcolor" wx:if="{{item.TradeType==4||item.TradeType==3}}">
+                        <text>-</text>{{item.Expenses}}
+          </view>
+                    <view class="point-count bluecolor" wx:else>
+                        <text>+</text>{{item.Income}}
+          </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="kong" hidden="{{isEmpty}}">
+        <view bindtap="toproduct" class="bg_nullCounp" style="background:url({{nullDraw}}) center center no-repeat; background-size:auto 192rpx"></view>
+    暂无信息
+  </view>
+</view>

@@ -1,0 +1,69 @@
+<view class="search-box">
+    <view class="search">
+        <text class="iconfont icon-search"></text>
+        <input bindconfirm="onConfirmSearch" bindinput="onInputKeyword" class="text" confirmType="search" placeholder="请输入商品名称" placeholderStyle="color:#bdbdbd" type="text" value="{{keyword}}"></input>
+    </view>
+</view>
+<view class="store-list">
+    <view bindtap="goStoreHome" class="item clearfix" data-id="{{item.StoreId}}" wx:for="{{storeList}}" wx:key="{{item.StoreId}}">
+        <view class="store-logo">
+            <image mode="aspectFill" src="{{item.StoreImages}}"></image>
+        </view>
+        <view class="store-content">
+            <view class="store-name">
+                <view>{{item.StoreName}}</view>
+                <text>{{item.Distance}}</text>
+            </view>
+            <view class="locat">
+                <view class="store-list-info">
+                    <view class="store-express">
+                        <view style="border-color:{{PrimaryColor}};color:{{PrimaryColor}};background:{{PrimaryColorlight}}" wx:if="{{item.Delivery.IsPickeupInStore}}">自提</view>
+                        <view style="border-color:{{PrimaryColor}};color:{{PrimaryColor}};background:{{PrimaryColorlight}}" wx:if="{{item.Delivery.IsSupportExpress}}">快递</view>
+                        <view style="border-color:{{PrimaryColor}};color:{{PrimaryColor}};background:{{PrimaryColorlight}}" wx:if="{{item.Delivery.IsStoreDelive}}">门店配送</view>
+                        <text>共{{item.OnSaleNum}}件商品<text wx:if="{{item.Delivery.MinOrderPrice>0}}">，满{{item.Delivery.MinOrderPrice}}起送</text>
+                        </text>
+                    </view>
+                    <view catchtap="showActivity" class="store-activity clearfix" data-index="{{index}}" wx:if="{{item.Activity.ActivityCount}}">
+                        <view class="store-badge">优惠活动</view>
+                        <view class="activity-text">
+                            <text wx:if="{{item.Activity.FullAmountReduceList.length>0}}">{{item.Activity.FullAmountReduceList[0].ActivityName}}</text>
+                            <text wx:elif="{{item.Activity.FullAmountSentFreightList.length>0}}">{{item.Activity.FullAmountSentFreightList[0].ActivityName}}</text>
+                            <text wx:else>{{item.Activity.FullAmountSentGiftList[0].ActivityName}}</text>
+                        </view>
+                        <view class="activity-total">
+                {{item.Activity.ActivityCount}}个活动<text class="iconfont arrow_right"></text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+            <view class="store-products">
+                <view catchtap="goProduct" class="product" data-activeid="{{pro.ActiveId}}" data-activetype="{{pro.ActiveType}}" data-id="{{pro.ProductId}}" data-storeid="{{item.StoreId}}" wx:for="{{item.ProductList}}" wx:for-item="pro" wx:key="{{pro.ProductId}}">
+                    <image mode="aspectFill" src="{{pro.ThumbnailUrl220}}"></image>
+                    <view class="price">￥<text>{{pro.SalePrice}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="actionsheet {{showActionsheet?'active':''}}">
+    <view class="actionsheet-header">优惠活动<text bindtap="hideActivity" class="iconfont icon__close"></text>
+    </view>
+    <view class="actionsheet-content">
+        <view class="activity">
+            <view class="activity-item" wx:if="{{activity.FullAmountReduceList.length>0}}">
+                <text class="text-icon tag-green">减</text>
+                <text wx:for="{{activity.FullAmountReduceList}}" wx:key="{{index}}">{{item.ActivityName}} </text>
+            </view>
+            <view class="activity-item" wx:if="{{activity.FullAmountSentFreightList.length>0}}">
+                <text class="text-icon tag-yellow">免</text>
+                <text wx:for="{{activity.FullAmountSentFreightList}}" wx:key="{{index}}">{{item.ActivityName}} </text>
+            </view>
+            <view class="activity-item" wx:if="{{activity.FullAmountSentGiftList.length>0}}">
+                <text class="text-icon tag-red">送</text>
+                <text wx:for="{{activity.FullAmountSentGiftList}}" wx:key="{{index}}">{{item.ActivityName}} </text>
+            </view>
+        </view>
+    </view>
+</view>
+<view bindtap="hideActivity" class="actionsheet-overlay" hidden="{{!showActionsheet}}"></view>

@@ -1,0 +1,11 @@
+<view class="homecont">
+    <view class="search-box" style="background:{{PrimaryColor}}">
+        <view class="search">
+            <input disabled bindtap="gotoKeyWordPage" class="text" placeholder="搜索" placeholderStyle="color:{{PrimaryTxtColor}}" type="text"></input>
+            <view bindtap="bindSearchAction" class="iconfont icon__search iconsearch font40" size="16" style="color:{{PrimaryTxtColor}}"></view>
+        </view>
+    </view>
+    <view>
+        <Viewmodule moduleData="{{TopicData}}"></Viewmodule>
+    </view>
+</view>

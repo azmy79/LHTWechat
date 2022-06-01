@@ -1,0 +1,124 @@
+<view class="page-section container {{loaded?'':'transparent'}}">
+    <view hidden="{{isEmpty||!isLogin}}">
+        <view class="shopcart-t bg-wihte">
+            <view bindtap="selectAll" class="shopcart-ck" style="margin-top:0" wx:if="{{showselectall}}">
+                <text class="iconfont {{selectAllStatus?'icon-checked':'icon-checkbox'}}" style="{{selectAllStatus?'color:'+PrimaryColor:''}}"></text>全选
+      </view>
+            <view bindtap="SwitchEdite" class="shopcart-edite">{{EditeText}}</view>
+        </view>
+        <view class="cartlist">
+            <block wx:for="{{storelist}}" wx:key="item.StoreId">
+                <view class="cart-head" wx:if="{{item.StoreTotal}}">
+                    <view class="store-name border-bottom">
+                        <text bindtap="select" class="iconfont {{item.selectStoreStatus?'icon-checked':'icon-checkbox'}}" data-storeid="{{item.StoreId}}" style="{{item.selectStoreStatus?'color:'+PrimaryColor:''}}" wx:if="{{item.StoreId>0}}"></text>
+                        <text bindtap="select" class="iconfont {{selectSupplierStatus?'icon-checked':'icon-checkbox'}}" data-storeid="{{item.StoreId}}" style="{{selectSupplierStatus?'color:'+PrimaryColor:''}}" wx:else></text>
+                        <text class="iconfont icon_2"></text>{{item.StoreName}}
+          </view>
+                </view>
+                <view class="shopcart-m bg-wihte" wx:if="{{item.StoreTotal}}">
+                    <view class="shopcart-m-item {{items.IsValid&&items.HasEnoughStock?'':'shopcart-invalid'}}" wx:for="{{storelist[index].CartItemInfo}}" wx:for-item="items" wx:key="{{item.SkuID}}">
+                        <view class="shopcart-ck {{items.IsValid&&items.HasEnoughStock?'':'ck-txt'}}">
+                            <view wx:if="{{items.IsValid&&items.HasEnoughStock}}">
+                                <text bindtap="selectList" class="iconfont {{items.storeselected?'icon-checked':'icon-checkbox'}}" data-skuid="{{items.SkuID}}" data-storeid="{{items.StoreId}}" style="{{items.storeselected?'color:'+PrimaryColor:''}}" wx:if="{{item.StoreId>0}}"></text>
+                                <text bindtap="selectList" class="iconfont {{items.selected?'icon-checked':'icon-checkbox'}}" data-skuid="{{items.SkuID}}" data-storeid="{{items.StoreId}}" style="{{items.selected?'color:'+PrimaryColor:''}}" wx:else></text>
+                            </view>
+                            <view style="font-size:20rpx;margin-top:16rpx; width:40rpx;" wx:else>{{!items.IsValid?'失效':'库存不足'}}</view>
+                        </view>
+                        <view bindtap="goToProductDetail" class="shopcart-item-pic " data-isvalid="{{items.IsValid}}" data-productid="{{items.ProductId}}" data-storeid="{{items.StoreId}}">
+                            <image mode="aspectFill" src="{{items.ThumbnailUrl100}}"></image>
+                        </view>
+                        <view bindtap="goToProductDetail" class="shpcart-item-txt " data-isvalid="{{items.IsValid}}" data-productid="{{items.ProductId}}" data-storeid="{{item.StoreId}}">
+                            <view class="shopcart-txt-t">
+                                <view class="shopcart-txt-name">{{items.Name}}</view>
+                                <view class="shopcart-txt-saleprice">
+                                    <text>¥{{items.MemberPrice}}</text>
+                                </view>
+                            </view>
+                            <view class="shopcart-txt-b">
+                                <view class="shpcart-item-skuname">{{items.SkuContent}}</view>
+                                <view class="info_b_pu border" style="color:{{PrimaryColor}};border-color:{{PrimaryColor}};background:{{PrimaryColorlight}}" wx:if="{{item.IsAboveSelf&&!items.SupplierId}}">支持自提</view>
+                            </view>
+                        </view>
+                        <view class="sendgiftbox" wx:if="{{items.SendGift.length}}">
+                            <view class="sendgift" wx:if="{{items.SendGift}}" wx:for="{{items.SendGift}}" wx:for-item="vals" wx:key="{{index}}">
+                                <text class="sendtxt">赠</text>
+                                <text>{{vals.Name}}</text>
+                            </view>
+                        </view>
+                        <view class="shopcart-item-edite-l " hidden="{{isEdite}}" wx:if="{{items.IsValid&&items.HasEnoughStock}}">
+                            <view class="shpcart-item-edite-num ">
+                                <text bindtap="MuseNum" class="iconfont minus_regular fl" data-index="{{index}}" data-storeid="{{item.StoreId}}" data-supplierid="{{items.SupplierId}}"></text>
+                                <input bindblur="bindblurNum" class="m" data-index="{{index}}" data-storeid="{{item.StoreId}}" data-supplierid="{{items.SupplierId}}" type="number" value="{{items.Quantity}}"></input>
+                                <text bindtap="AddNum" class="iconfont plus_regular fr" data-index="{{index}}" data-storeid="{{item.StoreId}}" data-supplierid="{{items.SupplierId}}"></text>
+                            </view>
+                        </view>
+                        <view bindtap="DelCarts" class="shopcart-item-edite-r " data-index="{{index}}" data-skuid="{{items.SkuID}}" data-storeid="{{items.StoreId}}" hidden="{{!isEdite}}">
+                            <text class="iconfont icon__trash"></text>
+                        </view>
+                    </view>
+                </view>
+            </block>
+            <view class="shopcart-m bg-wihte" wx:if="{{GiftInfo.length>0}}">
+                <view class="shopcart-m-item" wx:for="{{GiftInfo}}" wx:for-item="items" wx:key="{{item.GiftId}}">
+                    <view class="shopcart-ck">
+                        <text class="iconfont {{selgift?'icon-checked':'icon-checkbox'}}" data-skuid="{{items.GiftId}}"></text>
+                    </view>
+                    <view class="shopcart-item-pic" data-productid="{{items.GiftId}}">
+                        <image mode="aspectFill " src="{{items.ThumbnailUrl100}} "></image>
+                    </view>
+                    <view class="shpcart-item-txt " data-productid="{{items.GiftId}}">
+                        <view class="shopcart-txt-t ">
+                            <view class="shopcart-txt-name ">{{items.Name}}</view>
+                            <view class="shopcart-txt-saleprice ">
+                                <text>{{items.NeedPoint}}积分</text>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="shopcart-item-edite-l" hidden="{{isEdite}}">
+                        <view class="shpcart-item-edite-num">
+                            <text bindtap="changegiftnum" class="iconfont minus_regular fl" data-giftid="{{items.GiftId}}" data-index="{{index}}"></text>
+                            <input disabled class="m" data-giftid="{{items.GiftId}}" data-index="{{index}}" type="number" value="{{items.Quantity}}"></input>
+                            <text bindtap="changegiftnum" class="iconfont plus_regular fr" data-action="plus" data-giftid="{{items.GiftId}}" data-index="{{index}}"></text>
+                        </view>
+                    </view>
+                    <view bindtap="DelCarts" class="shopcart-item-edite-r" data-giftid="{{items.GiftId}}" data-index="{{index}}" hidden="{{!isEdite}}">
+                        <text class="iconfont icon__trash"></text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="shopcart-b bg-wihte border-top">
+            <view bindtap="SettlementShopCart" class="shopcart-buy" data-isdel="{{selectAllStatus}}" hidden="{{!canBuyTime&&SelectskuId.length}}" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}">
+                <text>{{SettlementText}}</text>
+            </view>
+            <view class="overtime-buy" hidden="{{canBuyTime||!SelectskuId.length}}">
+                <text>非营业时间</text>
+            </view>
+            <view class="shopcart-total" wx:if="{{!selectAllStatus}}">
+                <view class="shopcart-total-txt ">合计：</view>
+                <view class="shopcart-total-p ">
+                    <text class="saleprice ">¥{{TotalPrice}} </text>
+                </view>
+                <view>(不含运费)</view>
+            </view>
+        </view>
+    </view>
+    <view class="shopcart-no" hidden="{{!isEmpty}}">
+        <view class="pic">
+            <image src="../../images/shopcart-empty.jpg"></image>
+        </view>
+        <view class="mt24 mb24 line_height48 font32">购物车空空如也~</view>
+        <view class="btn">
+            <navigator class="btn_go" openType="switchTab" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}" url="../home/home">去逛逛</navigator>
+        </view>
+    </view>
+    <view class="shopcart-no" hidden="{{isLogin}}">
+        <view class="pic">
+            <image src="../../images/shopcart-empty.jpg"></image>
+        </view>
+        <view class="mt24 mb24 line_height48 font32">您还没有登录</view>
+        <view class="btn">
+            <navigator class="btn_go" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}" url="../login/login">去登录</navigator>
+        </view>
+    </view>
+</view>

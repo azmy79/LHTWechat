@@ -1,0 +1,32 @@
+.group-share {
+    text-align: center;
+}
+
+.group-share view {
+    text-align: center;
+    font-size: 30rpx;
+    color: #555;
+    margin-top: 80rpx;
+}
+
+.group-share image {
+    margin: 120rpx auto;
+    width: 580rpx;
+    height: 420rpx;
+}
+
+.group-share icon {
+    margin: 160rpx auto 240rpx;
+}
+
+.share-btn {
+    width: 300rpx;
+    line-height: 80rpx;
+    font-size: 32rpx;
+    color: #fff;
+    text-align: center;
+    background: #ff6600;
+    margin: 0 auto;
+    border: 0;
+    border-radius: 40rpx;
+}

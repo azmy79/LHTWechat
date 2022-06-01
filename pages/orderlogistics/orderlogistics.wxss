@@ -1,0 +1,138 @@
+page {
+    background: #f5f5f5;
+    padding-bottom: 40rpx;
+}
+
+.xuanzhed {
+    background: #fff;
+}
+
+.address-info {
+    border-top: none;
+    border-radius: 0 0 16rpx 16rpx;
+    overflow: hidden;
+}
+
+.address-info .name {
+    font-weight: bold;
+    font-size: 28rpx;
+}
+
+.hdonglist {
+    display: flex;
+    padding: 24rpx;
+    padding-left: 96rpx;
+    overflow: hidden;
+    position: relative;
+}
+
+.hdonglist .iconfont {
+    margin-right: 24rpx;
+    height: 40rpx;
+    position: absolute;
+    left: 24rpx;
+    top: 50%;
+    margin-top: -23rpx;
+}
+
+.xuanbg image {
+    width: 750rpx;
+    height: 11rpx;
+    display: block;
+}
+
+.xuanbg {
+    background: #fff;
+    padding: 0;
+    padding-top: 40rpx;
+    height: 11rpx;
+    overflow: hidden;
+}
+
+.pb40 {
+    padding-bottom: 40rpx;
+    overflow: hidden;
+    background: #fff;
+}
+
+.pb40 image {
+    width: 46rpx;
+    height: 32rpx;
+}
+
+.mt15 {
+    margin-top: 15rpx;
+}
+
+.hdonglist1 {
+    display: flex;
+    padding: 24rpx;
+    padding-left: 88rpx;
+}
+
+.classnames {
+    display: flex;
+    width: 600rpx;
+    flex-direction: column;
+}
+
+.yhname {
+    font-weight: bold;
+}
+
+.xuanzhed1 {
+    background: #fff;
+    border-radius: 16rpx;
+}
+
+.ddgzcont {
+    padding: 32rpx 24rpx 0 36rpx;
+}
+
+.wllist {
+    position: relative;
+    min-height: 10rpx;
+    border-left: 2rpx solid #eee;
+    font-size: 24rpx;
+    line-height: 32rpx;
+    padding: 16rpx 0 16rpx 28rpx;
+    color: #747474;
+}
+
+.wllist:first-child {
+    padding-top: 0;
+}
+
+.wllist::before {
+    content: "";
+    position: absolute;
+    left: -7rpx;
+    width: 14rpx;
+    height: 14rpx;
+    background: #e0e0e0;
+    border-radius: 50%;
+    top: 32rpx;
+}
+
+.active::before {
+    left: -12rpx;
+    color: #1890FF;
+    content: '\e6bf';
+    font-family: "iconfont";
+    background: transparent;
+}
+
+.active {
+    color: #212121;
+}
+
+.wllist:first-child::before {
+    top: 0;
+}
+
+.wllist .acceptTime {
+    color: #bdbdbd;
+    font-size: 24rpx;
+    line-height: 34rpx;
+    margin-top: 8rpx;
+}

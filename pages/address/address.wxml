@@ -1,0 +1,22 @@
+<view class="address-box">
+    <view catchtap="bindEditAddressTap" class="addresslist pl24 pr24" data-RegionId="{{item.RegionId}}" data-shippingid="{{item.ShippingId}}" wx:for="{{addressData}}" wx:for-index="idx" wx:key="address-box">
+        <view class="addressname">
+            <view class="addressnamel">{{item.ShipTo}}，{{item.CellPhone}}</view>
+        </view>
+        <view class="addresscont font28 line-height36 pb24" style="{{!item.LatLng&&OpenMultStore?'padding-right:72rpx':''}}">{{item.FullAddress}}<view class="update" wx:if="{{!item.LatLng&&OpenMultStore}}">
+                <text class="iconfont icon-update"></text>升级</view>
+        </view>
+        <view class="addressmor">
+            <view class="addressmorl">
+                <radio catchtap="bindRadioAddressChange" checked="{{item.IsDefault}}" color="{{PrimaryColor}}" data-shippingid="{{item.ShippingId}}" size="20" value="value"></radio>
+                <text class="{{item.IsDefault?'active':''}}">{{item.IsDefault?'默认地址':'设为默认'}}</text>
+            </view>
+            <view catchtap="bindDeleteAddressTap" class="addressmorr" data-shippingid="{{item.ShippingId}}">
+                <view class="iconfont icon__trash"></view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="xinzheng">
+    <button bindtap="bindAddAddressTap" data-value="{{addressData.length}}" hidden="{{addressData.length>=20}}" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}">添加收货地址</button>
+</view>

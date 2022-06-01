@@ -1,0 +1,364 @@
+<import src="../wxParse/wxParse.wxml"></import>
+<view class="container {{ProductName?'':'transparent'}} {{hidden?'u-fixed':''}}">
+    <swiper autoplay indicatorDots class="swiper-box">
+        <swiper-item wx:if="{{videoPath}}">
+            <image class="slide-image" mode="aspectFill" src="{{defaultImg}}"></image>
+            <image bindtap="showVideo" class="fake-start-btn" mode="aspectFill" src="../../images/start.png"></image>
+        </swiper-item>
+        <swiper-item wx:for="{{ProductImgs}}" wx:key="*this">
+            <image class="slide-image" mode="aspectFit" src="{{item}}"></image>
+        </swiper-item>
+    </swiper>
+    <view class="taojstime clearfix {{CountDownStatus=='AboutToBegin'?'jijkais':CountDownStatus=='ActivityEnd'||!allStock?'jstime':''}}" wx:if="{{activeid}}">
+        <view class="limit-pricel">
+            <view class="limit-saleprice">￥<text>{{MinSalePrice}}</text>
+            </view>
+            <view class="limit-oldprice" style="{{MarketPrice==0?'opacity:0':''}}">￥<text>{{MarketPrice}}</text>
+            </view>
+            <view class="limit-count" wx:if="{{MaxCount}}">每人限购{{MaxCount}}{{Unit?Unit:'件'}}</view>
+        </view>
+        <view class="jshuright" wx:if="{{CountDownStatus=='AboutToBegin'}}">距开始
+      <view>
+                <text>{{StartClock[0]}}</text>天<text>{{StartClock[1]}}</text>时<text>{{StartClock[2]}}</text>分<text>{{StartClock[3]}}</text>秒
+      </view>
+        </view>
+        <view class="jshuright" wx:elif="{{CountDownStatus=='ActivityEnd'}}">已结束</view>
+        <view class="jshuright" wx:else>{{!allStock?'已售罄':'距结束'}}
+      <view>
+                <text>{{EndClock[0]}}</text>天<text>{{EndClock[1]}}</text>时<text>{{EndClock[2]}}</text>分<text>{{EndClock[3]}}</text>秒
+      </view>
+        </view>
+    </view>
+    <view class="productcont">
+        <view class="productjs pl24 pr24">
+            <view class="price-line clearfix" wx:if="{{!activeid}}">
+                <view class="saleprice" style="color:{{PrimaryColor}}">￥<text style="{{ShowPrice.length>4?'font-size:64rpx':''}}">{{ShowPrice}}</text>
+                </view>
+                <view class="oldprice" style="{{MarketPrice==0?'opacity:0':''}}">￥<text>{{MarketPrice}}</text>
+                </view>
+                <view class="price-tags">
+                    <text class="tag" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}" wx:if="{{gradeName}}">{{gradeName}}价</text>
+                    <text class="tag" wx:if="{{PhoneDiscountAmount&&!activeid}}">
+                        <text class="iconfont icon-phone" style="color:{{PrimaryTxtColor}}"></text>手机购买省{{PhoneDiscountAmount}}元</text>
+                </view>
+            </view>
+            <view class="name_share clearfix">
+                <view class="product-name">{{ProductName}}</view>
+                <button class="share-icon" openType="share">
+                    <text class="iconfont icon-share" style="color:{{PrimaryColor}}"></text>
+                </button>
+            </view>
+            <view bindtap="activityOpen" class="product-detail-activity-hint" data-url="{{activityTypeUrl}}" wx:if="{{ActiveType==4}}">该商品正在参加{{activityTypeText}}活动，去看看</view>
+            <view class="jjname" wx:if="{{ShortDescription}}">{{ShortDescription}}</view>
+            <view class="supplier" wx:if="{{SupplierId}}">
+                <view class="supplier-icon">
+                    <icon class="iconfont _gongyingshang gyscolor" role="img" style="color:{{PrimaryColor}}"></icon>
+                    <text>{{SupplierName}}</text>
+                </view>
+            </view>
+        </view>
+        <view class="additive {{activeid?'':'unlimit'}}">
+            <view>已售{{ShowSaleCounts}}{{Unit?Unit:'件'}}<text wx:if="{{referralId&&ReferralMoney}}"> / 剩{{allStock}}{{Unit?Unit:'件'}}</text>
+            </view>
+            <view wx:if="{{!(referralId&&ReferralMoney)}}">剩{{allStock}}{{Unit?Unit:'件'}}</view>
+            <view wx:if="{{!ProductType&&!storeid}}">{{Freight!=0?'运费'+Freight+'元':'免运费'}}</view>
+            <view wx:if="{{!ProductType&&storeid}}">{{StoreInfo.StoreFreight!=0?'配送费'+StoreInfo.StoreFreight+'元':'免配送费'}}</view>
+            <view wx:if="{{referralId&&ReferralMoney}}">预计佣金<text class="light" style="color:{{PrimaryColor}}">{{ReferralMoney}}</text>元</view>
+        </view>
+        <view bindtap="clickCouponList" class="hdonglist promotelist" hidden="{{Coupons.length<=0}}">
+            <view class="counpon-icon">
+                <view class="badge {{activeid?'light':''}}">优惠券</view>
+                <text>有优惠券可领取</text>
+            </view>
+            <view class="iconfont arrow_right"></view>
+        </view>
+        <view bindtap="clickPromoteList" class="hdonglist promotelist" wx:if="{{FullAmountReduce&&!ProductType}}">
+            <view class="counpon-icon">
+                <view class="badge {{activeid?'light':''}}">满额减</view>
+                <text>{{FullAmountReduce}}</text>
+            </view>
+            <view class="iconfont arrow_right"></view>
+        </view>
+        <view bindtap="clickPromoteList" class="hdonglist promotelist" wx:if="{{FullAmountSentFreight&&!ProductType}}">
+            <view class="counpon-icon">
+                <view class="badge {{activeid?'light':''}}">满额免</view>
+                <text>{{FullAmountSentFreight}}</text>
+            </view>
+            <view class="iconfont arrow_right"></view>
+        </view>
+        <view bindtap="clickPromoteList" class="hdonglist promotelist" wx:if="{{FullAmountSentGift&&!ProductType}}">
+            <view class="counpon-icon">
+                <view class="badge {{activeid?'light':''}}">满额送</view>
+                <text>{{FullAmountSentGift}}</text>
+            </view>
+            <view class="iconfont arrow_right"></view>
+        </view>
+        <view bindtap="clickPromoteList" class="hdonglist promotelist" hidden="{{!ProductPromotion||storeid>0}}" wx:if="{{!ProductType}}">
+            <view class="counpon-icon">
+                <view class="badge {{activeid?'light':''}}">促销优惠</view>
+                <text>{{ProductPromotion}}</text>
+            </view>
+            <view class="iconfont arrow_right"></view>
+        </view>
+        <view class="virtual" wx:if="{{ProductType}}">
+            <view class="virtual-item">
+                <view wx:if="{{IsRefund&&IsOverRefund}}">
+                    <image src="../../images/service_gou.png"></image>随时退</view>
+                <view wx:elif="{{!IsRefund}}">
+                    <image src="../../images/service_gou.png"></image>不可退款</view>
+                <view wx:elif="{{IsRefund&&!IsOverRefund}}">
+                    <image src="../../images/service_gou.png"></image>过期前可退</view>
+            </view>
+      有效期：
+      <text wx:if="{{IsValid}}">长期有效</text>
+            <text wx:else>{{ValidStartDate}} ~ {{ValidEndDate}}</text>
+        </view>
+        <view bindtap="goStore" class="store" hidden="{{(!canBuyTime||!IsOnSale||!allStock)&&IsRecommandStore&&storeList.length}}" wx:if="{{storeid&&StoreInfo}}">
+            <view class="store-info clearfix">
+                <image mode="aspectFill" src="{{StoreInfo.StoreImages}}"></image>
+                <view class="store-name">{{StoreInfo.StoreName}}</view>
+                <view class="store-address">{{StoreInfo.Address}}</view>
+                <view catchtap="OpenWap" class="store-map">
+                    <text class="iconfont icon_locate"></text>
+                    <view>{{StoreInfo.Distance}}</view>
+                </view>
+            </view>
+            <view class="store-delivery clearfix">
+                <view class="item" wx:if="{{StoreInfo.IsPickUpInStore}}">
+                    <text class="iconfont right" style="color:{{PrimaryColor}}"></text>门店自提</view>
+                <view class="item" wx:if="{{StoreInfo.IsSupportExpress}}">
+                    <text class="iconfont right" style="color:{{PrimaryColor}}"></text>快递配送</view>
+                <view class="item" wx:if="{{StoreInfo.IsStoreDelive}}">
+                    <text class="iconfont right" style="color:{{PrimaryColor}}"></text>门店配送</view>
+                <view class="price" wx:if="{{StoreInfo.IsStoreDelive}}">￥ <text>{{StoreInfo.MinOrderPrice}}</text> 起送</view>
+            </view>
+        </view>
+        <view class="store-other" hidden="{{!storeList.length}}" wx:if="{{(!canBuyTime||!IsOnSale||!allStock)&&storeid>0&&IsRecommandStore}}">
+            <view>以下门店也有货</view>
+            <scroll-view scrollX class="store-list">
+                <view bindtap="changeStore" class="item" data-id="{{item.StoreId}}" wx:for="{{storeList}}" wx:key="{{item.StoreId}}">
+                    <view class="name">{{item.StoreName}}</view>
+                    <view>
+                        <text class="iconfont location"></text>{{item.Distance}}
+            <text class="freight">运费{{item.StoreFreight}}元</text>
+                    </view>
+                </view>
+            </scroll-view>
+        </view>
+        <view bindtap="goNearbyStore" class="hdonglist other" wx:if="{{!storeid&&!SupplierId&&OpenMultStore}}">
+            <view class="counpon-icon overtxt">查看相关门店</view>
+            <view class="iconfont arrow_right font32"></view>
+        </view>
+        <view bindtap="clickSku" class="hdonglist other" data-type="1">
+            <view class="counpon-icon overtxt">{{SelectSpecifications}}</view>
+            <view class="iconfont arrow_right font32"></view>
+        </view>
+        <view hidden="{{CombinationProductList.length==1&&CombinationProductList[0].ProductId==ProductId}}">
+            <view bindtap="gopurchase" class="hdonglist other" data-type="1" wx:if="{{CombinationProductList.length>0}}">
+                <view class="counpon-icon overtxt">自由搭配</view>
+                <view class="iconfont arrow_right font32"></view>
+            </view>
+            <scroll-view class="purchase" scrollX="true" wx:if="{{CombinationProductList.length>0}}">
+                <view bindtap="gopurchase" class="list" wx:if="{{item.Totalstock>0}}" wx:for="{{CombinationProductList}}" wx:key="{{index}}">
+                    <image src="{{item.ThumbnailUrl180}}"></image>
+                    <text>￥{{item.MinCombinationPrice}}</text>
+                    <text class="iconfont plus_regular"></text>
+                </view>
+            </scroll-view>
+        </view>
+        <navigator class="hdonglist other" url="../commentlist/commentlist?id={{ProductId}}">
+            <view class="counpon-icon">商品评价({{ReviewCount!=null?ReviewCount:0}})</view>
+            <view class="iconfont arrow_right font32"></view>
+        </navigator>
+        <view class="productxq">
+            <view class="xqtitle" wx:if="{{ExtendAttribute.length>0}}">
+                <view class="coupontitle">
+                    <view class="coupontitlel">
+                        <view bindtap="onTabClick" class="{{DetailStatus}}" data-status="0">详情描述</view>
+                    </view>
+                    <view class="coupontitlel" wx:if="{{ExtendAttribute.length>0}}">
+                        <view bindtap="onTabClick" class="{{AttributeStatus}}" data-status="1">产品参数</view>
+                    </view>
+                </view>
+            </view>
+            <view class="xqcont" wx:if="{{DetailStatus=='active'}}">
+                <view class="wxParse">
+                    <template is="wxParse" data="{{wxParseData:metaDescription.nodes}}"></template>
+                </view>
+            </view>
+            <view class="xqattr" wx:if="{{AttributeStatus=='active'}}">
+                <text wx:for="{{ExtendAttribute}}" wx:key="*this">{{item.ExtAttrName+'：'+item.ExtAttrValue}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="btn-area">
+        <navigator hoverClass="navigator-hover" openType="switchTab" url="../home/home">
+            <text class="iconfont home"></text>
+      主页
+    </navigator>
+        <navigator>
+            <button openType="contact">
+                <text class="iconfont icon-service"></text>
+            </button>
+      客服
+    </navigator>
+        <navigator hoverClass="navigator-hover" openType="switchTab" url="../cart/cart" wx:if="{{!activeid&&!ProductType}}">
+            <text class="iconfont icon__cart"></text>
+      购物车
+      <view class="cart_num" hidden="{{CartQuantity==0}}">
+                <text>{{CartQuantity}}</text>
+            </view>
+        </navigator>
+        <block wx:if="{{!activeid}}">
+            <block wx:if="{{IsOnSale&&ActiveType!=2&&allStock}}">
+                <view bindtap="addShopCart" class="btn goumai shop" style="background:{{SecondaryColor}};color:{{SecondaryTxtColor}}" wx:if="{{!ProductType}}">
+          加入购物车
+        </view>
+                <view bindtap="clickSku" class="btn goumai" data-type="0" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}" url="" wx:if="{{canBuyTime}}">
+          立即购买
+        </view>
+                <view class="btn btn-disabled" hoverClass="" url="" wx:if="{{!canBuyTime}}">
+          {{!StoreInfo.IsOpen?'歇业中':'非营业时间'}}
+        </view>
+            </block>
+            <view class="btn btn-disabled" wx:elif="{{ActiveType==2}}">暂时无法购买</view>
+            <view class="btn btn-disabled" style="background:{{SecondaryColor}};color:{{SecondaryTxtColor}}" wx:else>{{!allStock?'已售罄':'已下架'}}</view>
+        </block>
+        <block wx:else>
+            <view class="btn btn-disabled" style="background:{{SecondaryColor}};color:{{SecondaryTxtColor}}" wx:if="{{!allStock}}">已售罄</view>
+            <view class="btn btn-disabled" style="background:{{SecondaryColor}};color:{{SecondaryTxtColor}}" wx:elif="{{!canBuyTime}}">{{!StoreInfo.IsOpen?'歇业中':'非营业时间'}}</view>
+            <block wx:else>
+                <view bindtap="clickSku" class="btn goumai" data-type="0" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}" wx:if="{{CountDownStatus=='Normal'}}">立即抢购</view>
+                <view class="btn btn-nostart" style="background:{{SecondaryColor}};color:{{SecondaryTxtColor}}" wx:if="{{CountDownStatus=='AboutToBegin'}}">即将开始</view>
+                <view class="btn btn-disabled" wx:if="{{CountDownStatus=='ActivityEnd'}}">活动结束</view>
+                <view class="btn btn-disabled" wx:if="{{CountDownStatus=='NoJoin'}}">暂时无法购买</view>
+            </block>
+        </block>
+    </view>
+    <view class="poster-box-nav" style="background:{{PrimaryColor}}">
+        <button bindtap="showSharePoster">
+            <text class="iconfont icon-poster"></text>
+        </button>
+    </view>
+    <view bindtap="{{isJumpLink?'goToCopyright':''}}" class="copyright" style="display:{{isShowHishopCopyRight?'block':'none'}}"></view>
+</view>
+<view bindtap="clickback" class="btmbg {{backShow}}"></view>
+<view class="lqyhq {{couponShow}}" style="background: #f5f5f5;">
+    <view class="lqyhqtitle">
+        <text>领取优惠券</text>
+        <view bindtap="onCouponHide" class="guigecha">
+            <view class="iconfont icon__close font40"></view>
+        </view>
+    </view>
+    <view class="gouwqnr">
+        <view class="youhuiquan" wx:for="{{Coupons}}" wx:key="CouponId">
+            <view class="nrong">
+                <view class="nrje">
+            ￥
+            <text>{{item.Price}}</text>
+                </view>
+                <view class="nrtimelist">{{item.CanUseProduct}}</view>
+            </view>
+            <view class="nrtimelqan">
+                <view class="nrtimelist-con">
+                    <view class="nrtimelist">
+                        <view class="dian">■</view>
+                        <view>{{item.LimitText}}</view>
+                    </view>
+                    <view class="nrtimelist">
+                        <view class="dian">■</view>
+                        <view>{{item.StartTimeText}}-{{item.ClosingTimeText}}</view>
+                    </view>
+                </view>
+                <button bindtap="getCoupon" id="{{item.CouponId}}">领取</button>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="lqyhq  {{promoteShow}}">
+    <view class="lqyhqtitle">
+        <text>优惠活动</text>
+        <view bindtap="onPromoteHide" class="guigecha">
+            <view class="iconfont icon__close font40"></view>
+        </view>
+    </view>
+    <view class="promote_con">
+        <view class="promote_item" wx:for="{{Promotes.FullAmountSentFreightList}}" wx:key="ActivityId">
+            <view class="promote_item1">
+                <view class="badge">满额包邮</view>
+            </view>
+            <text>{{item.ActivityName}}</text>
+        </view>
+        <view class="promote_item" wx:for="{{Promotes.FullAmountReduceList}}" wx:key="ActivityId">
+            <view class="promote_item1">
+                <view class="badge">满额减</view>
+            </view>
+            <text>{{item.ActivityName}}</text>
+        </view>
+        <view class="promote_item" wx:for="{{Promotes.FullAmountSentGiftList}}" wx:key="ActivityId">
+            <view class="promote_item1">
+                <view class="badge">满额送</view>
+            </view>
+            <text>{{item.ActivityName}}</text>
+        </view>
+        <view class="promote_item" wx:if="{{ProductPromotion&&storeid==0}}">
+            <view class="promote_item1">
+                <view class="badge">满额送</view>
+            </view>
+            <text>{{ProductPromotion}}</text>
+        </view>
+    </view>
+</view>
+<view class="lqyhq skuchoose {{SkuShow}}">
+    <view class="positionre">
+        <view class="guige border-bottom">
+            <image bindtap="parseImgTap" class="lqicon guigeimg" data-src="{{skuImg}}" mode="aspectFill" src="{{skuImg}}"></image>
+            <view class="guigecont">
+                <view class="sku-price" style="color:{{PrimaryColor}}">￥<text>{{skuPrice}}</text>
+                </view>
+                <view class="guigeyxhs" hidden="{{SkuItemList==''||SkuItemList.length==0}}">已选：{{selectedSkuContent}}</view>
+            </view>
+            <view bindtap="onSkuHide" class="guigecha">
+                <view class="iconfont icon__close font40"></view>
+            </view>
+        </view>
+        <view class="nronggaodu">
+            <view class="sezhi" wx:for="{{SkuItemList}}" wx:for-index="i" wx:key="AttributeId">
+                <view class="sezhititle font28 line_height40">{{item.AttributeName}}</view>
+                <view class="sezhicont mt8">
+                    <text bindtap="{{sku.disabled?'':'swithSku'}}" class="{{sku.disabled?'disable':''}} {{sku.ValueId==skuArr[i+1]?'active':''}}" data-id="{{sku.ValueId}}" data-img="{{sku.ImageUrl}}" data-index="{{i}}" data-skuvalue="{{sku.Value}}" style="{{sku.ValueId==skuArr[i+1]?'background:'+PrimaryColor+';'+'color:'+PrimaryTxtColor+';'+'border-color:'+PrimaryColor:''}}" wx:for="{{item.AttributeValue}}" wx:for-item="sku" wx:key="ValueId">{{sku.Value}}</text>
+                </view>
+            </view>
+            <view class="sezhi_last_child" hidden="{{SkuItemList==''||SkuItemList.length==0}}"></view>
+            <view class="goumaisl">
+                <text>数量</text>
+                <view class="goumkuang">
+                    <view bindtap="reduceAmount" class="jian">
+                        <view class="iconfont icon__minus_L  font24"></view>
+                    </view>
+                    <input bindconfirm="changeAmount" bindinput="changeAmount" placeholder="{{buyAmount}}" type="number" value="{{buyAmount}}"></input>
+                    <view bindtap="addAmount" class="jia">
+                        <view class="iconfont icon__plus_L  font24"></view>
+                    </view>
+                </view>
+                <view class="guigeconkc" wx:if="{{curSkuData}}">剩余{{skuStock}}{{Unit?Unit:'件'}}</view>
+                <view class="guigeconkc color-theme" wx:if="{{MaxCount}}">(限购{{MaxCount}}{{Unit?Unit:'件'}})</view>
+            </view>
+        </view>
+        <view class="skubtn" wx:if="{{isbuy&&canBuyTime&&allStock}}">
+            <button bindtap="addSku" class="btn-confirm" style="background:{{SecondaryColor}};color:{{SecondaryTxtColor}}" wx:if="{{skutype==1}}">加入购物车</button>
+            <button bindtap="commitBuy" class="btn-confirm {{skutype!=1?'dlbtn':''}}" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}};">{{ActiveText}}</button>
+        </view>
+        <button bindtap="addSku" class="btn-confirm" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}" wx:if="{{!isbuy&&allStock}}">加入购物车</button>
+        <button class="btn-confirm btn-disabled" style="background:{{SecondaryColor}};color:{{SecondaryTxtColor}}" wx:if="{{!allStock}}">已售罄</button>
+        <button class="btn-confirm btn-disabled" style="background:{{SecondaryColor}};color:{{SecondaryTxtColor}}" wx:if="{{isbuy&&!canBuyTime}}">{{!StoreInfo.IsOpen?'歇业中':'非营业时间'}}</button>
+    </view>
+</view>
+<view class="poster-bg" wx:if="{{showPoster}}">
+    <view class="poster">
+        <painter bind:imgOK="onImgOK" palette="{{posterData}}"></painter>
+    </view>
+    <view bindtap="savePoster" class="poster-btn" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">保存海报</view>
+</view>
+<video autoplay="true" class="fake-full-video" src="{{videoPath}}" wx:if="{{showVideo}}"></video>
+<cover-view bindtap="closeVideo" class="close-video" style="background-color:{{PrimaryColor}}" wx:if="{{showVideo}}">关闭视频</cover-view>

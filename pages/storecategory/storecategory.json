@@ -1,0 +1,8 @@
+{
+    "navigationBarTitleText": "门店商品",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "usingComponents": {
+        "productcategory": "/components/productcategory/productcategory"
+    }
+}

@@ -1,0 +1,84 @@
+page {
+    background: #f0f0f0;
+}
+
+.group-list .item {
+    position: relative;
+}
+
+.group-list image {
+    width: 100%;
+    display: block;
+}
+
+.group-list .info {
+    padding: 32rpx 140rpx 32rpx 32rpx;
+    background: #fff;
+    position: relative;
+    border-top: 4rpx solid #ff5722;
+}
+
+.group-list .name {
+    font-size: 32rpx;
+    line-height: 48rpx;
+    margin-bottom: 16rpx;
+}
+
+.group-list .price {
+    color: #ff5722;
+}
+
+.group-list .price text {
+    font-size: 36rpx;
+}
+
+.group-list .price text.old {
+    text-decoration: line-through;
+    color: #999;
+    font-size: 26rpx;
+    margin-left: 16rpx;
+}
+
+.group-list .tag {
+    position: absolute;
+    top: 0;
+    right: 32rpx;
+    color: #fff;
+    text-align: center;
+    width: 74rpx;
+    height: 140rpx;
+    box-sizing: border-box;
+    padding-top: 60rpx;
+    z-index: 1;
+}
+
+.group-list .tag view {
+    font-size: 24rpx;
+}
+
+.group-list .tag image {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+}
+
+.booking {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 228rpx;
+    background: rgba(0,0,0,0.5);
+}
+
+.booking image {
+    width: 212rpx;
+    height: 52rpx;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -26rpx 0 0 -106rpx;
+}

@@ -1,0 +1,1 @@
+<productlist categoryid="{{categoryid}}" id="productlist" keyword="{{keyword}}" productIds="{{productIds}}" storeid="{{storeid}}"></productlist>

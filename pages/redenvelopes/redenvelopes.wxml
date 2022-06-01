@@ -1,0 +1,33 @@
+<view class="box" wx:if="{{code==10||code==2}}">
+    <image class="img_1" src="/images/hb_s_1.jpg"></image>
+    <image class="img_2" src="/images/hb_s_2.jpg"></image>
+    <image class="img_3" src="/images/hb_s_3.jpg"></image>
+    <view class="pirce">
+        <text>¥{{EnvelopeAmount?EnvelopeAmount:0}}</text>
+    </view>
+</view>
+<view class="box" style="height:731rpx;" wx:if="{{code==4}}">
+    <image class="img_fn" src="/images/hb_fn.jpg"></image>
+</view>
+<view class="box" style="height:710rpx;" wx:if="{{code==3}}">
+    <image class="img_sx" src="/images/hb_t.jpg"></image>
+</view>
+<view class="box" style="height:700rpx" wx:if="{{code==0||code==1}}">
+    <image class="img_yc" src="/images/hb_f.jpg"></image>
+</view>
+<view class="btnshop">
+    <button bindtap="bindTaphome">去购物</button>
+</view>
+<view class="conlist" wx:if="{{RedEnvelopeGetRecords.length>0}}">
+    <view class="title">看朋友们的手气如何</view>
+    <view class="userlist">
+        <view class="list" wx:for="{{RedEnvelopeGetRecords}}" wx:key="{{index}}">
+            <image src="{{item.HeadImgUrl}}"></image>
+            <view class="userde">
+                <view class="username">{{item.NickName?item.NickName:item.UserName}}</view>
+                <view class="usertime">{{item.GetTime}}</view>
+            </view>
+            <view class="userpirce">¥{{item.Amount}}</view>
+        </view>
+    </view>
+</view>

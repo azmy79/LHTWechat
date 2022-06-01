@@ -1,0 +1,165 @@
+<import src="../wxParse/wxParse.wxml"></import>
+<view class="container {{ProductName?'':'transparent'}} {{hidden?'u-fixed':''}}">
+    <view class="group-tag">
+        <image mode="aspectFill" src="/images/group-tag{{Status==2?'-booking':''}}.png"></image>
+  {{MaxJoinCount}}<view>人团</view>
+    </view>
+    <swiper autoplay indicatorDots class="swiper-box">
+        <swiper-item wx:if="{{videoPath}}">
+            <image class="slide-image" mode="aspectFill" src="{{defaultImg}}"></image>
+            <image bindtap="showVideo" class="fake-start-btn" mode="aspectFill" src="../../images/start.png"></image>
+        </swiper-item>
+        <swiper-item wx:for="{{ProductImgs}}" wx:key="*this">
+            <image class="slide-image" mode="aspectFit" src="{{item}}"></image>
+        </swiper-item>
+    </swiper>
+    <view class="productcont">
+        <view class="activity-info activity-booking" style="background:{{PrimaryColor}}" wx:if="{{Status==2}}">
+            <text class="iconfont icon__clock-"></text>开团时间：{{StartTime}}
+    </view>
+        <view class="activity-info" style="background:{{PrimaryColor}}" wx:else>
+            <text class="iconfont icon__clock-"></text>成团时限：{{LimitedHour}} 小时
+      <text class="activity-time" wx:if="{{!groupid}}">活动截止：{{EndTime}} </text>
+            <view class="activity-time" wx:elif="{{timeOver&&isCanJoin}}">
+        距结束：<text>{{timeOver[0]}}</text> : <text>{{timeOver[1]}}</text> : <text>{{timeOver[2]}}</text>
+            </view>
+        </view>
+        <view class="productjs pl24 pr24">
+            <view class="product-name">{{ProductName}}</view>
+            <view class="price-line clearfix">
+                <view class="saleprice {{Status==2?'saleprice-booking':''}}" style="color:{{PrimaryColor}}">火拼价: ￥
+          <text style="color:{{PrimaryColor}}">{{ShowPrice}}</text>
+                </view>
+                <view class="oldprice" wx:if="{{SalePrice!=0}}">原价:￥<text>{{SalePrice}}</text>
+                </view>
+            </view>
+            <view class="supplier" wx:if="{{SupplierName}}">
+                <view class="supplier-icon">
+                    <icon class="iconfont _gongyingshang gyscolor" role="img" style="color:{{PrimaryColor}}"></icon>
+                    <text>{{SupplierName}}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="group-list" wx:if="{{groupItems.length}}">
+        <block wx:if="{{!groupid}}">
+            <view class="title">以下小伙伴正在发起拼团，您可直接参与</view>
+            <view class="group-item border-bottom" wx:for="{{groupItems}}">
+                <view>
+                    <image src="{{item.HeadImage}}"></image>
+                    <text class="tag border" style="color:{{PrimaryColor}};border-color:{{PrimaryColor}}">团长</text>
+          {{item.NickName}}
+        </view>
+                <view class="info">
+                    <view>还差<text style="color:{{PrimaryColor}}">{{item.NeedJoinNumber}}</text>人</view>
+                    <view>
+                        <text style="color:{{PrimaryColor}}">{{item.time}}</text>{{item.RemainTime>3600?'小时':'分钟'}}后结束</view>
+                    <text bindtap="handleJoin" class="join" data-groupid="{{item.FightGroupId}}" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">参团</text>
+                </view>
+            </view>
+        </block>
+        <block wx:else>
+            <view class="title-join">已参团的小伙伴<block wx:if="{{groupItems!=null&&groupItems[0].NeedJoinNumber>0}}">，还差 <text style="color:{{PrimaryColor}}">{{groupItems[0].NeedJoinNumber}}</text>人</block>
+            </view>
+            <view class="user-list" wx:if="{{groupItems[0]}}">
+                <view class="item" wx:for="{{groupItems[0].JoinMembers}}" wx:for-item="user" wx:key="{{user.UserId}}">
+                    <view class="photo border">
+                        <image mode="aspectFill" src="{{user.Picture}}"></image>
+                        <image class="star" src="/images/star.png" wx:if="{{user.IsFightGroupHead}}"></image>
+                    </view>
+                    <view class="name">{{user.Name}}</view>
+                </view>
+                <view class="item">
+                    <view class="photo" wx:if="{{groupItems[0].NeedJoinNumber}}">
+                        <image src="/images/default-user.png"></image>
+                    </view>
+                </view>
+            </view>
+            <image class="status" mode="{{groupItems[0].Status===2||groupItems[0].Status===0?'center':'top'}}" src="/images/group-status.png" wx:if="{{!isCanJoin}}"></image>
+        </block>
+    </view>
+    <view class="group-rule">
+        <text class="iconfont icon-info" style="color:{{PrimaryColor}}"></text>活动规则：{{MaxJoinCount}}人即可成团，人数不足自动退款 </view>
+    <navigator class="hdonglist other" url="../commentlist/commentlist?id={{productId}}">
+        <view class="counpon-icon">商品评价({{ReviewCount!=null?ReviewCount:0}})</view>
+        <view class="iconfont arrow_right font32"></view>
+    </navigator>
+    <view class="productxq">
+        <view class="xqcont">
+            <view class="wxParse">
+                <template is="wxParse" data="{{wxParseData:metaDescription.nodes}}"></template>
+            </view>
+        </view>
+    </view>
+    <view class="btn-area">
+        <block wx:if="{{Status!=1&&!groupid}}">
+            <view bindtap="clickSku" class="btn border" data-type="0" style="color:{{PrimaryColor}};border-color:{{PrimaryColor}}">￥{{SalePrice}} 原价买</view>
+            <view bindtap="goFightList" class="btn goumai" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}">更多拼团</view>
+        </block>
+        <block wx:elif="{{!groupid}}">
+            <view bindtap="clickSku" class="btn border" data-type="0" style="color:{{PrimaryColor}};border-color:{{PrimaryColor}}">￥{{SalePrice}} 原价买</view>
+            <view bindtap="clickSku" class="btn goumai" data-type="1" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}">￥{{FightPrice}} 去拼团</view>
+        </block>
+        <button class="btn goumai" openType="share" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}" wx:elif="{{groupid&&isJoin&&isCanJoin}}">邀请好友</button>
+        <block wx:else>
+            <view bindtap="goFightList" class="btn border" style="color:{{PrimaryColor}};border-color:{{PrimaryColor}}">更多拼团</view>
+            <view bindtap="clickSku" class="btn goumai" data-type="1" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}">{{isCanJoin?'参加火拼':'我也要开团'}}</view>
+        </block>
+    </view>
+    <view class="poster-box-nav" style="background:{{PrimaryColor}}">
+        <button bindtap="showSharePoster">
+            <text class="iconfont icon-poster"></text>
+        </button>
+    </view>
+    <view bindtap="{{isJumpLink?'goToCopyright':''}}" class="copyright" style="display:{{isShowHishopCopyRight?'block':'none'}}"></view>
+</view>
+<view bindtap="onSkuHide" class="btmbg" hidden="{{!showSku}}"></view>
+<view bindtap="clickback" class="btmbg" hidden="{{!backShow}}"></view>
+<view class="lqyhq skuchoose {{SkuShow}}" hidden="{{!showSku}}">
+    <view class="positionre">
+        <view class="guige border-bottom">
+            <image class="lqicon guigeimg" mode="aspectFill" src="{{skuImg}}"></image>
+            <view class="guigecont">
+                <view class="sku-price" style="color:{{PrimaryColor}}">￥
+          <text>{{skuPrice}}</text>
+                </view>
+                <view class="guigeyxhs" hidden="{{!SkuItemList}}">已选：{{selectedSkuContent}}</view>
+            </view>
+            <view bindtap="onSkuHide" class="guigecha">
+                <view class="iconfont icon__close font40"></view>
+            </view>
+        </view>
+        <view class="nronggaodu">
+            <view class="sezhi" wx:for="{{SkuItemList}}" wx:for-index="i" wx:key="AttributeId">
+                <view class="sezhititle font28 line_height40">{{item.AttributeName}}</view>
+                <view class="sezhicont mt8">
+                    <text bindtap="{{sku.disabled?'':'swithSku'}}" class="{{sku.disabled?'disable':''}} {{sku.ValueId==skuArr[i+1]?'active':''}}" data-id="{{sku.ValueId}}" data-img="{{sku.ImageUrl}}" data-index="{{i}}" data-skuvalue="{{sku.Value}}" wx:for="{{item.AttributeValue}}" wx:for-item="sku" wx:key="ValueId">{{sku.Value}}</text>
+                </view>
+            </view>
+            <view class="sezhi_last_child border-bottom" hidden="{{!SkuItemList}}"></view>
+            <view class="goumaisl">
+                <text>数量</text>
+                <view class="goumkuang">
+                    <view bindtap="reduceAmount" class="jian">
+                        <view class="iconfont icon__minus_L  font24"></view>
+                    </view>
+                    <input bindconfirm="changeAmount" bindinput="changeAmount" placeholder="{{buyAmount}}" type="number" value="{{buyAmount}}"></input>
+                    <view bindtap="addAmount" class="jia">
+                        <view class="iconfont icon__plus_L  font24"></view>
+                    </view>
+                </view>
+                <view class="guigeconkc" wx:if="{{curSkuData}}">剩余{{skuStock}}件</view>
+                <view class="guigeconkc color-theme" wx:if="{{MaxCount&&buyType}}">(限购{{MaxCount}}件)</view>
+            </view>
+        </view>
+        <button bindtap="commitBuy" class="btn-confirm" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">确认</button>
+    </view>
+</view>
+<view class="poster-bg" wx:if="{{showPoster}}">
+    <view class="poster">
+        <painter bind:imgOK="onImgOK" palette="{{posterData}}"></painter>
+    </view>
+    <view bindtap="savePoster" class="poster-btn" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">保存海报</view>
+</view>
+<video autoplay="true" class="fake-full-video" src="{{videoPath}}" wx:if="{{showVideo}}"></video>
+<cover-view bindtap="closeVideo" class="close-video" style="background-color:{{PrimaryColor}}" wx:if="{{showVideo}}">关闭视频</cover-view>

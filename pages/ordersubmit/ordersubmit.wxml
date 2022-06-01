@@ -1,0 +1,528 @@
+<form wx:if="{{OrderInfo||RecordId}}">
+    <view class="page1" hidden="{{currentPage=='page1'?false:true}}" style="transform:translate({{currentPage=='page1'?0:100}}%, 0%) translateZ(0px);">
+        <block wx:if="{{!productType}}">
+            <view class="peisongtip" hidden="{{HideTip||RecordId}}">当前收货地址不在配送范围，请选择
+        <text class="peisongtip_kd">其它门店</text>
+                <text bindtap="CloseTip" class="tipclose" hidden="true">X</text>
+            </view>
+            <view class="peisong clearfix">
+                <view class="outer clearfix">
+                    <view class="peisong_peisong">配送方式</view>
+                    <view class="peisong_peisonglist">
+                        <view bindtap="SelectShipp" class="peisonname {{ShippType==-1?'active':''}}" data-shipptype="-1" style="{{ShippType==-1?'color:'+PrimaryTxtColor+';'+'background:'+PrimaryColor+';':''}}" wx:if="{{IsStoreDelive}}">门店配送</view>
+                        <view bindtap="SelectShipp" class="peisonname {{ShippType==0?'active':''}}" data-shipptype="0" style="{{ShippType==-0?'color:'+PrimarPrimaryTxtColoryColor+';'+'background:'+PrimaryColor+';':''}}" wx:if="{{!IsStoreDelive&&OrderInfo.IsSupportExpress||IsStartPrice||RecordId}}">快递配送</view>
+                        <view bindtap="SelectShipp" class="peisonname {{ShippType==-2?'active':''}}" data-shipptype="-2" style="{{ShippType==-2?'color:'+PrimaryTxtColor+';'+'background:'+PrimaryColor+';':''}}" wx:if="{{OrderInfo.IsAboveSelf||OrderInfo.IsOpenPickeupInStore&&!OpenMultStore&&!isSupplier&&!fightGroupActivityId||OrderInfo.CanGetGoodsOnStore&&fightGroupActivityId&&!OpenMultStore}}">到店自提</view>
+                        <view bindtap="SelectShipp" class="peisonname {{ShippType==-2?'active':''}}" data-shipptype="-2" style="{{ShippType==-2?'color:'+PrimaryTxtColor+';'+'background:'+PrimaryColor+';':''}}" wx:if="{{OrderInfo.CanGetGoodsOnStore&&OpenMultStore}}">上门自提</view>
+                    </view>
+                </view>
+            </view>
+            <block wx:if="{{ShippType!=-2}}">
+                <view bindtap="addAddresstap" class="address-info" hidden="{{ShippingAddressInfo!=null}}">
+                    <view class="address-outer">
+                        <text class="iconfont icon__locate"></text>
+                        <view class="infos">
+                            <text class="name"></text>
+                            <text class="address"> 请选择一个收货地址</text>
+                        </view>
+                        <text class="iconfont arrow_right"></text>
+                    </view>
+                    <view class="addr-xuanbg">
+                        <image src="/images/order_06.jpg"></image>
+                    </view>
+                </view>
+                <view bindtap="gotoAddress" class="address-info" hidden="{{ShippingAddressInfo==null}}">
+                    <view class="address-outer">
+                        <text class="iconfont icon__locate"></text>
+                        <view class="infos">
+                            <text class="name">{{ShippingAddressInfo.ShipTo}}，{{ShippingAddressInfo.CellPhone}}</text>
+                            <text class="address"> {{ShippingAddressInfo.FullAddress}}</text>
+                        </view>
+                        <text class="iconfont arrow_right"></text>
+                    </view>
+                    <view class="addr-xuanbg">
+                        <image src="/images/order_06.jpg"></image>
+                    </view>
+                </view>
+            </block>
+            <view class="store-info" wx:else>
+                <block wx:if="{{storeId}}">
+                    <view class="yunfei">
+                        <view class="yunfei_time">门店地址：</view>
+                        <view class="liuyabr yunfeir left-center">
+              {{OrderInfo.StoreAddress}}
+            </view>
+                    </view>
+                    <view class="yunfei">
+                        <view class="yunfei_time">营业时间：</view>
+                        <view class="liuyabr yunfeir left-center">
+              {{OrderInfo.StoreOpenTime}}
+            </view>
+                    </view>
+                    <view class="yunfei">
+                        <view class="yunfei_time">联系电话：</view>
+                        <view class="liuyabr yunfeir left-center">
+              {{OrderInfo.StoreTel}}
+            </view>
+                    </view>
+                </block>
+                <view bindtap="handleShowStore" wx:else>
+                    <view class="yunfei" wx:if="{{OrderInfo.IsOpenPickeupInStore&&!OpenMultStore}}">{{OrderInfo.PickeupInStoreRemark}}</view>
+                    <view class="yunfei" wx:elif="{{!storeSelect&&!supportstore}}">本市无可自提的门店</view>
+                    <view class="yunfei" wx:elif="{{!storeSelect&&supportstore}}">请选择门店</view>
+                    <block wx:else>
+                        <view class="yunfei">
+                            <view class="yunfei_time">门店信息：</view>
+                            <view class="liuyabr yunfeir left-center">
+                {{selstorename}}  {{storeSelect.Tel}}
+              </view>
+                        </view>
+                        <view class="yunfei">
+                            <view class="yunfei_time">门店地址：</view>
+                            <view class="liuyabr yunfeir left-center">
+                {{storeSelect.Address}}
+              </view>
+                        </view>
+                        <view class="yunfei">
+                            <view class="left-center distance">
+                {{selstoreopentime}}
+                <text>距您{{storeSelect.Distance}}</text>
+                            </view>
+                        </view>
+                    </block>
+                    <text class="iconfont arrow_right" wx:if="{{!(OrderInfo.IsOpenPickeupInStore&&!OpenMultStore)}}"></text>
+                </view>
+            </view>
+        </block>
+        <view class="orderlist" wx:if="{{RecordId}}">
+            <view bindtap="goProduct" class="orderlistcont" data-id="{{items.ProductId}}">
+                <image mode="aspectFit" src="{{giftimg}}"></image>
+                <view class="orderlisc">
+                    <view class="ordername">{{giftname}}</view>
+                    <view class="ordersize">{{items.SkuContent}}</view>
+                </view>
+                <view class="orderlistright">
+                    <text>0积分</text>
+                    <view>
+                        <text class="iconfont icon__close submit_count"></text>1
+              </view>
+                    <view class="sendquantity" wx:if="{{items.ShippQuantity-items.Quantity}}">
+                赠送:
+                <text class="iconfont icon__close submit_count"></text>{{items.ShippQuantity-items.Quantity}}
+              </view>
+                </view>
+            </view>
+        </view>
+        <view class="orderlist">
+            <block wx:if="Suppliers" wx:for="{{Suppliers}}" wx:key="item.SupplierId">
+                <view class="supplier">
+                    <view class="supplier-icon">
+                        <icon class="iconfont _gongyingshang gyscolor" hidden="{{item.SupplierId==0}}" style="color:{{PrimaryColor}}"></icon>
+                        <icon class="iconfont _pingtai ptcolor" hidden="{{item.SupplierId!=0}}" style="color:{{PrimaryColor}}"></icon>
+                        <text>{{item.SupplierName}}</text>
+                    </view>
+                </view>
+                <block wx:for="{{item.ProductItems}}" wx:for-item="items" wx:key="{{item.SkuID}}">
+                    <view bindtap="goProduct" class="orderlistcont" data-id="{{items.ProductId}}">
+                        <image mode="aspectFit" src="{{items.ThumbnailUrl180}}"></image>
+                        <view class="orderlisc">
+                            <view class="ordername">{{items.Name}}</view>
+                            <view class="ordersize">{{items.SkuContent}}</view>
+                        </view>
+                        <view class="orderlistright">
+                            <text>￥{{items.AdjustedPrice}}</text>
+                            <view>
+                                <text class="iconfont icon__close submit_count"></text>{{items.Quantity}}
+              </view>
+                            <view class="sendquantity" wx:if="{{items.ShippQuantity-items.Quantity}}">
+                赠送:
+                <text class="iconfont icon__close submit_count"></text>{{items.ShippQuantity-items.Quantity}}
+              </view>
+                        </view>
+                    </view>
+                    <view class="sendgiftbox pt24" wx:if="{{items.SendGifts.length}}">
+                        <view class="sendgift" wx:for="{{items.SendGifts}}" wx:for-item="vals">
+                            <text class="sendtxt">赠</text>
+                            <text class="activefont">{{vals.Name}} X {{items.Quantity}}</text>
+                        </view>
+                    </view>
+                </block>
+                <view class="suppliertotal" wx:if="{{!productType}}">{{storeId?'配送费':'运费'}}：
+          <text>￥{{item.Feright}}</text>小计 ：
+          <text>￥{{item.SupplierTotal}}</text>
+                </view>
+            </block>
+            <view class="orderhao pl24" wx:if="{{sendgift.length>0}}">礼品清单</view>
+            <view class="sendgiftbox" wx:for="{{sendgift}}" wx:for-item="items" wx:key="{{item.GiftId}}">
+                <view class="sendgift">
+                    <text class="sendtxt">送</text>
+                    <text>{{items.Name}}{{NeedPoint}}X{{items.Quantity}}</text>
+                </view>
+            </view>
+            <view class="orderhao pl24 pd24" wx:if="{{giftlist.length>0}}">已兑换礼品</view>
+            <view class="orderlistcont" wx:for="{{giftlist}}" wx:for-item="items" wx:key="{{item.GiftId}}">
+                <image mode="aspectFit" src="{{items.ThumbnailUrl180}}"></image>
+                <view class="orderlisc">
+                    <view class="ordername">{{items.Name}}</view>
+                </view>
+                <view class="orderlistright">
+                    <text>{{items.NeedPoint}}积分</text>
+                    <view>
+                        <text class="iconfont icon__close submit_count"></text>{{items.Quantity}} </view>
+                </view>
+            </view>
+            <block wx:if="Stores" wx:for="{{Stores}}" wx:key="item.StoreId">
+                <view class="supplier">
+                    <view class="supplier-icon">
+                        <icon class="iconfont icon_2 gyscolor" style="color:{{PrimaryColor}}"></icon>
+                        <text>{{item.StoreName}}</text>
+                    </view>
+                </view>
+                <view bindtap="goProduct" class="orderlistcont" data-id="{{items.ProductId}}" wx:for="{{item.CartItemInfo}}" wx:for-item="items" wx:key="{{item.SkuID}}">
+                    <image mode="aspectFit" src="{{items.ThumbnailUrl100}}"></image>
+                    <view class="orderlisc">
+                        <view class="ordername">{{items.Name}}</view>
+                        <view class="ordersize">{{items.SkuContent}}</view>
+                    </view>
+                    <view class="orderlistright">
+                        <text>￥{{items.MemberPrice}}</text>
+                        <view>
+                            <text class="iconfont icon__close submit_count"></text>{{items.Quantity}} </view>
+                    </view>
+                </view>
+                <view class="suppliertotal">小计 ：
+          <text>￥{{item.StoreTotal}}</text>
+                </view>
+            </block>
+            <view class="orderlistzong">商品合计 ：￥
+        <text>{{ProductAmount}}</text>
+            </view>
+        </view>
+        <view class="mt24" wx:if="{{productType}}">
+            <view class="virtual clearfix" wx:for="{{VirtualProductItems}}" wx:key="{{item.Id}}">
+                <view class="virtual-labe">
+                    <text class="red" wx:if="{{item.IsRequired}}">*</text>{{item.InputFieldTitle}}</view>
+                <view class="virtual-info">
+                    <input bindinput="changeInfo" data-index="{{index}}" placeholder="{{item.IsRequired?'必填，':''}}请填写{{item.InputFieldTitle}}" type="text" value="{{item.value}}" wx:if="{{item.InputFieldType==1}}"></input>
+                    <picker bindchange="changeInfo" data-index="{{index}}" mode="date" value="{{item.value}}" wx:if="{{item.InputFieldType==2}}">
+                        <view class="picker {{item.value?'':'gray'}}">{{item.value||'年/月/日'}}</view>
+                    </picker>
+                    <input bindinput="changeInfo" data-index="{{index}}" maxlength="18" placeholder="{{item.IsRequired?'必填，':''}}请填写18位身份证号" type="idcard" value="{{item.value}}" wx:if="{{item.InputFieldType==3}}"></input>
+                    <input bindinput="changeInfo" data-index="{{index}}" maxlength="11" placeholder="{{item.IsRequired?'必填，':''}}请填写{{item.InputFieldTitle}}" type="number" value="{{item.value}}" wx:if="{{item.InputFieldType==4}}"></input>
+                    <input bindinput="changeInfo" data-index="{{index}}" placeholder="{{item.IsRequired?'必填，':''}}请填写{{item.InputFieldTitle}}" type="digit" value="{{item.value}}" wx:if="{{item.InputFieldType==5}}"></input>
+                    <view class="uploadImg" wx:if="{{item.InputFieldType==6}}">
+                        <view class="upload-item" wx:for="{{item.imgs}}" wx:for-index="imgindex" wx:for-item="img" wx:key="{{imgindex}}">
+                            <image bindtap="uploadImg" data-imgindex="{{imgindex}}" data-index="{{index}}" mode="aspectFill" src="{{getRequestUrl}}{{img}}"></image>
+                            <text bindtap="delImg" class="iconfont icon-clear" data-imgindex="{{imgindex}}" data-index="{{index}}"></text>
+                        </view>
+                        <view bindtap="uploadImg" class="upload-btn iconfont icon__camera" data-index="{{index}}"></view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="submfs" wx:if="{{ShippType!=-2&&!productType}}">
+            <view class="peisong clearfix">
+                <view class="outer clearfix">
+                    <view class="peisong_peisong">送货时间</view>
+                    <view class="peisong_peisonglist">
+                        <view bindtap="changeDeliverytime" class="peisonname {{Deliverytimetype==0?'active':''}}" data-type="0" style="{{Deliverytimetype==0?'color:'+PrimaryTxtColor+';'+'background:'+PrimaryColor:''}}">任意时间</view>
+                        <view bindtap="changeDeliverytime" class="peisonname {{Deliverytimetype==1?'active':''}}" data-type="1" style="{{Deliverytimetype==1?'color:'+PrimaryTxtColor+';'+'background:'+PrimaryColor:''}}">工作日</view>
+                        <view bindtap="changeDeliverytime" class="peisonname {{Deliverytimetype==2?'active':''}}" data-type="2" style="{{Deliverytimetype==2?'color:'+PrimaryTxtColor+';'+'background:'+PrimaryColor:''}}">节假日</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="submfs">
+            <view class="peisong clearfix">
+                <view class="outer clearfix">
+                    <view class="peisong_peisong">支付方式</view>
+                    <view class="peisong_peisonglist">
+                        <view bindtap="changePayment" class="peisonname {{paymentType==0?'active':''}}" data-type="0" style="{{paymentType==0?'color:'+PrimaryTxtColor+';'+'background:'+PrimaryColor:''}}" wx:if="{{IsOnlinePay||RecordId}}">在线支付</view>
+                        <view bindtap="changePayment" class="peisonname {{paymentType==1?'active':''}}" data-type="1" style="{{paymentType==1?'color:'+PrimaryTxtColor+';'+'background:'+PrimaryColor:''}}" wx:if="{{IsCashOnDelivery&&ShippType!=-2&&!CountdownId&&!productType&&ProductSku!=''}}">货到付款</view>
+                        <view bindtap="changePayment" class="peisonname {{paymentType==-3?'active':''}}" data-type="-3" style="{{paymentType==-3?'color:'+PrimaryTxtColor+';'+'background:'+PrimaryColor:''}}" wx:if="{{IsOfflinePay&&ShippType==-2&&!CountdownId&&!productType&&ProductSku!=''}}">到店支付</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="submfs">
+            <view class="yunfei hidden" wx:if="{{!productType}}">
+                <view class="yunfeil">配送方式</view>
+                <view class="yunfeir">
+                    <block wx:if="{{ShippType==-1}}">门店配送</block>
+                    <block wx:elif="{{ShippType==0}}">快递配送</block>
+                    <block wx:elif="{{ShippType==-2}}">到店自提</block>
+                    <block wx:if="{{ShippType!=-2}}"> {{storeId?'配送费':'运费'}} {{OrderFreight}} 元</block>
+                </view>
+            </view>
+            <view bindtap="clickCouponList" class="hdonglist yunfei pt24 pb24" wx:if="{{CouponList&&CouponList.length>0}}">
+                <text class="yunfeil">优惠券</text>
+                <text class="yf yunfeir">{{SelectedCouponIndex>=0?'-￥'+CouponList[SelectedCouponIndex].Price:'未使用'}}</text>
+            </view>
+            <view class="yunfei jfdik" wx:if="{{MaxUsePoint&&!fightGroupActivityId&&!GroupBuyId}}">
+                <view class="yunfeil">积分抵扣</view>
+                <view class="yunfeir">
+                    <text class="help">共{{MyPoints}}分，最多{{MaxUsePoint}}分抵{{MaxPointDiscount}}元</text>
+                    <switch bindchange="ChkUsePoint" checked="{{checboxswitch}}"></switch>
+                </view>
+            </view>
+            <view class="pointDiscount" hidden="{{!pointDiscountShow}}">
+                <view class="pointDiscountL">
+                    <input bindblur="UsePointNumber" bindconfirm="UsePointNumber" fixed="false" placeholder="输入使用积分" value="{{DeductionPoints}}"></input>
+                </view>
+                <view class="pointDiscountR">
+                    <text>-￥{{PointsDiscount}}</text>
+                </view>
+            </view>
+            <view class="yunfei jfdik" wx:if="{{Balance}}">
+                <view class="yunfeil">余额支付</view>
+                <view class="yunfeir">
+                    <text class="help">可用余额¥{{Balance}}<text class="balance" style="color:{{PrimaryColor}}" wx:if="{{balanceAmout}}">-￥{{balanceAmout}}</text>
+                    </text>
+                    <switch bindchange="changeUseBalance" checked="{{UseBalance}}"></switch>
+                </view>
+            </view>
+        </view>
+        <view class="submfs submfs1 pb0" hidden="{{!OrderInfo.EnableTax&&!OrderInfo.EnableE_Invoice&&!OrderInfo.EnableVATInvoice}}" wx:if="{{!productType&&OrderInfo.Suppliers[0].SupplierId==0}}">
+            <view class="yunfei jfdik">
+                <view class="yunfeil">索取发票</view>
+                <view class="yunfeir">
+                    <text class="help">税率（{{InvoiceRate}}%）</text>
+                    <switch bindchange="OpenUseInvoice"></switch>
+                </view>
+            </view>
+            <view bindtap="ChooseInvoice" class="hdonglist yunfei order_yhj pt24 pb24" hidden="{{!IsOpenInvoice}}">
+                <view class="yunfeil">发票类型</view>
+                <view class="yf yunfeir">{{InvoiceTypeName}}({{InvoiceTitleName}})</view>
+            </view>
+        </view>
+        <view class="submfs">
+            <view class="yunfei">
+                <view class="yunfei_benzhu">订单备注</view>
+                <view class="liuyabr yunfeir">
+                    <input bindblur="bindRemarkInput" bindconfirm="bindRemarkInput" fixed="false" placeholder="选填，可填写您与卖家达成一致的要求"></input>
+                </view>
+            </view>
+        </view>
+        <view class="submfs submfs1">
+            <view class="yunfei">
+                <view class="yunfeil">商品金额</view>
+                <view class="yunfeir"> ￥{{ProductAmount}} </view>
+            </view>
+            <view class="yunfei" wx:if="{{!productType&&ShippType!=-2}}">
+                <view class="yunfeil">{{storeId?'配送费':'运费'}}
+          <text class="hidden" wx:if="{{FullFreeFreight}}">(满免)</text>
+                </view>
+                <view class="yunfeir">￥{{OrderFreight}}</view>
+            </view>
+            <view class="yunfei" wx:if="{{IsOpenInvoice&&!productType}}">
+                <view class="yunfeil">税费</view>
+                <view class="yunfeir">￥{{TaxRate}}</view>
+            </view>
+            <view class="yunfei" hidden="{{DefaultCouponCode==''}}">
+                <view class="yunfeil">优惠券</view>
+                <view class="yunfeir">-￥{{DefaultCouponPrice>ProductAmount?ProductAmount:DefaultCouponPrice}}</view>
+            </view>
+            <view class="yunfei" wx:if="{{FullDiscount&&FullDiscount>0}}">
+                <view class="yunfeil">满减</view>
+                <view class="yunfeir">-￥{{FullDiscount}}</view>
+            </view>
+            <view class="yunfei" wx:if="{{PointsDiscount&&PointsDiscount>0}}">
+                <view class="yunfeil">积分抵扣</view>
+                <view class="yunfeir">-￥{{PointsDiscount}}</view>
+            </view>
+            <view class="yunfei" wx:if="{{presaleId>0}}">
+                <view class="yunfeil">定金</view>
+                <view class="yunfeir"> ￥{{PreSaleMoney}} </view>
+            </view>
+            <view class="yunfei" wx:if="{{presaleId>0}}">
+                <view class="yunfeil">尾款</view>
+                <view class="yunfeir"> ￥{{Retainage}} </view>
+            </view>
+            <view class="yunfei">
+                <view class="yunfeil">合计</view>
+                <view class="yunfeir"> ￥{{OrderTotalPrice?OrderTotalPrice:'0'}} </view>
+            </view>
+        </view>
+    </view>
+    <view class="inputPopBox {{passwordHide?'':'active'}}">
+        <view class="contents">
+            <view class="title">{{IsSetTradePassword?'输入交易密码':'设置交易密码'}}</view>
+            <input bindinput="onInputPwd" password="true" placeholder="请输入密码" type="text" value="{{pwd}}"></input>
+            <input bindinput="onInputAgainPwd" password="true" placeholder="请确认密码" type="text" value="{{againPwd}}" wx:if="{{!IsSetTradePassword}}"></input>
+            <view bindtap="bindChangePassword" class="fr forget_pwd" data-settradepwd="{{IsSetTradePassword}}" style="color:{{PrimaryColor}}" wx:if="{{IsSetTradePassword}}">忘记密码？</view>
+        </view>
+        <view class="btns">
+            <view bindtap="hidePassword" class="cancel">取消</view>
+            <view class="space-line"></view>
+            <view catchtap="confirmPwd" class="confirm" style="color:{{PrimaryColor}}">确认</view>
+        </view>
+    </view>
+    <view bindtap="hidePassword" class="cover" hidden="{{passwordHide}}"></view>
+    <view class="page2" hidden="{{currentPage=='page2'?false:true}}" style="transform:translate({{currentPage=='page2'?0:100}}%, 0%) translateZ(0px);" wx:if="{{!productType}}">
+        <view class="invoiceBox">
+            <view class="invoice_div">
+                <label>发票类型</label>
+                <view class="invoice_tab">
+                    <text bindtap="ChangeInvoiceType" class="mui-control-item {{InvoiceType<=1?'active':''}}" data-name="普通发票" hidden="{{!OrderInfo.EnableTax}}" style="{{InvoiceType<=1?'background:'+PrimaryColor+';'+'color:'+PrimaryTxtColor:''}}">普通发票</text>
+                    <text bindtap="ChangeInvoiceType" class="mui-control-item {{InvoiceType>=2&&InvoiceType<=3?'active':''}}" data-name="电子发票" hidden="{{!OrderInfo.EnableE_Invoice}}" style="{{InvoiceType>=2&&InvoiceType<=3?'background:'+PrimaryColor+';'+'color:'+PrimaryTxtColor:''}}">电子发票</text>
+                    <text bindtap="ChangeInvoiceType" class="mui-control-item {{InvoiceType==4?'active':''}}" data-name="增值税发票" hidden="{{!OrderInfo.EnableVATInvoice}}" style="{{InvoiceType==4?'background:'+PrimaryColor+';'+'color:'+PrimaryTxtColor:''}}">增值税发票</text>
+                </view>
+                <view class="invoice_tab tax-des" hidden="{{InvoiceType!=4}}" style="background:url({{taxBg}}) no-reapter">发票将在订单完成之后{{OrderInfo.EndOrderDays}}--{{OrderInfo.VATInvoiceDays}}个工作日后寄出。</view>
+            </view>
+            <view class="mui-slider-item mui-control-content mui-active">
+                <view class="invoice_div" hidden="{{InvoiceType==4}}">
+                    <label>发票抬头</label>
+                    <view bindtap="ChangeInvoiceType" class="invoice_style" data-name="个人">
+                        <label class="sel_checked" style="background:url({{InvoiceType==0||InvoiceType==2?InvoiceChecked:InvoiceCheck}}) center center no-repeat; background-size:100% 100%"></label>个人
+          </view>
+                    <view bindtap="ChangeInvoiceType" class="invoice_style" data-name="单位">
+                        <label class="sel_checked" style="background:url({{InvoiceType==1||InvoiceType==3?InvoiceChecked:InvoiceCheck}}) center center no-repeat; background-size:100% 100%"></label>单位
+          </view>
+                </view>
+                <view hidden="{{InvoiceType==0||InvoiceType==2}}">
+                    <view class="message fontweight" hidden="{{InvoiceType!=4}}">增票资质
+            <text class="small-name">(以下各项均为必填项)</text>
+                    </view>
+                    <view class="invoice_div">
+                        <label>单位名称</label>
+                        <input bindinput="ChangeValue" class="input-name" data-key="InvoiceTitle" placeholder="必填，请填写单位名称" type="text" value="{{InvoiceTitle}}"></input>
+                    </view>
+                    <view class="invoice_div">
+                        <label class="company_width">纳税人识别号</label>
+                        <input bindinput="ChangeValue" class="input-name" data-key="InvoiceTaxpayerNumber" placeholder="必填，请填写纳税人识别号" type="text" value="{{InvoiceTaxpayerNumber}}"></input>
+                    </view>
+                </view>
+                <view hidden="{{InvoiceType!=2&&InvoiceType!=3}}">
+                    <view class="mui-slider-item mui-control-content electron">
+                        <text class="message">收票人信息</text>
+                        <view class="invoice_div">
+                            <label>收票人手机</label>
+                            <input bindinput="ChangeValue" class="input-name" data-key="ReceivePhone" placeholder="必填，通过手机号接收开票提醒" type="text" value="{{InvoiceEnty.ReceivePhone}}"></input>
+                        </view>
+                        <view class="invoice_div">
+                            <label>收票人邮箱</label>
+                            <input bindinput="ChangeValue" class="input-name" data-key="ReceiveEmail" placeholder="必填，用来接收电子发票" type="text" value="{{InvoiceEnty.ReceiveEmail}}"></input>
+                        </view>
+                    </view>
+                </view>
+                <view hidden="{{InvoiceType!=4}}">
+                    <view class="mui-slider-item mui-control-content electron">
+                        <view class="invoice_div">
+                            <label>注册地址</label>
+                            <input bindinput="ChangeValue" class="input-name" data-key="RegisterAddress" placeholder="请填写单位注册地址" type="text" value="{{InvoiceEnty.RegisterAddress}}"></input>
+                        </view>
+                        <view class="invoice_div">
+                            <label>注册电话</label>
+                            <input bindinput="ChangeValue" class="input-name" data-key="RegisterTel" placeholder="请填写单位注册电话" type="text" value="{{InvoiceEnty.RegisterTel}}"></input>
+                        </view>
+                        <view class="invoice_div">
+                            <label>开户银行</label>
+                            <input bindinput="ChangeValue" class="input-name" data-key="OpenBank" placeholder="请填写单位开户银行" type="text" value="{{InvoiceEnty.OpenBank}}"></input>
+                        </view>
+                        <view class="invoice_div">
+                            <label>银行账户</label>
+                            <input bindinput="ChangeValue" class="input-name" data-key="BankAccount" placeholder="请填写单位银行账户" type="text" value="{{InvoiceEnty.BankAccount}}"></input>
+                        </view>
+                        <view class="message fontweight">收票人信息
+              <text class="small-name">(以下各项均为必填项)</text>
+                        </view>
+                        <view class="invoice_div">
+                            <label>收票人姓名</label>
+                            <input bindinput="ChangeValue" class="input-name" data-key="ReceiveName" placeholder="请填写收票人姓名" type="text" value="{{InvoiceEnty.ReceiveName}}"></input>
+                        </view>
+                        <view class="invoice_div">
+                            <label>收票人手机</label>
+                            <input bindinput="ChangeValue" class="input-name" data-key="ReceivePhone" placeholder="请填写收票人手机号码 " type="text" value="{{InvoiceEnty.ReceivePhone}}"></input>
+                        </view>
+                        <view catchtap="bindFullAddressTap" class="invoice_div">
+                            <label>收票人地区</label>
+                            <view class="regionname {{FullRegionPath?'':'regionname-color'}}"> {{FullRegionPath?FullRegionPath:'选择省、市、区/街道'}}</view>
+                            <view class="iconfont arrow_right arrow_right_w"></view>
+                        </view>
+                        <view class="invoice_div">
+                            <label>详细地址</label>
+                            <input bindinput="ChangeValue" class="input-name" data-key="ReceiveAddress" placeholder="请填写详细地址" type="text" value="{{InvoiceEnty.ReceiveAddress}}"></input>
+                        </view>
+                    </view>
+                </view>
+                <view class="invoice_div">
+                    <label>发票内容</label>
+                    <view class="invoice_style">
+                        <text style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">明细</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="distpicker {{showDistpicker?'':'hidden'}}" wx:if="{{showDistpicker}}">
+            <view class="distpicker-btn">
+                <view bindtap="distpickerCancel" class="distpicker-cancel-btn">取消</view>
+                <view catchtap="distpickerSure" class="distpicker-sure-btn">确定</view>
+            </view>
+            <picker-view bindchange="changeArea" class="distpicker-content" indicatorStyle="height: 40px;" value="{{value}}">
+                <picker-view-column>
+                    <view class="area-item" wx:for="{{provinceName}}" wx:key="province">{{item}}</view>
+                </picker-view-column>
+                <picker-view-column>
+                    <view class="area-item" wx:for="{{cityName}}" wx:key="city">{{item}}</view>
+                </picker-view-column>
+                <picker-view-column>
+                    <view class="area-item" wx:for="{{districtName}}" wx:key="district">{{item}}</view>
+                </picker-view-column>
+            </picker-view>
+        </view>
+    </view>
+    <view class="jinge" hidden="{{currentPage=='page1'?false:true}}">
+        <view class="classtext" hidden="{{presaleId>0}}">
+      实付金额
+      <text class="price" style="color:{{PrimaryColor}}">￥{{OrderTotalPrice?OrderTotalPrice:'0'}}</text>
+        </view>
+        <view class="classtext" wx:if="{{presaleId>0}}">
+      定金
+      <text class="price" style="color:{{PrimaryColor}}">￥{{PreSaleMoney?PreSaleMoney:'0'}}</text>
+        </view>
+        <button bindtap="submitOrder" disabled="{{isEnable}}" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}">提交订单</button>
+    </view>
+    <view class="jinge" hidden="{{currentPage=='page2'&&!showDistpicker?false:true}}">
+        <button bindtap="SaveInvoice" class="goumai" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">确定</button>
+        <button bindtap="CancelInvoice" class="goumai shop" style="background:{{SecondaryColor}};color:{{PrimaryTxtColor}}">取消</button>
+    </view>
+</form>
+<view bindtap="clickback" class="btmbg {{backShow}}"></view>
+<view class="lqyhq {{couponShow}}">
+    <view class="lqyhqtitle">
+        <image class="lqicon" src="/images/yjq_03.jpg"></image>
+        <text>选择优惠券</text>
+        <image bindtap="onCouponHide" class="lqicon1" src="/images/yjq_04.jpg"></image>
+    </view>
+    <view class="gouwqnr">
+        <view class="youhuiquan" wx:for="{{CouponList}}" wx:key="CouponId">
+            <image class="lqicon3" src="/images/yjq_07.jpg"></image>
+            <view class="nrong">
+                <view class="nrje">￥
+            <text>{{item.Price}}</text>
+                </view>
+                <view class="nrtime">
+                    <view class="nrtimelist">{{item.LimitText}}</view>
+                    <view class="nrtimelist">{{item.StartTimeText}}-{{item.ClosingTimeText}}</view>
+                    <view class="nrtimelqan">
+                        <view class="nrtimelist">{{item.CanUseProduct}}</view>
+                        <button bindtap="setCoupon" data-num="{{index}}" id="{{item.CouponId}}" wx:if="{{SelectedCouponIndex!=index}}">使用</button>
+                        <button bindtap="cancelCoupon" wx:if="{{SelectedCouponIndex==index}}">取消</button>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<scroll-view scrollY class="store-choose {{showStore?'active':''}}">
+    <view bindtap="{{item.NoSupportProductCount||item.NoStockProductCount?'':'selectStore'}}" class="item {{item.NoSupportProductCount||item.NoStockProductCount?'disabled':''}}" data-index="{{index}}" wx:for="{{storeList}}" wx:key="{{index}}">
+        <icon color="{{item.StoreId==selfStoreid?PrimaryColor:item.NoSupportProductCount||item.NoStockProductCount?'#ccc':PrimaryColor}}" type="{{item.StoreId==selfStoreid?'success':'circle'}}"></icon>
+        <view>{{item.StoreName}}</view>
+        <view class="tips-disabled" wx:if="{{item.NoSupportProductCount}}">该门店不支持 <text>{{item.NoSupportProductNames}}</text> 自提</view>
+        <view class="tips-disabled" wx:if="{{item.NoStockProductCount}}">
+            <text>{{item.NoStockProductNames}}</text>当前门店无库存</view>
+        <view>{{item.Address}}</view>
+        <view>联系电话：{{item.Tel}} <text>{{item.Distance}}</text>
+        </view>
+    </view>
+    <button bindtap="handleHideStore" class="store-cancel" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}">取消</button>
+</scroll-view>

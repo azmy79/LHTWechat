@@ -1,0 +1,43 @@
+<view class="refundlist">
+    <view class="item" wx:for="{{AfterList}}">
+        <view class="hd">
+            <view class="num">订单号：
+          <text class="font-arial">{{item.OrderId}}</text>
+            </view>
+            <view class="state" style="color:{{PrimaryColor}}">{{item.StatusText}}</view>
+        </view>
+        <view bindtap="applydetail" class="bd" data-id="{{item.AfterSaleId}}" data-type="{{item.AfterSaleType}}">
+            <view class="comm" wx:for="{{item.LineItems}}" wx:for-item="lineitem">
+                <view class="pic">
+                    <image src="{{lineitem.Image}}"></image>
+                </view>
+                <view class="info">
+                    <view class="name">{{lineitem.Name}}</view>
+                    <view class="para">{{lineitem.SkuText}}</view>
+                </view>
+                <view class="price">
+                    <view class="sell">¥<text class="font-arial">{{lineitem.Price}}</text>
+                    </view>
+                    <view class="num">x <text class="font-arial">{{lineitem.Quantity}}</text>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="fd">
+            <view class="money">
+                <text class="trade">交易金额：￥<text class="font-arial">{{item.OrderTotal}}</text>
+                </text>
+                <text class="refund">退款金额：￥<text class="font-arial">{{item.RefundAmount}}</text>
+                </text>
+            </view>
+            <view class="operate" wx:if="{{item.AfterSaleType!=0&&(item.Status==3||item.Status==4&&item.ExpressCompanyName!='送货到店')}}">
+                <button bindtap="SendGood" class="btn-apply" data-id="{{item.AfterSaleId}}" data-skuid="{{item.SkuId}}" style="color:{{PrimaryColor}};border:{{'1px solid '+PrimaryColor}}" type="default" wx:if="{{item.Status==3}}">发货</button>
+                <button bindtap="goLogistics" class="btn-apply" data-aftertype="{{item.AfterSaleType}}" data-id="{{item.AfterSaleId}}" style="color:{{PrimaryColor}};border:{{'1px solid '+PrimaryColor}}" type="default" wx:if="{{item.Status==4&&item.ExpressCompanyName!='送货到店'}}">查看物流</button>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="kong" hidden="{{!isEmpty}}">
+    <view bindtap="toproduct" class="bg_nullOrder" style="background:url({{nullOrder}}) top center no-repeat; background-size:auto 352rpx"></view>
+    <text>~暂时没有售后订单哦~</text>
+</view>

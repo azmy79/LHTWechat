@@ -1,0 +1,30 @@
+<view class="container {{ShipTo?'':'transparent'}}">
+    <view class="xuanzhed">
+        <view class="hdonglist hdonglist1">
+            <text class="iconfont icon_truck"></text>
+            <view class="classnames">
+                <text class="yhname">{{ExpressCompanyName}}：{{ShipOrderNumber}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="address-info">
+        <view class="address-outer">
+            <text class="iconfont icon__locate"></text>
+            <view class="infos">
+                <text class="name">{{ShipTo}}{{CellPhone?'，':''}} {{CellPhone}}</text>
+                <text class="address"> {{Address}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="xuanzhed1 mt24">
+        <view class="ddgzcont" wx:if="{{LogisticsData.length>0}}">
+            <view class="wllist {{index==0?'active':''}}" wx:for="{{LogisticsData}}" wx:key="acceptTime">{{item.acceptStation}}
+            <view class="acceptTime">{{item.acceptTime}}</view>
+            </view>
+        </view>
+        <view style="padding:32rpx" wx:else>
+            <view>暂无物流信息，请稍后再试！</view>
+            <view>本物流信息服务由快递鸟提供，如有信息推送不及时，请到物流公司官网查询！</view>
+        </view>
+    </view>
+</view>

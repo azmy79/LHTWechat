@@ -1,0 +1,266 @@
+<import src="../wxParse/wxParse.wxml"></import>
+<view class="container">
+    <swiper autoplay indicatorDots class="swiper-box">
+        <swiper-item wx:if="{{videoPath}}">
+            <image class="slide-image" mode="aspectFill" src="{{defaultImg}}"></image>
+            <image bindtap="showVideo" class="fake-start-btn" mode="aspectFill" src="../../images/start.png"></image>
+        </swiper-item>
+        <swiper-item wx:for="{{ProductImgs}}" wx:key="*this">
+            <image class="slide-image" mode="aspectFit" src="{{item}}"></image>
+        </swiper-item>
+    </swiper>
+    <view class="productcont">
+        <view class="contentsale">
+            <view class="name_share clearfix">
+                <view class="product-name">{{ProductName}}</view>
+                <button class="share-icon" openType="share">
+                    <text class="iconfont icon-share" style="color:{{PrimaryColor}}"></text>
+                </button>
+            </view>
+            <view class="info">
+          {{ShortDescription}}
+        </view>
+            <view class="protag">
+                <span>已售{{SaleCounts}}{{Unit?Unit:'件'}}/ 剩{{Stock}}{{Unit?Unit:'件'}}</span>
+                <span>{{Freight!=0?'运费'+Freight+'元':'免运费'}}</span>
+                <span wx:if="{{referralId&&ReferralMoney}}">预计佣金<text class="light" style="color:{{PrimaryColor}}">{{ReferralMoney}}</text>元</span>
+            </view>
+            <view class="pire">
+                <view>
+              定金：<span>￥{{Deposit===0?ruleprice:Deposit}}</span>
+                </view>
+                <view>
+              总价：￥{{MaxSalePrice}}
+            </view>
+                <view>
+                    <view class="fl"> {{isOvertime?'预售已结束':'距预售结束'}}: </view>
+                    <em wx:if="{{!isOvertime}}">
+                        <i>{{time[0]||'0'}}</i>天<i>{{time[1]||'0'}}</i>时<i>{{time[2]||'0'}}</i>分<i>{{time[3]||'0'}}</i>秒</em>
+                </view>
+            </view>
+            <view class="tailtime">
+                <view class="tail">尾款时间：{{PaymentStartDate}}～{{PaymentEndDate}}</view>
+                <view class="tail mb0">发货时间：{{DeliveryDays?DeliveryDays+'天内':DeliveryDate[0]+'年'+DeliveryDate[1]+'月'+DeliveryDate[2]+'日'}}发货</view>
+            </view>
+        </view>
+        <view class="hdong">
+            <view bindtap="clickCouponList" class="hdonglist promotelist" wx:if="{{Coupons&&Coupons.length>0}}">
+                <view class="counpon-icon">
+                    <view class="badge {{activeid?'light':''}}">优惠券</view>
+                    <text>有优惠券可领取</text>
+                </view>
+                <view class="iconfont arrow_right"></view>
+            </view>
+            <view bindtap="clickPromoteList" class="hdonglist promotelist" wx:if="{{FullAmountReduce}}">
+                <view class="counpon-icon">
+                    <view class="badge {{activeid?'light':''}}">满额减</view>
+                    <text>{{FullAmountReduce}}</text>
+                </view>
+                <view class="iconfont arrow_right"></view>
+            </view>
+            <view bindtap="clickPromoteList" class="hdonglist promotelist" wx:if="{{FullAmountSentFreight}}">
+                <view class="counpon-icon">
+                    <view class="badge {{activeid?'light':''}}">满额免</view>
+                    <text>{{FullAmountSentFreight}}</text>
+                </view>
+                <view class="iconfont arrow_right"></view>
+            </view>
+            <view bindtap="clickPromoteList" class="hdonglist promotelist" wx:if="{{FullAmountSentGift}}">
+                <view class="counpon-icon">
+                    <view class="badge {{activeid?'light':''}}">满额送</view>
+                    <text>{{FullAmountSentGift}}</text>
+                </view>
+                <view class="iconfont arrow_right"></view>
+            </view>
+            <view bindtap="clickSku" class="hdonglist other" data-type="2">
+                <view class="counpon-icon overtxt">预售规则</view>
+                <view class="iconfont arrow_right font32"></view>
+            </view>
+            <view bindtap="clickSku" class="hdonglist other" data-type="1">
+                <view class="counpon-icon overtxt">选择规格</view>
+                <view class="iconfont arrow_right font32"></view>
+            </view>
+            <navigator class="hdonglist other" url="../commentlist/commentlist?id={{ProductId}}">
+                <view class="counpon-icon">商品评价({{ReviewCount!=null?ReviewCount:0}})</view>
+                <view class="iconfont arrow_right font32"></view>
+            </navigator>
+        </view>
+        <view class="productxq">
+            <view class="xqtitle" wx:if="{{Description.length>0}}">
+                <text>详情描述</text>
+                <view class="coupontitle">
+                    <view class="coupontitlel">
+                        <view bindtap="onTabClick" class="{{DetailStatus}}" data-status="0">商品详情</view>
+                    </view>
+                    <view class="coupontitlel" wx:if="{{Description.length>0}}">
+                        <view bindtap="onTabClick" class="{{AttributeStatus}}" data-status="1">产品参数</view>
+                    </view>
+                </view>
+            </view>
+            <view class="xqcont" wx:if="{{DetailStatus=='active'}}">
+                <view class="wxParse">
+                    <template is="wxParse" data="{{wxParseData:Description.nodes}}"></template>
+                </view>
+            </view>
+            <view class="xqattr" wx:if="{{AttributeStatus=='active'}}">
+                <text wx:for="{{ExtendAttribute}}" wx:key="*this">{{item.ExtAttrName+'：'+item.ExtAttrValue}}</text>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="btn-area">
+    <navigator hoverClass="navigator-hover" openType="switchTab" url="../home/home">
+        <text class="iconfont home"></text>
+      主页
+    </navigator>
+    <navigator>
+        <button openType="contact">
+            <text class="iconfont icon-service"></text>
+        </button>
+      客服
+    </navigator>
+    <navigator hoverClass="navigator-hover" openType="switchTab" url="../cart/cart">
+        <text class="iconfont icon__cart"></text>
+      购物车
+      <view class="cart_num" hidden="{{CartQuantity==0}}">
+            <text>{{CartQuantity}}</text>
+        </view>
+    </navigator>
+    <view bindtap="clickSku" class="btn goumai shop" data-type="1" style="color: {{PrimaryTxtColor}};background:{{PrimaryColor}};">
+          支付定金
+        </view>
+</view>
+<view bindtap="clickback" class="btmbg {{backShow}}"></view>
+<view class="lqyhq skuchoose {{SkuShow}}">
+    <view class="positionre" wx:if="{{skutype==1}}">
+        <view class="guige border-bottom">
+            <image bindtap="parseImgTap" class="lqicon guigeimg" data-src="{{skuImg}}" mode="aspectFill" src="{{skuImg}}"></image>
+            <view class="guigecont">
+                <view class="sku-price" style="color:{{PrimaryColor}}">￥<text>{{Deposit===0?ruleprice:Deposit}}</text>
+                    <text style="color:{{SecondaryColor}};margin-left:20rpx">￥{{MaxSalePrice}}</text>
+                </view>
+                <view class="guigeyxhs" hidden="{{SkuItemList==''||SkuItemList.length==0}}">已选：{{selectedSkuContent}}</view>
+            </view>
+            <view bindtap="onSkuHide" class="guigecha">
+                <view class="iconfont icon__close font40"></view>
+            </view>
+        </view>
+        <view class="nronggaodu">
+            <view class="sezhi" wx:for="{{SkuItemList}}" wx:for-index="i" wx:key="AttributeId">
+                <view class="sezhititle font28 line_height40">{{item.AttributeName}}</view>
+                <view class="sezhicont mt8">
+                    <text bindtap="{{sku.disabled?'':'swithSku'}}" class="{{sku.disabled?'disable':''}} {{sku.ValueId==skuArr[i+1]?'active':''}}" data-id="{{sku.ValueId}}" data-img="{{sku.ImageUrl}}" data-index="{{i}}" data-skuvalue="{{sku.Value}}" style="{{sku.ValueId==skuArr[i+1]?'background:'+PrimaryColor+';'+'color:'+PrimaryTxtColor+';'+'border-color:'+PrimaryColor:''}}" wx:for="{{item.AttributeValue}}" wx:for-item="sku" wx:key="ValueId">{{sku.Value}}</text>
+                </view>
+            </view>
+            <view class="sezhi_last_child" hidden="{{SkuItemList==''||SkuItemList.length==0}}"></view>
+            <view class="goumaisl">
+                <text>数量</text>
+                <view class="goumkuang">
+                    <view bindtap="reduceAmount" class="jian">
+                        <view class="iconfont icon__minus_L  font24"></view>
+                    </view>
+                    <input bindconfirm="changeAmount" bindinput="changeAmount" placeholder="{{buyAmount}}" type="number" value="{{buyAmount}}"></input>
+                    <view bindtap="addAmount" class="jia">
+                        <view class="iconfont icon__plus_L  font24"></view>
+                    </view>
+                </view>
+                <view class="guigeconkc" wx:if="{{curSkuData}}">剩余{{skuStock}}{{Unit?Unit:'件'}}</view>
+                <view class="guigeconkc color-theme" wx:if="{{MaxCount}}">(限购{{MaxCount}}{{Unit}})</view>
+            </view>
+        </view>
+        <button bindtap="commitBuy" class="btn-confirm" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">支付定金</button>
+    </view>
+    <view class="rule" wx:elif="{{skutype==2}}">
+        <view class="guige border-bottom">
+            <view class="ruletit">
+              预售规则
+          </view>
+            <view bindtap="onSkuHide" class="guigecha">
+                <view class="iconfont icon__close font40"></view>
+            </view>
+        </view>
+        <view class="rule_text">１、预售定金下单后，请及时支付，若超时，该订单将自动关闭。</view>
+        <view class="rule_text">２、定金付款后，若非商家责任，定金恕不退还。</view>
+        <view class="rule_text">３、尾款开始支付时，请至个人中心“我的订单”中“待付款”订单查找所要支付尾款的订单，在要求的时间内完成尾款支付；若超时，系统将自动关闭订单，且定金不退，若有赠品，则赠品不予赠送。</view>
+        <view class="rule_text">4、请注意结束时间，并及时支付尾款；对此我们会有相应的消息提醒，请注意接收查看。</view>
+        <button bindtap="onSkuHide" class="btn-confirm" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">我知道了</button>
+    </view>
+</view>
+<view class="poster-box-nav" style="background:{{PrimaryColor}}">
+    <button bindtap="showSharePoster">
+        <text class="iconfont icon-poster"></text>
+    </button>
+</view>
+<view bindtap="{{isJumpLink?'goToCopyright':''}}" class="copyright" style="display:{{isShowHishopCopyRight?'block':'none'}}"></view>
+<view class="lqyhq  {{promoteShow}}">
+    <view class="lqyhqtitle">
+        <text>优惠活动</text>
+        <view bindtap="onPromoteHide" class="guigecha">
+            <view class="iconfont icon__close font40"></view>
+        </view>
+    </view>
+    <view class="promote_con">
+        <view class="promote_item" wx:if="{{FullAmountSentFreight}}">
+            <view class="promote_item1">
+                <view class="badge">满额包邮</view>
+            </view>
+            <text>{{FullAmountSentFreight}}</text>
+        </view>
+        <view class="promote_item" wx:if="{{FullAmountReduce}}">
+            <view class="promote_item1">
+                <view class="badge">满额减</view>
+            </view>
+            <text>{{FullAmountReduce}}</text>
+        </view>
+        <view class="promote_item">
+            <view class="promote_item1" wx:if="{{FullAmountSentGift}}">
+                <view class="badge">满额送</view>
+            </view>
+            <text>{{FullAmountSentGift}}</text>
+        </view>
+        <view class="promote_item" wx:if="{{ProductPromotion&&storeid==0}}">
+            <view class="promote_item1">
+                <view class="badge">满额送</view>
+            </view>
+            <text>{{ProductPromotion}}</text>
+        </view>
+    </view>
+</view>
+<view class="lqyhq {{couponShow}}" style="background: #f5f5f5;">
+    <view class="lqyhqtitle">
+        <text>领取优惠券</text>
+        <view bindtap="onCouponHide" class="guigecha">
+            <view class="iconfont icon__close font40"></view>
+        </view>
+    </view>
+    <view class="gouwqnr">
+        <view class="youhuiquan" wx:for="{{Coupons}}" wx:key="CouponId">
+            <view class="nrong">
+                <view class="nrje">
+              ￥
+              <text>{{item.Price}}</text>
+                </view>
+                <view class="nrtimelist">{{item.CanUseProduct}}</view>
+            </view>
+            <view class="nrtimelqan">
+                <view class="nrtimelist-con">
+                    <view class="nrtimelist">
+                        <view class="dian">■</view>
+                        <view>{{item.LimitText}}</view>
+                    </view>
+                    <view class="nrtimelist">
+                        <view class="dian">■</view>
+                        <view>{{item.StartTimeText}}-{{item.ClosingTimeText}}</view>
+                    </view>
+                </view>
+                <button bindtap="getCoupon" id="{{item.CouponId}}">领取</button>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="poster-bg" wx:if="{{showPoster}}">
+    <view class="poster">
+        <painter bind:imgOK="onImgOK" palette="{{posterData}}"></painter>
+    </view>
+    <view bindtap="savePoster" class="poster-btn" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">保存海报</view>
+</view>

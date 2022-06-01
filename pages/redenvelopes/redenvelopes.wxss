@@ -1,0 +1,122 @@
+page {
+    background: #FBEAB2!important;
+}
+
+.box {
+    height: 468rpx;
+    position: relative;
+}
+
+.box image {
+    position: absolute;
+    width: 100%;
+    height: 145rpx;
+    top: 0;
+    left: 0;
+}
+
+.box .pirce {
+    font-size: 45rpx;
+    color: #EC5E5C;
+    position: absolute;
+    top: 120rpx;
+    width: 100%;
+    text-align: center;
+}
+
+.box .img_2 {
+    height: 46rpx;
+    top: 145rpx;
+}
+
+.box .img_3 {
+    height: 282rpx;
+    top: 189rpx;
+}
+
+.box .img_yc {
+    height: 700rpx;
+}
+
+.box .img_fn {
+    height: 731rpx;
+}
+
+.box .img_sx {
+    height: 710rpx;
+}
+
+.btnshop {
+    height: 100rpx;
+    background: #FEF3D7;
+}
+
+.btnshop button {
+    background: #F86B24;
+    border-radius: 12rpx;
+    text-align: center;
+    width: 700rpx;
+    height: 100rpx;
+    line-height: 100rpx;
+    color: #fff;
+    font-size: 40rpx;
+    border: none;
+}
+
+.conlist .title {
+    text-align: center;
+    font-size: 34rpx;
+    position: relative;
+    padding-top: 34rpx;
+    margin-bottom: 50rpx;
+}
+
+.conlist .title::before {
+    height: 1rpx;
+    content: '';
+    width: 200rpx;
+    position: absolute;
+    background: #000;
+    left: 0;
+    top: 55rpx;
+}
+
+.conlist .title::after {
+    height: 1rpx;
+    background: #000;
+    content: '';
+    width: 200rpx;
+    position: absolute;
+    right: 0;
+    top: 55rpx;
+}
+
+.userlist .list {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20rpx 20rpx;
+    border-bottom: 1rpx dashed #FBF4D8;
+}
+
+.userlist .list image {
+    width: 140rpx;
+    height: 140rpx;
+}
+
+.userlist .list .userde {
+    padding-top: 22rpx;
+    margin-left: 30rpx;
+    width: 60%;
+    font-size: 42rpx;
+    text-align: left;
+}
+
+.userlist .list .userde .usertime {
+    font-size: 32rpx;
+    margin-top: 20rpx;
+}
+
+.userlist .list .userpirce {
+    font-size: 42rpx;
+    padding-top: 45rpx;
+}

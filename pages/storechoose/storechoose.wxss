@@ -1,0 +1,97 @@
+page {
+    background: #f0f0f0;
+}
+
+.search-box .iconsearch {
+    left: 200rpx;
+}
+
+.group-title {
+    margin: 24rpx 24rpx 8rpx 24rpx;
+    line-height: 40rpx;
+    font-size: 28rpx;
+}
+
+.group-item {
+    overflow: hidden;
+    line-height: 48rpx;
+}
+
+.group-item .item-txt {
+    float: left;
+    width: 50%;
+}
+
+.group-item .distance {
+    float: right;
+    font-size: 28rpx;
+}
+
+.group-item .stroename {
+    float: left;
+}
+
+.group-item .icon-2 {
+    float: right;
+    color: #ffa000;
+    font-size: 32rpx;
+}
+
+.icon-2 text {
+    color: #212121;
+    margin-left: 15rpx;
+}
+
+.group-desc {
+    color: #747474;
+    line-height: 48rpx;
+    margin-top: 8rpx;
+}
+
+.border-b:last-child {
+    border-bottom: none;
+}
+
+.local-name {
+    overflow: hidden;
+    line-height: 40rpx;
+}
+
+.left-name {
+    float: left;
+    width: 300rpx;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.search-box {
+    display: flex;
+    width: 702rpx;
+    z-index: 1;
+    overflow: hidden;
+    padding: 24rpx;
+}
+
+.search-input {
+    background: #f0f0f0;
+    width: 100%;
+    color: #212121;
+    font-size: 32rpx;
+    line-height: 40rpx;
+    padding: 10rpx 16rpx 10rpx 68rpx;
+    border-radius: 8rpx;
+}
+
+.search-box .iconsearch {
+    position: absolute;
+    color: #515151;
+    opacity: 0.9;
+    filter: alpha(opacity=90);
+    font-size: 36rpx;
+    top: 42rpx;
+    left: 42rpx;
+    width: 32rpx;
+    height: 32rpx;
+    z-index: 2;
+}

@@ -1,0 +1,86 @@
+<view class="content  mt32 font30">
+    <view class="content borderbott0m mt32 font30">
+        <view class="w100">
+            <view class="ml24 mt24">
+                <view>店铺logo：</view>
+                <view class="logo">
+                    <view class="logoimg">
+                        <image bindtap="ChooseImg" src="{{UserCredentials}}" style="width:158rpx;height:158rpx;"></image>
+                        <view bindtap="DeleteImg" class="iconfont trush- delete" hidden="{{BannerUrl.length<=0}}"></view>
+                    </view>
+                    <view class="logoinfo">点击左边的图片修改，建议尺寸：240*240像素，小于1M，支持jpg,gif,png格式</view>
+                </view>
+            </view>
+        </view>
+        <view class="w100">
+            <view class="loginpassword bordertop0m ">
+                <text>店铺名称</text>
+                <input bindinput="InputValue" data-key="ShopName" maxlength="20" placeholder="请输入店铺名称" placeholderStyle="color:#bdbdbd" type="text" value="{{ShopName}}"></input>
+            </view>
+        </view>
+        <view class="w100" hidden="{{!IsNeedRealName}}">
+            <view class="loginpassword bordertop0m ">
+                <text>真实姓名</text>
+                <input bindinput="InputValue" data-key="RealName" maxlength="20" placeholder="请输入真实姓名" placeholderStyle="color:#bdbdbd" type="text" value="{{RealName}}"></input>
+            </view>
+        </view>
+        <view class="w100" hidden="{{!IsNeedEmail}}">
+            <view class="loginpassword bordertop0m ">
+                <text>邮箱账号</text>
+                <input bindinput="InputValue" data-key="Email" maxlength="20" placeholder="请输入邮箱账号" placeholderStyle="color:#bdbdbd" type="text" value="{{Email}}"></input>
+            </view>
+        </view>
+        <view class="w100" hidden="{{!IsNeedPhone}}">
+            <view class="loginpassword bordertop0m ">
+                <text>手机号码</text>
+                <input bindinput="InputValue" data-key="Phone" maxlength="20" placeholder="请输入手机号码" placeholderStyle="color:#bdbdbd" type="number" value="{{Phone}}"></input>
+            </view>
+        </view>
+        <view class="w100" hidden="{{!IsOpenPhoneValid}}">
+            <view class="loginpassword bordertop0m threerow">
+                <text>图形验证</text>
+                <input bindinput="InputValue" data-key="ImageCode" maxlength="20" placeholder="请输入图形验证码" placeholderStyle="color:#bdbdbd" type="number" value="{{ImageCode}}"></input>
+                <image bindtap="ChangeCode" class="codeimg w20" src="{{VcodeUrl}}"></image>
+            </view>
+        </view>
+        <view class="w100" hidden="{{!IsOpenPhoneValid}}">
+            <view class="loginpassword bordertop0m threerow">
+                <text>手机验证</text>
+                <input bindinput="InputValue" data-key="PhoneCode" maxlength="20" placeholder="请输入手机验证码" placeholderStyle="color:#bdbdbd" type="number" value="{{PhoneCode}}"></input>
+                <view bindtap="GetPhoneCode" class="btncode w20">获取验证码</view>
+            </view>
+        </view>
+        <view class="w100" hidden="{{!IsNeedAddress}}">
+            <view catchtap="bindFullAddressTap" class="loginpassword bordertop0m">
+                <text class="">所在地区</text>
+                <view class="regionname {{FullRegionPath?'':'regionname-color'}}"> {{FullRegionPath?FullRegionPath:'选择省、市、区/街道'}}</view>
+            </view>
+        </view>
+        <view class="w100" hidden="{{!IsNeedAddress}}">
+            <view class="loginpassword bordertop0m">
+                <text class="">详细地址</text>
+                <input bindinput="InputValue" data-key="Address" maxlength="20" name="address" placeholder="请输入详细地址" placeholderStyle="color:#bdbdbd" type="text" value="{{Address}}"></input>
+            </view>
+        </view>
+    </view>
+    <view class="tjiaoname mt32 ">
+        <button bindtap="SavePromoters" class="other-button-hover font36 pt24 pb24 line_height40" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">提交申请 </button>
+    </view>
+</view>
+<view class="distpicker {{showDistpicker?'':'hidden'}}" wx:if="{{showDistpicker}}">
+    <view class="distpicker-btn">
+        <view bindtap="distpickerCancel" class="distpicker-cancel-btn">取消</view>
+        <view catchtap="distpickerSure" class="distpicker-sure-btn">确定</view>
+    </view>
+    <picker-view bindchange="changeArea" class="distpicker-content" indicatorStyle="height: 40px;" value="{{value}}">
+        <picker-view-column>
+            <view class="area-item" wx:for="{{provinceName}}" wx:key="province">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+            <view class="area-item" wx:for="{{cityName}}" wx:key="city">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column>
+            <view class="area-item" wx:for="{{districtName}}" wx:key="district">{{item}}</view>
+        </picker-view-column>
+    </picker-view>
+</view>

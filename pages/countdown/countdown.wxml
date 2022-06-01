@@ -1,0 +1,29 @@
+<view class="page-section  bg-white">
+    <view class="countdown-banner">
+        <image mode="aspectFill" src="../../images/countdown-banner.png"></image>
+    </view>
+    <view class="countdown-list">
+        <view class="countdown" wx:for="{{CountDownList}}" wx:for-index="idx">
+            <view bindtap="BuyCountDown" class="info" data-activeid="{{item.CountDownId}}" data-id="{{item.ProductId}}">
+                <view class="countdown-info-pic">
+                    <image mode="aspectFill" src="{{item.ThumbnailUrl160}}"></image>
+                </view>
+                <view class="countdow-info-txt">
+                    <view class="countdow-info-name">{{item.ProductName}}</view>
+                    <view class="countdow-info-b">
+                        <view class="saleprice">
+                            <view class="price">¥ <text>{{item.CountDownPrice}}</text>
+                            </view>
+                            <view class="oldprice">
+                                <text>¥ {{item.SalePrice}}</text>
+                            </view>
+                        </view>
+                        <view class="countdown-btn {{item.CountDownType=='1'?'countdow-start':''}}" style="{{item.CountDownType==1?'color:'+SecondaryTxtColor+';'+'background:'+SecondaryColor+';':'color:'+PrimaryTxtColor+';'+'background:'+PrimaryColor+';'}}">
+                            <text>{{item.CountDownType==1?'即将开始':'去抢购'}}</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

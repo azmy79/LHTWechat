@@ -1,0 +1,120 @@
+page {
+    background: #f0f0f0;
+}
+
+.group-list .info image {
+    width: 120rpx;
+    height: 120rpx;
+    float: left;
+    margin-right: 16rpx;
+}
+
+.group-list .item {
+    background: #fff;
+    margin-top: 24rpx;
+    position: relative;
+}
+
+.group-list .info {
+    padding: 32rpx 0;
+    margin: 0 32rpx;
+}
+
+.group-list .info view {
+    line-height: 42rpx;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.group-list .info view:last-child {
+    color: #999;
+}
+
+.group-list .item text {
+    color: #ff5722;
+}
+
+.group-list .member {
+    padding: 24rpx 32rpx;
+}
+
+.group-list .member .photo {
+    display: inline-block;
+    margin: 16rpx 24rpx 0 0;
+    position: relative;
+}
+
+.group-list .member image {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 100%;
+}
+
+.group-list .member .star {
+    position: absolute;
+    right: -8rpx;
+    top: 40rpx;
+    width: 27rpx;
+    height: 27rpx;
+}
+
+.group-list .member .photo::before {
+    border-radius: 100%;
+    border-color: #ff5722;
+}
+
+.group-list .btn-area {
+    text-align: right;
+    padding: 24rpx 32rpx;
+}
+
+.group-list .btn-area view {
+    display: inline-block;
+    padding: 0 24rpx;
+    line-height: 56rpx;
+    border: 1rpx solid #fff;
+    color: #ff5722;
+    border-radius: 8rpx;
+    margin-left: 24rpx;
+}
+
+.group-list .btn-area view:last-child {
+    color: #fff;
+    background: #fff;
+}
+
+.status {
+    position: absolute;
+    right: 32rpx;
+    top: 140rpx;
+    width: 204rpx;
+    height: 158rpx;
+}
+
+.group-empty {
+    text-align: center;
+    color: #999;
+}
+
+.group-empty image {
+    width: 180rpx;
+    height: 180rpx;
+    padding: 80rpx;
+    background: #bdbdbd;
+    border-radius: 100%;
+    margin: 100rpx auto 200rpx;
+}
+
+.group-empty button {
+    width: 300rpx;
+    line-height: 80rpx;
+    font-size: 32rpx;
+    color: #fff;
+    text-align: center;
+    background: #ff6600;
+    margin: 0 auto;
+    border: 0;
+    border-radius: 40rpx;
+    margin-top: 24rpx;
+}

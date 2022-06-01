@@ -1,0 +1,307 @@
+@import "../../app.wxss";
+
+page {
+    background: #f5f5f5;
+}
+
+.swiper-box {
+    height: 360rpx;
+    background: #fff;
+}
+
+.swiper-box image {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-box .wx-swiper-dots.wx-swiper-dots-horizontal {
+    background: rgba(0,0,0,0.48);
+    border: 0;
+    border-radius: 16rpx;
+    padding: 10rpx 16rpx 10rpx 24rpx;
+}
+
+.swiper-box .wx-swiper-dot {
+    display: inline-flex;
+    background-color: #fff;
+    margin-left: -8rpx;
+}
+
+.swiper-box .wx-swiper-dot-active {
+    background: #ff5722;
+}
+
+.menu {
+    background: #fff;
+    padding-bottom: 32rpx;
+}
+
+.menu-icon {
+    float: left;
+    text-align: center;
+    margin-top: 24rpx;
+    min-width: 20%;
+}
+
+.menu-icon .image-box {
+    width: 64%;
+    padding-top: 64%;
+    position: relative;
+    margin: 0 auto;
+}
+
+.menu-icon image {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.menu-icon .menu-name {
+    font-size: 24rpx;
+    margin-top: 16rpx;
+    color: #212121;
+    line-height: 32rpx;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 8rpx;
+}
+
+.store-activity {
+    position: relative;
+    padding-top: 16rpx;
+    overflow: hidden;
+}
+
+.activity-text {
+    line-height: 32rpx;
+    font-size: 24rpx;
+    max-width: 320rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
+}
+
+.activity-total {
+    position: absolute;
+    right: 0;
+    top: 16rpx;
+    z-index: 2;
+}
+
+.activity-total text {
+    font-size: 24rpx;
+    color: #747474;
+}
+
+.activity-item {
+    line-height: 32rpx;
+    position: relative;
+    color: #212121;
+    padding-left: 48rpx;
+    margin-top: 24rpx;
+}
+
+.activity-item .text-icon {
+    width: 32rpx;
+    height: 32rpx;
+    line-height: 32rpx;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+    color: #fff;
+    font-size: 20rpx;
+    border-radius: 4rpx;
+}
+
+.tag-green {
+    background: #8bc34a;
+}
+
+.tag-yellow {
+    background: #ffa000;
+}
+
+.tag-red {
+    background: #ff5252;
+}
+
+.store-title {
+    margin: 32rpx 0 24rpx;
+    position: relative;
+    text-align: center;
+}
+
+.store-title image {
+    width: 46rpx;
+    height: 39rpx;
+    display: inline-block;
+    vertical-align: sub;
+    margin-right: 8rpx;
+}
+
+.store-title text {
+    font-size: 32rpx;
+    font-weight: bold;
+    line-height: 44rpx;
+}
+
+.store-list .item {
+    padding: 24rpx;
+    margin-bottom: 32rpx;
+    background: #fff;
+    border-radius: 16rpx;
+}
+
+.store-logo {
+    width: 88rpx;
+    height: 88rpx;
+    float: left;
+}
+
+.store-logo image {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+}
+
+.store-content {
+    width: 598rpx;
+    float: right;
+    font-size: 26rpx;
+}
+
+.store-name {
+    font-size: 30rpx;
+    color: #212121;
+    line-height: 42rpx;
+}
+
+.store-name view {
+    display: inline-block;
+}
+
+.store-name text {
+    font-size: 26rpx;
+    float: right;
+}
+
+.locat {
+    padding: 8rpx 0 24rpx;
+}
+
+.store-express view {
+    padding: 0 8rpx;
+    line-height: 32rpx;
+    margin-right: 16rpx;
+    color: #ff5722;
+    display: inline-block;
+    font-size: 20rpx;
+    vertical-align: top;
+    position: relative;
+    border-radius: 16rpx;
+    border: 1px solid #ddd;
+    border-color: #ff5722;
+}
+
+.store-express view::before {
+    border-color: #ff5722;
+    border-radius: 32rpx;
+    border: none;
+}
+
+.store-express text {
+    float: right;
+    color: #747474;
+    font-size: 24rpx;
+}
+
+.store-products {
+    padding-top: 24rpx;
+}
+
+.store-products::before {
+    left: -104rpx;
+}
+
+.store-products .product {
+    margin-right: 47rpx;
+    display: inline-block;
+}
+
+.store-products .product:last-child {
+    margin: 0;
+}
+
+.store-products image {
+    width: 168rpx;
+    height: 168rpx;
+}
+
+.store-products .price {
+    font-size: 20rpx;
+    line-height: 32rpx;
+    margin-top: 8rpx;
+}
+
+.store-products .price text {
+    font-size: 24rpx;
+    font-weight: bold;
+}
+
+.store-badge {
+    width: 96rpx;
+    height: 32rpx;
+    background: linear-gradient(90deg,rgba(255,87,34,1) 0%,rgba(255,51,51,1) 100%);
+    text-align: center;
+    color: #fff;
+    line-height: 32rpx;
+    border-radius: 16rpx;
+    font-size: 20rpx;
+    margin-right: 8rpx;
+    float: left;
+}
+
+.StoreName {
+    width: 600rpx;
+    float: left;
+    color: #212121;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.StoreName text {
+    color: #212121;
+    max-width: 80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 8rpx;
+    font-size: 30rpx;
+}
+
+.addressicon {
+    background: -webkit-linear-gradient(left,#ff5722,#f33);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    float: left;
+}
+
+.mbutton {
+    float: right;
+    background: -webkit-linear-gradient(left,#ff5722,#f33);
+    -webkit-background-clip: text;
+}
+
+.Address_search {
+    overflow: hidden;
+    background: #fff;
+    line-height: 48rpx;
+    padding: 16rpx 24rpx;
+}

@@ -1,0 +1,47 @@
+<view class="container">
+    <view class="search-box">
+        <view class="search">
+            <text class="iconfont icon__search"></text>
+            <input bindconfirm="onConfirmSearch" bindinput="onInputKeyword" class="text" confirmType="search" placeholder="请输入商品名称" placeholderStyle="color:#BDBDBD" type="text" value="{{keyword}}"></input>
+        </view>
+    </view>
+    <view class="page-content">
+        <view class="store-item" wx:for="{{storeList}}" wx:key="{{item.StoreId}}">
+            <view bindtap="goStore" class="store-info border-bottom" data-storeid="{{item.StoreId}}">
+                <image class="store-logo" mode="aspectFill" src="{{item.StoreImages}}"></image>
+                <view class="store-name">
+          {{item.StoreName}}
+          <text>{{item.OnSaleNum}} 件商品</text>
+                </view>
+                <view>
+                    <view class="store-express">
+                        <view class="border" style="color:{{PrimaryColor}};border-color:{{PrimaryColor}};background:{{PrimaryColorlight}}" wx:if="{{item.Delivery.IsPickeupInStore}}">自提</view>
+                        <view class="border" style="color:{{PrimaryColor}};border-color:{{PrimaryColor}};background:{{PrimaryColorlight}}" wx:if="{{item.Delivery.IsSupportExpress}}">快递</view>
+                        <view class="border" style="color:{{PrimaryColor}};border-color:{{PrimaryColor}};background:{{PrimaryColorlight}}" wx:if="{{item.Delivery.IsStoreDelive}}">门店配送</view>
+                    </view>
+                    <text>{{item.Distance}}</text>
+                </view>
+            </view>
+            <view class="products {{item.isOpen?'is-open':''}}">
+                <view bindtap="goProductDetail" class="item" data-activeid="{{pro.ActiveId}}" data-activetype="{{pro.ActiveType}}" data-productid="{{pro.ProductId}}" data-storeid="{{pro.StoreId}}" wx:for="{{item.ProductList}}" wx:for-index="proindex" wx:for-item="pro" wx:key="{{pro.ProductId}}">
+                    <image mode="aspectFill" src="{{pro.ThumbnailUrl220}}"></image>
+                    <view class="name">{{pro.ProductName}}</view>
+                    <view class="price" style="color:{{PrimaryColor}};border-color:{{PrimaryColor}}">
+                        <text>￥</text>{{pro.SalePrice}}</view>
+                </view>
+            </view>
+            <view bindtap="showAllProduct" class="more-product border-top" data-index="{{index}}" wx:if="{{item.ProductList.length>2&&!item.isOpen}}">
+        查看更多（<text>{{item.ProductList.length-2}}</text>件）
+        <text class="iconfont icon__arrow_down"></text>
+            </view>
+            <view bindtap="showAllProduct" class="more-product border-top" data-index="{{index}}" wx:if="{{item.isOpen}}">
+        收起
+        <text class="iconfont icon__arrow_up"></text>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="no-search" wx:if="{{showNoSearch}}">
+    <image src="../../images/no-search-new.png"></image>
+    <view>搜索结果为空</view>
+</view>

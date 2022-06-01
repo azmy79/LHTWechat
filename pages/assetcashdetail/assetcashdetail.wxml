@@ -1,0 +1,51 @@
+<view class="mt24">
+    <view class="form-group bg-white">
+        <view class="form-group-name">申请时间</view>
+        <view class="form-group-input">
+          {{DrawDetailInfo.RequestTime}}
+        </view>
+    </view>
+    <view class="form-group bg-white">
+        <view class="form-group-name">提现金额</view>
+        <view class="form-group-input">
+         ¥{{DrawDetailInfo.Amount}}
+        </view>
+    </view>
+    <view class="form-group bg-white">
+        <view class="form-group-name">提现账号</view>
+        <view class="form-group-input" wx:if="{{DrawDetailInfo.IsAlipay}}">
+         {{DrawDetailInfo.AlipayCode}}
+        </view>
+        <view class="form-group-input" wx:elif="{{DrawDetailInfo.IsWeixin}}">
+         提现到微信
+        </view>
+        <view class="form-group-input" wx:else>
+         {{DrawDetailInfo.BankName}}
+        </view>
+    </view>
+    <view class="form-group bg-white">
+        <view class="form-group-name">审核状态</view>
+        <view class="form-group-input">
+          {{DrawDetailInfo.AuditStatusStr}}
+        </view>
+    </view>
+    <view class="form-group bg-white">
+        <view class="form-group-name">审核日期</view>
+        <view class="form-group-input">
+         {{DrawDetailInfo.AccountDate}}
+        </view>
+    </view>
+    <view class="form-group bg-white">
+        <view class="form-group-name">备注</view>
+        <view class="form-group-input">
+         {{DrawDetailInfo.Remark}}
+        </view>
+    </view>
+    <view class="form-group bg-white" wx:if="{{DrawDetailInfo.ManagerRemark}}">
+        <view class="form-group-name">拒绝理由</view>
+        <view class="form-group-input">
+         {{DrawDetailInfo.ManagerRemark}}
+        </view>
+    </view>
+    <view bindtap="bindDrawListTap" class="btn">返回提现记录</view>
+</view>

@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "团购详情",
+    "usingComponents": {
+        "painter": "/components/painter/painter"
+    }
+}

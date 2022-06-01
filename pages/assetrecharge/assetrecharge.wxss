@@ -1,0 +1,107 @@
+page {
+    background: #f5f5f5;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+    background: #fff;
+}
+
+.loginpassword {
+    display: flex;
+    height: 98rpx;
+    line-height: 98rpx;
+    padding-left: 24rpx;
+    padding-right: 24rpx;
+}
+
+.borderbott0m {
+    border-bottom: 1rpx solid #dcdcdc;
+}
+
+.loginpassword input {
+    height: 98rpx;
+    line-height: 98rpx;
+    color: #000;
+    padding-left: 5rpx;
+    width: 100%;
+}
+
+.loginpassword text {
+    width: 180rpx;
+    margin-right: 24rpx;
+    font-size: 30rpx;
+}
+
+.tjiaoname button {
+    margin-top: 16rpx;
+    width: 702rpx;
+    margin-left: 24rpx;
+    font-size: 36rpx;
+}
+
+.tjiaoname button::after {
+    border: none;
+}
+
+button[disabled].other-button-hover {
+    color: #fff;
+    background: #ff5722;
+    border: 1rpx #ff5722 solid;
+}
+
+button.other-button-hover {
+    color: #fff;
+    margin-top: 16rpx;
+    background: #fff;
+}
+
+.w100 {
+    width: 100%;
+}
+
+.red {
+    color: #ff5722;
+    padding: 24rpx 0;
+    margin-top: 24rpx;
+    padding-left: 24rpx;
+}
+
+.listinfo {
+    overflow: hidden;
+    padding: 24rpx 0;
+    font-size: 28rpx;
+    color: #474747;
+    width: 30%;
+    display: block;
+    text-align: center;
+    background: #fff;
+    float: left;
+    border: 1px #ddd solid;
+    border-radius: 24rpx;
+    margin-right: 24rpx;
+    margin-bottom: 24rpx;
+}
+
+.listinfo view {
+    line-height: 40rpx;
+}
+
+.listinfo:nth-child(3n) {
+    margin-right: 0;
+}
+
+.listactive {
+    background: #ff5722;
+    color: #fff;
+    border: 1px #ff5722 solid;
+}
+
+.listbox {
+    width: 702rpx;
+    padding: 32rpx 0 8rpx 0;
+    overflow: hidden;
+}

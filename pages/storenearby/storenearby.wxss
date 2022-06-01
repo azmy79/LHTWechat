@@ -1,0 +1,228 @@
+.search-box {
+    padding: 24rpx;
+    background-color: #f3f3f3;
+    margin-bottom: 24rpx;
+}
+
+.search {
+    position: relative;
+}
+
+.search .iconfont {
+    position: absolute;
+    top: 10rpx;
+    left: 16rpx;
+    color: #c2c2c2;
+    font-size: 40rpx;
+}
+
+.search input {
+    width: 100%;
+    height: 64rpx;
+    line-height: normal;
+    border: 0;
+    padding-left: 68rpx;
+    padding-right: 5%;
+    box-sizing: border-box;
+    background: #fff;
+    border-radius: 8rpx;
+}
+
+.store-activity {
+    position: relative;
+    margin-top: 16rpx;
+    overflow: hidden;
+}
+
+.activity-text {
+    line-height: 32rpx;
+    font-size: 24rpx;
+    max-width: 320rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    float: left;
+}
+
+.activity-total {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 16rpx;
+    margin: -16rpx;
+    z-index: 2;
+}
+
+.activity-total text {
+    font-size: 24rpx;
+    color: #747474;
+}
+
+.activity-item {
+    line-height: 32rpx;
+    position: relative;
+    color: #212121;
+    padding-left: 48rpx;
+    margin-top: 24rpx;
+}
+
+.activity-item .text-icon {
+    width: 32rpx;
+    height: 32rpx;
+    line-height: 32rpx;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+    color: #fff;
+    font-size: 20rpx;
+    border-radius: 4rpx;
+}
+
+.tag-green {
+    background: #8bc34a;
+}
+
+.tag-yellow {
+    background: #ffa000;
+}
+
+.tag-red {
+    background: #ff5252;
+}
+
+.store-title {
+    margin: 32rpx 0 24rpx;
+    position: relative;
+    text-align: center;
+}
+
+.store-title image {
+    width: 46rpx;
+    height: 39rpx;
+    display: inline-block;
+    vertical-align: sub;
+    margin-right: 8rpx;
+}
+
+.store-title text {
+    font-size: 32rpx;
+    font-weight: bold;
+    line-height: 44rpx;
+}
+
+.store-list .item {
+    padding: 24rpx;
+    background: #fff;
+    margin-bottom: 32rpx;
+}
+
+.store-logo {
+    width: 88rpx;
+    height: 88rpx;
+    float: left;
+}
+
+.store-logo image {
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+}
+
+.store-content {
+    width: 598rpx;
+    float: right;
+    font-size: 26rpx;
+}
+
+.store-name {
+    font-size: 30rpx;
+    color: #212121;
+    line-height: 42rpx;
+}
+
+.store-name view {
+    display: inline-block;
+}
+
+.store-name text {
+    font-size: 26rpx;
+    float: right;
+}
+
+.locat {
+    padding: 8rpx 0 24rpx;
+}
+
+.store-express view {
+    padding: 0 8rpx;
+    line-height: 32rpx;
+    margin-right: 16rpx;
+    color: #ff5722;
+    background: #fff4ed;
+    display: inline-block;
+    border-radius: 16rpx;
+    font-size: 20rpx;
+    vertical-align: top;
+    border: 1rpx solid #ff5722;
+}
+
+.store-express text {
+    float: right;
+    color: #747474;
+    font-size: 24rpx;
+}
+
+.store-products {
+    padding-top: 24rpx;
+    position: relative;
+}
+
+.store-products::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1rpx;
+    background-color: #e0e0e0;
+}
+
+.store-products .product {
+    margin-right: 47rpx;
+    display: inline-block;
+}
+
+.store-products .product:last-child {
+    margin: 0;
+}
+
+.store-products image {
+    width: 168rpx;
+    height: 168rpx;
+}
+
+.store-products .price {
+    font-size: 20rpx;
+    line-height: 32rpx;
+    margin-top: 8rpx;
+}
+
+.store-products .price text {
+    font-size: 24rpx;
+    font-weight: bold;
+}
+
+.store-badge {
+    width: 96rpx;
+    height: 32rpx;
+    background: linear-gradient(90deg,rgba(255,87,34,1) 0%,rgba(255,51,51,1) 100%);
+    text-align: center;
+    color: #fff;
+    line-height: 32rpx;
+    border-radius: 16rpx;
+    font-size: 20rpx;
+    margin-right: 8rpx;
+    float: left;
+}

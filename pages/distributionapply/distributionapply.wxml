@@ -1,0 +1,14 @@
+<import src="../wxParse/wxParse.wxml"></import>
+<view class="font28">
+    <view class="wxParse">
+        <template is="wxParse" data="{{wxParseData:Introduction.nodes}}"></template>
+    </view>
+</view>
+<view class="xinzheng">
+    <view class="agreen" hidden="{{!OpenRecruitmentAgreement}}">
+        <view bindtap="btnChange" class="check" style="background:#fff url({{checked}}) center center no-repeat; background-size:90% 90%;"></view>
+        <text>我已经同意并阅读</text>
+        <navigator class="induce" openType="redirect" url="../distributionagree/distributionagree">《{{Distributor}}招募协议》</navigator>
+    </view>
+    <button bindtap="ApplicationReqeust" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}">立即申请{{Distributor}}</button>
+</view>

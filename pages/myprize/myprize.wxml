@@ -1,0 +1,28 @@
+<view class="prize">
+    <view class="coupontitle bg-white">
+        <view bindtap="bindGifttap" class="coupontitlel" data-type="1" style="{{type==1?'border-bottom:2rpx solid '+PrimaryColor+';color:'+PrimaryColor:''}}">
+      未领取
+    </view>
+        <view bindtap="bindGifttap" class="coupontitlel" data-type="2" style="{{type==2?'border-bottom:2rpx solid '+PrimaryColor+';color:'+PrimaryColor:''}}">
+      已领取
+    </view>
+    </view>
+    <view class="giftlist">
+        <view bindtap="{{type==2?'gotodeail':''}}" class="list" data-giftid="{{item.GiftId}}" data-prizetype="{{item.PrizeType}}" data-recordid="{{item.RecordId}}" wx:if="{{list.length>0}}" wx:for="{{list}}" wx:key="{{index}}">
+            <image src="{{item.AwardPic}}" wx:if="{{item.PrizeType==3}}"></image>
+            <image src="../../images/ic_point.jpg" wx:if="{{item.PrizeType==1}}"></image>
+            <image src="../../images/ic_coupons.jpg" wx:if="{{item.PrizeType==2}}"></image>
+            <view class="title">
+                <view class="name">{{item.AwardName}}</view>
+                <view class="mone">x1</view>
+            </view>
+            <view class="time">
+                <view class="tiem_xx">{{item.CreateDate}}</view>
+                <text class="iconfont angle-right" wx:if="{{type==2}}"></text>
+                <view bindtap="gotodeail" class="btn" data-giftid="{{item.GiftId}}" data-recordid="{{item.RecordId}}">
+                    <text style="border-color:{{PrimaryColor}};color:{{PrimaryColor}}" wx:if="{{type==1}}">领取</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

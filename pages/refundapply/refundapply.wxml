@@ -1,0 +1,60 @@
+<view class="virtual" wx:if="{{VerificationPasswords.length>0}}">
+    <view class="check-qrcode">
+        <view class="item" wx:for="{{VerificationPasswords}}" wx:key="{{index}}">
+            <icon bindtap="changeSelect" color="{{item.checked?'#ff221a':''}}" data-index="{{index}}" type="{{item.checked?'success':'circle'}}"></icon>密码{{index+1}}<text class="span">{{item.value}}</text>
+        </view>
+    </view>
+</view>
+<view class="page-section">
+    <form>
+        <view class="form-group bg-white">
+            <view class="form-group-name">退款订单</view>
+            <view class="form-group-input">{{OrderId}}</view>
+        </view>
+        <view bindtap="ShowReason" class="form-group bg-white">
+            <view class="form-group-name">退款原因</view>
+            <view class="form-group-input {{ShowReasonIndex==-1?'selecttxt':''}}">{{ShowReasonIndex==-1?'请选择退款原因':ShowReasonList[ShowReasonIndex]}}</view>
+            <view class="iconfont arrow_right come-icon"></view>
+        </view>
+        <view class="form-group bg-white">
+            <view class="form-group-name">退款金额</view>
+            <view class="form-group-input">￥{{RefundMoney}}</view>
+        </view>
+        <view bindtap="ShowType" class="form-group bg-white">
+            <view class="form-group-name">退款方式</view>
+            <view class="form-group-input {{ShowRefundIndex==-1?'selecttxt':''}}">{{ShowRefundIndex==-1?'请选择退款方式':RefundTextList[ShowRefundIndex]}}</view>
+            <view class="iconfont arrow_right come-icon"></view>
+        </view>
+        <view class="form-group bg-white" hidden="{{RefundType!=2||ShowRefundIndex==-1}}">
+            <view class="form-group-name"> 开户银行</view>
+            <view class="form-group-input">
+                <input bindblur="GetBankName" bindconfirm="GetBankName" name="txtBankName" type="text"></input>
+            </view>
+        </view>
+        <view class="form-group bg-white" hidden="{{RefundType!=2||ShowRefundIndex==-1}}">
+            <view class="form-group-name"> 银行开户名</view>
+            <view class="form-group-input">
+                <input bindblur="GetBankAccountName" bindconfirm="GetBankAccountName" name="txtBankAccountName" type="text"></input>
+            </view>
+        </view>
+        <view class="form-group bg-white" hidden="{{RefundType!=2||ShowRefundIndex==-1}}">
+            <view class="form-group-name"> 银行账号</view>
+            <view class="form-group-input">
+                <input bindblur="GetBankAccountNo" bindconfirm="GetBankAccountNo" name="txtBankAccountNo" type="text"></input>
+            </view>
+        </view>
+        <view class="line">
+            <view></view>
+        </view>
+        <view class="beizhu">
+            <view class="form-group-name">备注</view>
+        </view>
+        <view class="beizhu bg-white pb24">
+            <textarea bindblur="GetRemark" bindconfirm="GetRemark" class="group-area" data-names="Remark" placeholder="在此输入备注"></textarea>
+        </view>
+        <view class="btn">
+            <button bindtap="formSubmit" class="submit" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">{{submitBtnText}}</button>
+            <navigator class="cancel" openType="navigateBack">取消</navigator>
+        </view>
+    </form>
+</view>

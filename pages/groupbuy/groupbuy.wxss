@@ -1,0 +1,43 @@
+.group .img_1 {
+    width: 100%;
+    height: 230rpx;
+}
+
+.group .shoplist {
+    width: 700rpx;
+    margin: 0 auto;
+    height: auto;
+    overflow: hidden;
+    border-bottom: 1rpx solid #ebebeb;
+    padding: 30rpx 0;
+}
+
+.group .shoplist image {
+    width: 120rpx;
+    height: 120rpx;
+    float: left;
+    display: block;
+}
+
+.group .shoplist .cont {
+    width: 560rpx;
+    float: right;
+}
+
+.group .shoplist .cont .tit {
+    color: #333;
+    margin-bottom: 10rpx;
+}
+
+.group .shoplist .cont .pirce text {
+    margin-left: 30rpx;
+}
+
+.group .shoplist .cont .pirce text:first-child {
+    margin-left: 0;
+    color: #ff5722;
+}
+
+.group .shoplist .cont .pirce text:nth-child(2) {
+    text-decoration: line-through;
+}

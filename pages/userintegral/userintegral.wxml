@@ -1,0 +1,18 @@
+<view class="points-hd" style="background:{{PrimaryColor}}">
+    <view class="fl pointwidth">
+        <text class="totalPoint">{{Points}}</text>
+        <text class="txt">分</text>
+    </view>
+    <text bindtap="pointorderlist" class="list">积分兑换</text>
+</view>
+<view class="points-list pl24">
+    <view class="point-li pd24-vertical pr24" wx:for="{{pointList}}" wx:key="{{list}}">
+        <view class="point-left">
+            <view>{{item.TradeTypeName}} <text hidden="{{item.OrderId==null||item.OrderId==''}}">(订单号{{item.OrderId}})</text>
+            </view>
+            <view class="time">{{item.TradeDate}}</view>
+        </view>
+        <view class="point-count income" wx:if="{{item.Increased>0}}">+{{item.Increased}}</view>
+        <view class="point-count expend" wx:else>-{{item.Reduced}}</view>
+    </view>
+</view>

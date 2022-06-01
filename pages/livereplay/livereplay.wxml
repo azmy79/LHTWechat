@@ -1,0 +1,63 @@
+<view class="live-player">
+    <image class="bg-img" mode="aspectFill" src="{{room.CoverImg}}"></image>
+    <view class="live-page-0 live-bottom-page__playing">
+        <video autoplay controls vslideGesture :show-fullscreen-btn="false" bindended="videoEnd" bindplay="videoPlay" class="live-player-component__ready {{isPlay?'play':''}}" objectFit="cover" src="{{videoUrl}}"></video>
+    </view>
+    <view class="live-player-normal__head live-player-room__head" wx:if="{{room.RoomId}}">
+        <view class="weui-navigation-bar mode__navigation__with__custom mode__navigation__with__white-icon navigation__with__profile">
+            <view class="weui-navigation-bar__placeholder ios" style="padding-top: {{statusBarHeight*2}}rpx;visibility: hidden;"></view>
+            <view class="weui-navigation-bar__inner ios" style="padding-top: {{statusBarHeight*2}}rpx; color: #ffffff;">
+                <view class="weui-navigation-bar__left">
+                    <view class="weui-navigation-bar__buttons">
+                        <view bindtap="back" class="weui-navigation-bar__button weui-navigation-bar__btn_goback"></view>
+                    </view>
+                </view>
+                <view class="mode__navigation__inner__with-home">
+                    <view class="live-player-navigation-header live-player__profile-card live-player__profile-card_without-btn">
+                        <view class="live-player-navigation-header live-player__profile-card__inner">
+                            <image class="live-player-navigation-header-avatar live-player__profile-card__avatar" src="{{room.AnchorImg}}"></image>
+                            <view class="live-player-navigation-header-content live-player__profile-card__body">
+                                <view class="live-player-navigation-header-content-name live-player__profile-card__title" style="max-width: 7em"> {{room.Name}} </view>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+                <view class="navigation_right">
+                    <button class="button__share" openType="share">
+                        <view class="iconfont icon-share3"></view>
+                    </button>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="tools" hidden="{{showProduct||showList}}">
+        <view bindtap="toggleProduct" class="iconfont icon-shoplist" hidden="{{!productList.length}}"></view>
+    </view>
+    <view bindtap="toggleProduct" class="store__mask" hidden="{{!showProduct}}"></view>
+    <view class="live-player-room__body {{showProduct?'active':''}}">
+        <view class="store-list">
+            <view class="store-list__inner mode-filter-black">
+                <view class="store-list__header">
+                    <view bindtap="toggleProduct" class="store-list__close iconfont icon__close"></view>
+                    <view class="store-list__title">直播商品</view>
+                </view>
+                <view class="store-list__body">
+                    <scroll-view scrollY bindscrolltolower="scrolltolower" class="store-list__body__inner">
+                        <view class="store-list__item store-list__item__with-navigator" data-id="1" wx:for="{{productList}}" wx:key="productId">
+                            <navigator class="store-list__item__inner" hoverClass="navigator-hover" openType="navigate" url="/pages/productdetail/productdetail?id={{item.ProductId}}&room_id={{roomId}}">
+                                <view class="store-list__item__header">
+                                    <image class="store-list__item__avatar" mode="aspectFill" role="img" src="{{item.Image}}"></image>
+                                    <view class="store-list__item__index">{{index+1}}</view>
+                                </view>
+                                <view class="store-list__item__body">
+                                    <view class="store-list__item__title">{{item.Name}}</view>
+                                    <view class="store-list__item__price">¥ {{item.Price}}</view>
+                                </view>
+                            </navigator>
+                        </view>
+                    </scroll-view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

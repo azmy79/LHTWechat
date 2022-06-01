@@ -1,0 +1,47 @@
+<view class="page-root {{room.Status===102?'page-root-notice':''}}" wx:if="{{pageInit}}">
+    <view class="live-user">
+        <image mode="aspectFill" src="{{room.CoverImg}}"></image>
+        <view class="body" wx:if="{{room.Status>=103}}">
+            <text class="status">本场直播已经结束</text>
+        </view>
+    </view>
+    <view class="live-info">
+        <view class="main">
+            <view class="title overflow-ellipsis">{{room.Name}}</view>
+            <view class="name-wrap">
+                <image mode="aspectFill" src="{{room.AnchorImg}}"></image>
+                <text class="name">{{room.AnchorName}}</text>
+            </view>
+        </view>
+        <view class="aside">
+            <button class="share" openType="share">
+                <text class="iconfont icon-share3"></text>
+                <text class="text">分享</text>
+            </button>
+        </view>
+    </view>
+    <view class="live-product" wx:if="{{productList.length}}">
+        <view class="title border-top">本场直播商品</view>
+        <view class="list">
+            <view bindtap="openProduct" class="item" data-id="{{item.ProductId}}" wx:for="{{productList}}" wx:key="ProductId">
+                <image mode="aspectFill" src="{{item.Image}}"></image>
+                <view class="name">{{item.Name}}</view>
+                <view class="money">
+                    <text>￥</text>{{item.Price}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="live-remind border-top">
+        <block wx:if="{{room.Status===102}}">
+            <view class="time-wrap" wx:if="{{!isTimeOut}}">
+                <text>{{countdown[0]}}</text>时<text>{{countdown[1]}}</text>分<text>{{countdown[2]}}</text>秒
+				</view>
+            <view class="timeout" wx:else>直播即将开始</view>
+            <view class="remind">
+                <subscribe roomId="{{roomId}}">开播提醒</subscribe>
+            </view>
+        </block>
+        <navigator class="live-remind-tolive" style="background-color:{{PrimaryColor}};color:{{PrimaryTxtColor}}" url="plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id={{roomId}}" wx:elif="{{room.Status===101}}">进入直播</navigator>
+        <navigator class="live-remind-tolive" style="background-color:{{PrimaryColor}};color:{{PrimaryTxtColor}}" url="../livereplay/livereplay?roomId={{roomId}}" wx:else>查看回放</navigator>
+    </view>
+</view>

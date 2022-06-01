@@ -1,0 +1,27 @@
+<view class="content mt32 font32 borderbott0m">
+    <view class="w100">
+        <view class="loginpassword borderbott0m ">
+            <text>手机号码</text>
+            <input bindinput="InputValue" data-key="PhoneCell" maxlength="20" placeholder="请输入手机" placeholderStyle="color:#bdbdbd" type="number" value="{{PhoneCell}}"></input>
+            <button bindgetphonenumber="getPhoneNumber" class="wx-phone-btn" openType="getPhoneNumber">微信授权绑定</button>
+        </view>
+    </view>
+    <view class="w100">
+        <view class="loginpassword borderbott0m threerow">
+            <text>图形验证</text>
+            <input bindinput="InputValue" data-key="ImageCode" maxlength="20" placeholder="请输入图形验证码" placeholderStyle="color:#bdbdbd" type="number" value="{{ImageCode}}"></input>
+            <image bindtap="ChangeCode" class="codeimg w20" src="{{VcodeUrl}}"></image>
+        </view>
+    </view>
+    <view class="w100">
+        <view class="loginpassword threerow">
+            <text>手机验证</text>
+            <input bindinput="InputValue" data-key="PhoneCode" maxlength="20" placeholder="请输入手机验证码" placeholderStyle="color:#bdbdbd" type="number" value="{{CellphoneCode}}"></input>
+            <view bindtap="GetPhoneCode" class="btncode w20" style="color:{{PrimaryTxtColor}};background:{{PrimaryColor}}">{{PhoneText}}</view>
+        </view>
+    </view>
+</view>
+<view class="tjiaoname mt32 ">
+    <view class="font28 m24-horizontal mb24">提示：为了您的账户安全，请及时绑定手机</view>
+    <button bindtap="Savephone" class="other-button-hover font36 pt24 pb24 line_height40" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">立即绑定 </button>
+</view>

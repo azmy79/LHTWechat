@@ -1,0 +1,103 @@
+<template name="mycouplist">
+    <view class="coupontitle bg-white">
+        <view bindtap="bingcoupon" class="coupontitlel" data-type="1">
+            <view class="{{couponType==1?'active':''}}">未使用</view>
+        </view>
+        <view bindtap="bingcoupon" class="coupontitlel" data-type="2">
+            <view class="{{couponType==2?'active':''}}">已使用</view>
+        </view>
+        <view bindtap="bingcoupon" class="coupontitlel" data-type="3">
+            <view class="{{couponType==3?'active':''}}">已过期</view>
+        </view>
+    </view>
+    <view class="couponlist" wx:for="{{couponsList}}" wx:for-index="idx" wx:key="coupons-box">
+        <view class="coupon-info bg-white">
+            <view class="coupon-pic">
+                <view class="counpimg padding24" style="background:url({{counpimgUrl}}) center center no-repeat; background-size:100% 100%">
+                    <view class="coupon-money">￥{{item.couponsPrice}}</view>
+                    <view class="coupon-type">{{item.couponsCanUseProductse}}</view>
+                </view>
+            </view>
+            <view class="coupon-des coupon">
+                <view class="coupon-txt">{{item.LimitText}}</view>
+                <view class="coupon-txt">{{item.couponsDate}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="kong" hidden="{{!isEmpty}}">
+        <view bindtap="toproduct" class="bg_nullCounp" style="background:url({{nullCounp}}) center center no-repeat; background-size:auto 192rpx"></view>
+    暂无优惠券
+  </view>
+</template>
+<template name="loginphone">
+    <view class="login mt32 bg-white pl24 font32 login-box">
+        <view class="font28">Hi,
+      <text class="font-color-yellow font32 font-bolder">{{UserName}}</text>，欢迎登录，账号绑定后可一键登录</view>
+        <view class="font-color-red font28 mt16">为了您的账号安全，请绑定手机号</view>
+        <view class="login-input bb-gray">
+            <text class="mr24">手机号码</text>
+            <input bindinput="InputValue" data-key="PhoneCell" placeholder="请输入手机号" placeholderClass="font-color-bd" type="number" value=""></input>
+        </view>
+        <view class="login-input pr24">
+            <text class="mr24">图形码</text>
+            <input bindinput="InputValue" data-key="ImageCode" placeholder="请输入图形验证码" placeholderClass="font-color-bd" type="number"></input>
+            <view bindtap="ChangeCode">
+                <image alt="" id="imgVerifyCode" src="{{VcodeUrl}}" style="vertical-align: middle; margin-left:16rpx; border-style: none;height:60rpx;width:160rpx;"></image>
+            </view>
+        </view>
+        <view class="login-input pr24">
+            <text class="mr24">手机验证</text>
+            <input bindinput="InputValue" data-key="PhoneCode" placeholder="请输入手机验证码" placeholderClass="font-color-bd" type="number"></input>
+            <view bindtap="GetPhoneCode" class="btncode">获取验证码</view>
+        </view>
+        <view class="login-input">
+            <text class="mr24">设置密码</text>
+            <input bindinput="InputValue" data-key="Password" placeholder="请输入密码" placeholderClass="font-color-bd" type="password"></input>
+        </view>
+    </view>
+    <view class="m24-horizontal mt32 overflow">
+        <button bindtap="Savephone" class="btn-orage">立即绑定</button>
+    </view>
+</template>
+<template name="loginrelation">
+    <view class="login mt32 bg-white pl24 font32 login-box">
+        <view class="font28">Hi,
+      <text class="font-color-yellow font32 font-bolder">{{UserName}}</text>，欢迎登录，账号绑定后可一键登录</view>
+        <view class="login-input bb-gray">
+            <text class="mr24">账号</text>
+            <input bindinput="InputValue" data-key="UserName" name="txtaccountname" placeholder="请输入手机号/邮箱/账号" placeholderClass="font-color-bd" type="text" value=""></input>
+        </view>
+        <view class="login-input">
+            <text class="mr24">密码</text>
+            <input bindinput="InputValue" data-key="Password" name="txtpassword" placeholder="请输入密码" placeholderClass="font-color-bd" type="password" value=""></input>
+        </view>
+    </view>
+    <view class="m24-horizontal mt32 overflow">
+        <view class="font28 mb24" style="color:#757575">关联后，你的微信账号和商城注册账号都可以登录</view>
+        <button bindtap="SaveAccount" class="btn-orage">立即绑定</button>
+    </view>
+</template>
+<template name="login">
+    <form bindsubmit="formsubmit">
+        <view class="login mt32 bg-white pl24 font32 login-box">
+            <view class="login-input bb-gray">
+                <text class="mr24">账号</text>
+                <input name="txtaccountname" placeholder="请输入手机号/邮箱/账号" placeholderClass="font-color-bd" type="text" value=""></input>
+            </view>
+            <view class="login-input">
+                <text class="mr24">密码</text>
+                <input name="txtpassword" placeholder="请输入密码" placeholderClass="font-color-bd" type="password" value=""></input>
+            </view>
+        </view>
+        <view class="m24-horizontal mt32 overflow">
+            <button class="btn-orage" formType="submit">登录</button>
+            <view class="font24 bb-gray mabey">
+                <text class="line"></text>
+                <view>或</view>
+                <text class="line"></text>
+            </view>
+            <button bindtap="quickLogin" class="font32 pd24-vertical lh40 wechat-btn" openType="getUserInfo" type="primary">
+                <text class="iconfont wechat wechat_size"></text> 微信信任登录 </button>
+        </view>
+    </form>
+</template>

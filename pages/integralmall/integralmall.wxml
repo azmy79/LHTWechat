@@ -1,0 +1,64 @@
+<view class="pointmall-head" style="background:{{PrimaryColor}}">
+    <image src="{{pic}}"></image>
+    <view class="user">
+        <view class="name">{{account}}</view>
+        <view>可用积分：{{points}}</view>
+    </view>
+</view>
+<view class="pro_tab">
+    <view bindtap="bindgift" class="pro_tab_flex">
+        <text class="{{tabType==1?'tab_active':''}}" style="{{tabType==1?'color:'+PrimaryColor+';'+'border-color:'+PrimaryColor+';':''}}">可兑换礼品</text>
+    </view>
+    <view bindtap="bindcounp" class="pro_tab_flex">
+        <text class="{{tabType==2?'tab_active':''}}" style="{{tabType==2?'color:'+PrimaryColor+';'+'border-color:'+PrimaryColor+';':''}}">可兑换优惠券</text>
+    </view>
+</view>
+<block wx:if="{{tabType==1}}">
+    <view class="gift-lists">
+        <view bindtap="bindgiftDetail" class="gift-list" data-id="{{item.GiftId}}" wx:for="{{giftList}}" wx:key="{{index}}">
+            <view class="imgbox">
+                <image mode="aspectFill" src="{{item.ThumbnailUrl180}}"></image>
+            </view>
+            <view class="item-content">
+                <view class="title">{{item.Name}}</view>
+                <view class="submes-row">
+                    <view>{{item.NeedPoint}} <text>积分</text>
+                    </view>
+                    <view class="exchange" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">兑换</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="empty" hidden="{{isEmpty}}">
+        <image src="../../images/no-coupon.png"></image>
+        <view class="txt">暂无可兑换礼品</view>
+    </view>
+</block>
+<view class="couponlists" wx:if="{{tabType==2}}">
+    <view class="couponlist" wx:for="{{counplist}}" wx:key="coupons-box">
+        <view class="coupon-left">
+            <view class="price">
+                <text>￥</text>{{item.Price}}</view>
+            <view>{{item.CanUseProducts?'部分商品可用':'全场商品可用'}}</view>
+        </view>
+        <view class="coupon-right">
+            <view class="primary-row">
+                <view class="name">{{item.CouponName}}</view>
+                <view class="point">{{item.NeedPoint}}<text> 积分</text>
+                </view>
+            </view>
+            <view class="sub-row">
+                <view class="tips">
+                    <view class="tip" wx:if="{{item.OrderUseLimit==0}}">订单使用无限制</view>
+                    <view class="tip" wx:if="{{item.OrderUseLimit!=0}}">订单满{{item.OrderUseLimit}}元使用(不含运费)</view>
+                    <view class="tip">{{item.StartTime}}-{{item.ClosingTime}}</view>
+                </view>
+                <view bindtap="ExChangecounp" class="exchange" data-counpid="{{item.CouponId}}" data-points="{{item.NeedPoint}}" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">兑换</view>
+            </view>
+        </view>
+    </view>
+    <view class="empty" hidden="{{noCounp}}">
+        <image src="../../images/no-coupon.png"></image>
+        <view class="txt">暂无可兑换的优惠券</view>
+    </view>
+</view>

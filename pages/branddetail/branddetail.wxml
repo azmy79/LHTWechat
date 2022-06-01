@@ -1,0 +1,40 @@
+<import src="../wxParse/wxParse.wxml"></import>
+<view class="container">
+    <image class="brand-logo" mode="widthFix" src="{{info.Logo}}"></image>
+    <view class="brand-tab">
+        <view bindtap="switchTab" class="tab-item {{tab==1?'active':''}}" data-tab="1">
+            <text style="{{tab==1?'color:'+PrimaryColor+';'+'border-color:'+PrimaryColor+';':''}}">商品列表</text>
+        </view>
+        <view bindtap="switchTab" class="tab-item {{tab==2?'active':''}}" data-tab="2">
+            <text style="{{tab==2?'color:'+PrimaryColor+';'+'border-color:'+PrimaryColor+';':''}}">品牌详情</text>
+        </view>
+    </view>
+    <view class="brand-product-content" hidden="{{tab==2}}">
+        <view class="empty" wx:if="{{list.length==0}}">
+            <image src="../../images/no-search-new.png"></image>
+            <view class="txt">当前页面没有商品</view>
+        </view>
+        <view bindtap="showProduct" class="brand-product" data-activeid="{{item.ActiveId}}" data-activetype="{{item.ActiveType}}" data-productid="{{item.ProductId}}" wx:for="{{list}}" wx:key="{{item.ProductId}}">
+            <view class="imgbox">
+                <image mode="aspectFit" src="{{item.Pic}}"></image>
+            </view>
+            <view class="item-content">
+                <view class="title">{{item.ProductName}}</view>
+                <view class="submes-row">
+                    <view>
+                        <text>¥</text> {{item.SalePrice}}</view>
+                    <text>已售{{item.SaleCounts}}件</text>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view>
+        <view class="wxParse" hidden="{{tab==1}}">
+            <template is="wxParse" data="{{wxParseData:metaDescription.nodes}}"></template>
+            <view class="empty" wx:if="{{!info.Description}}">
+                <image src="../../images/no-search-new.png"></image>
+                <view class="txt">当前品牌没有详情</view>
+            </view>
+        </view>
+    </view>
+</view>

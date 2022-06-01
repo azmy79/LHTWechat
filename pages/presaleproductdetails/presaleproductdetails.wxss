@@ -1,0 +1,875 @@
+.slide-image {
+    display: inline;
+}
+
+.swiper-box {
+    height: 750rpx;
+}
+
+.swiper-box .wx-swiper-dots.wx-swiper-dots-horizontal {
+    background: rgba(0,0,0,0.72);
+    border: 0;
+    border-radius: 16rpx;
+    padding: 10rpx 16rpx 10rpx 24rpx;
+}
+
+.swiper-box .wx-swiper-dot {
+    display: inline-flex;
+    background-color: #fff;
+    margin-left: -8rpx;
+}
+
+.swiper-box .wx-swiper-dot-active {
+    background: #ff5722;
+}
+
+.container {
+    height: auto;
+    overflow: hidden;
+    padding-bottom: 130rpx;
+}
+
+.contentsale {
+    padding: 0 30rpx;
+    padding-bottom: 50rpx;
+    border-bottom: 1rpx solid #ebebeb;
+}
+
+.name_share {
+    margin-top: 24rpx;
+    position: relative;
+}
+
+.share_text {
+    font-size: 24rpx;
+    color: #ff5722;
+    width: 48rpx;
+    text-align: center;
+    position: relative;
+    top: 42rpx;
+    right: 8rpx;
+}
+
+.share-icon {
+    padding: 0;
+    color: #f5222d;
+    line-height: 48rpx;
+    background: transparent;
+}
+
+.product-name {
+    max-height: 96rpx;
+    line-height: 48rpx;
+    overflow: hidden;
+    font-size: 32rpx;
+    color: #212121;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    float: left;
+    width: 630rpx;
+    margin-right: 16rpx;
+    font-weight: bold;
+}
+
+.contentsale .proname {
+    font-size: 36rpx;
+    padding: 20rpx 0;
+}
+
+.contentsale .info {
+    color: #999;
+    margin-top: 10rpx;
+}
+
+.contentsale .pire view {
+    font-size: 32rpx;
+    padding: 10rpx 0;
+}
+
+.contentsale .pire view span {
+    font-size: 38rpx;
+    color: #ff5722;
+}
+
+.contentsale .pire view .fl {
+    float: left;
+    padding: 0;
+}
+
+.contentsale .pire view em {
+    align-items: center;
+    display: flex;
+}
+
+.contentsale .pire view i {
+    width: 40rpx;
+    height: 40rpx;
+    background: red;
+    text-align: center;
+    line-height: 40rpx;
+    display: inline-block;
+    font-size: 26rpx;
+    color: #fff;
+    margin: 0 15rpx;
+    font-style: normal;
+}
+
+.contentsale .tailtime {
+    border: 2rpx dashed #dcdcdc;
+    padding: 20rpx;
+    margin: 30rpx 0;
+}
+
+.contentsale .tailtime .tail {
+    margin-bottom: 16rpx;
+}
+
+.contentsale .tailtime .mb0 {
+    margin-bottom: 0;
+}
+
+.contentsale .protag {
+    display: flex;
+}
+
+.contentsale .protag span {
+    width: 31%;
+    margin: 20rpx 0;
+}
+
+.contentsale .protag span:first-child {
+    width: 38%;
+}
+
+.contentsale .protag span:nth-child(2) {
+    text-align: center;
+}
+
+.contentsale .protag span:last-child {
+    text-align: right;
+}
+
+.contentsale .protag .light {
+    color: #ff5722;
+}
+
+.hdong {
+    background: #f5f5f5;
+    padding: 20px 0;
+}
+
+.hdonglist {
+    padding: 24rpx;
+    line-height: 40rpx;
+    position: relative;
+    background: #fff;
+    margin-top: 24rpx;
+}
+
+.hdonglist::after {
+    content: '';
+    position: absolute;
+    left: 24rpx;
+    right: 0;
+    bottom: 0;
+    height: 1rpx;
+    background: #ddd;
+    transform: scaleY(.5);
+}
+
+.hdonglist .iconfont {
+    font-size: 36rpx;
+}
+
+.hdonglist .arrow_right {
+    font-size: 28rpx;
+    text-align: right;
+    color: #747474;
+}
+
+.hdonglist.other {
+    color: #212121;
+}
+
+.badge_quan_,.badge_jian_ {
+    color: #ff5252;
+}
+
+.badge_mian_ {
+    color: #8bc34a;
+}
+
+.badge_song_ {
+    color: #ffa000;
+}
+
+.badge_gift {
+    color: #0091ea;
+}
+
+.promote_con {
+    position: relative;
+    padding: 12rpx 0rpx;
+}
+
+.promote_con .promote_item {
+    padding: 0 24rpx;
+    display: flex;
+    font-size: 28rpx;
+    color: #424242;
+    margin-top: 16rpx;
+    line-height: 44rpx;
+}
+
+.promote_item text {
+    font-size: 28rpx;
+}
+
+.counpon-icon {
+    margin-right: 15rpx;
+    font-size: 28rpx;
+    line-height: 40rpx;
+    float: left;
+    width: 90%;
+}
+
+.guigecha {
+    color: #bdbdbd;
+    position: absolute;
+    right: 0;
+}
+
+.counpon-icon text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    vertical-align: middle;
+    max-width: 530rpx;
+    display: inline-block;
+}
+
+.badge {
+    background: #ff5722;
+    border-radius: 4rpx;
+    line-height: 32rpx;
+    font-size: 20rpx;
+    color: #fff;
+    padding: 0 8rpx;
+    margin-right: 24rpx;
+    display: inline-block;
+    margin-top: 4rpx;
+}
+
+.badge.light {
+    background: #f5222d;
+}
+
+.overtxt {
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    align-content: center;
+}
+
+.like {
+    padding: 0 30rpx;
+    height: auto;
+    overflow: hidden;
+}
+
+.like .tit {
+    margin-bottom: 15rpx;
+}
+
+.like .con {
+    float: left;
+    margin-right: 30rpx;
+}
+
+.like .con:last-child {
+    margin-right: 0;
+}
+
+.like image {
+    max-width: 150rpx;
+    max-height: 150rpx;
+}
+
+.btn-area {
+    position: fixed;
+    bottom: 0;
+    background: #fff;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 16rpx 24rpx 16rpx 0;
+    font-size: 20rpx;
+    z-index: 600;
+}
+
+.btn-area navigator {
+    text-align: center;
+    max-width: 104rpx;
+    line-height: 28rpx;
+    flex: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.btn-area navigator+navigator {
+    border-left: 1rpx solid #eee;
+}
+
+.navigator-hover {
+    background: transparent;
+    opacity: 1;
+}
+
+.btn-area navigator .iconfont {
+    font-size: 44rpx;
+    line-height: 44rpx;
+    display: block;
+}
+
+.btn-area button {
+    padding: 0;
+    background: transparent!important;
+}
+
+button::after {
+    border: none;
+}
+
+.btn-area .btn {
+    line-height: 40rpx;
+    padding: 16rpx 0;
+    text-align: center;
+    position: relative;
+    flex: 1;
+    font-size: 28rpx;
+}
+
+.btn-area .btn:first-of-type {
+    border-top-left-radius: 8rpx;
+    border-bottom-left-radius: 8rpx;
+}
+
+.btn-area .btn:last-child {
+    border-top-right-radius: 8rpx;
+    border-bottom-right-radius: 8rpx;
+}
+
+.icon image {
+    width: 40rpx;
+    height: 40rpx;
+    margin-top: 12rpx;
+    display: inline-block;
+    margin-bottom: 5rpx;
+}
+
+.btn-area .goumai {
+    background: linear-gradient(to right,#ff5722,#f33);
+    color: #fff;
+}
+
+.lqyhq {
+    position: fixed;
+    bottom: 0;
+    z-index: 1000;
+    background: #fff;
+    font-size: 24rpx;
+    width: 750rpx;
+    min-height: 840rpx;
+}
+
+.promotelist {
+    padding: 24rpx;
+    font-size: 32rpx;
+    line-height: 48rpx;
+    position: relative;
+    background: #fff;
+    margin: 0;
+}
+
+.nrtimelqan .nrtimelist-con .nrtimelist .dian {
+    font-size: 18rpx;
+    color: #ff5252;
+    line-height: 25rpx;
+    height: 25rpx;
+    margin-right: 15rpx;
+    float: left;
+}
+
+.nrtimelqan .nrtimelist-con {
+    float: left;
+    width: 500rpx;
+    font-size: 24rpx;
+    line-height: 30rpx;
+}
+
+.lqyhqtitle {
+    padding: 25rpx 35rpx;
+    background: #fff;
+    width: 682rpx;
+    border-bottom: 1rpx solid #ddd;
+}
+
+.lqyhqtitle .lqicon {
+    width: 64rpx;
+    height: 39rpx;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.lqyhqtitle text {
+    margin-left: 20rpx;
+    margin-top: 3rpx;
+}
+
+.lqicon1 {
+    width: 32rpx;
+    height: 32rpx;
+    float: right;
+}
+
+.btmbg {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: #000;
+    z-index: 1000;
+    zoom: 1;
+    top: 0;
+    left: 0;
+    opacity: 0.3;
+}
+
+.gouwqnr {
+    max-height: 680rpx;
+    overflow-y: scroll;
+}
+
+.nronggaodu {
+    height: 660rpx;
+    overflow-y: scroll;
+}
+
+.gouwqnr {
+    height: 800rpx;
+    overflow-y: scroll;
+    padding: 24rpx;
+    padding-top: 0;
+}
+
+.lqyhqtitle .lqicon {
+    width: 64rpx;
+    height: 39rpx;
+    float: left;
+    vertical-align: top;
+}
+
+.lqyhqtitle text {
+    float: left;
+    margin-top: 3rpx;
+}
+
+.lqicon1 {
+    width: 40rpx;
+    height: 40rpx;
+    float: right;
+}
+
+.lqyhqtitle {
+    padding: 24rpx 0;
+    overflow: hidden;
+    margin: 0 24rpx;
+    position: relative;
+    line-height: 48rpx;
+    border-bottom: 1rpx solid #eee;
+}
+
+.lqyhqtitle text {
+    font-size: 32rpx;
+    margin-top: 3rpx;
+}
+
+.lqicon3 {
+    width: 679rpx;
+    margin: 0 auto;
+    height: 199rpx;
+    display: block;
+    margin-top: 24rpx;
+    margin-bottom: 24rpx;
+}
+
+.youhuiquan {
+    position: relative;
+    border-radius: 10rpx;
+    margin-bottom: 24rpx;
+}
+
+.nrong {
+    color: #fff;
+    padding: 0 24rpx;
+    background: #ff5252;
+    overflow: hidden;
+    border-top-left-radius: 10rpx;
+    border-top-right-radius: 10rpx;
+}
+
+.nrje {
+    text-align: center;
+    height: 96rpx;
+    font-size: 48rpx;
+    line-height: 96rpx;
+    float: left;
+}
+
+.nrje text {
+    font-family: Arial;
+}
+
+.nrtime {
+    width: 420rpx;
+    margin-left: 20rpx;
+}
+
+.nrtimelqan {
+    background: #fff;
+    overflow: hidden;
+    padding: 16rpx 24rpx;
+    border-bottom-left-radius: 10rpx;
+    border-bottom-right-radius: 10rpx;
+}
+
+.nrtimelqan button {
+    float: right;
+    border: 1rpx solid #212121;
+    background: #fff;
+    width: 100rpx;
+    height: 60rpx;
+    display: inline-block;
+    line-height: 60rpx;
+    color: #212121;
+    font-size: 24rpx;
+    padding: 0;
+}
+
+.nrong .nrtimelist {
+    font-size: 24rpx;
+    line-height: 80rpx;
+    float: right;
+}
+
+.positionre {
+    position: relative;
+    margin-bottom: 98rpx;
+}
+
+.none {
+    display: none;
+}
+
+.guige {
+    width: 702rpx;
+    margin: 0 auto;
+    display: flex;
+    margin-top: 24rpx;
+    padding-bottom: 24rpx;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.guigeimg {
+    background: #fff;
+    width: 176rpx;
+    height: 176rpx;
+    position: absolute;
+    top: -48rpx;
+    box-sizing: border-box;
+    border: 1rpx solid #e6e6e6;
+    border-radius: 10rpx;
+    z-index: 999;
+}
+
+.none {
+    display: none;
+}
+
+.guigecont {
+    width: 450rpx;
+    margin-left: 192rpx;
+    font-size: 28rpx;
+    min-height: 128rpx;
+}
+
+.sku-price {
+    color: #db2b39;
+    font-size: 30rpx;
+}
+
+.sku-price text {
+    font-size: 36rpx;
+}
+
+.guigeconkc {
+    margin-top: 5rpx;
+    margin-left: 24rpx;
+    color: #424242;
+}
+
+.guigeyxhs {
+    margin-top: 10rpx;
+    color: #707070;
+    line-height: 44rpx;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    align-content: center;
+}
+
+.goumkuang {
+    display: flex;
+    margin-left: 30rpx;
+}
+
+.goumaisl {
+    width: 700rpx;
+    margin: 0 auto;
+    padding: 24rpx 0;
+    display: flex;
+    line-height: 60rpx;
+}
+
+.goumaisl text {
+    font-size: 28rpx;
+}
+
+.goumaisl input {
+    width: 96rpx;
+    height: 62rpx;
+    text-align: center;
+    line-height: 62rpx;
+    border-top: 1rpx solid #e6e6e6;
+    border-bottom: 1rpx solid #e6e6e6;
+}
+
+.nronggaodu {
+    height: 660rpx;
+    overflow-y: scroll;
+}
+
+.jian,.jia {
+    width: 70rpx;
+    height: 62rpx;
+    border: 1rpx solid #e6e6e6;
+    text-align: center;
+    line-height: 62rpx;
+    font-size: 28rpx;
+    color: #747474;
+    border-top-left-radius: 8rpx;
+    border-bottom-left-radius: 8rpx;
+}
+
+.jia {
+    border-radius: 0 8rpx 8rpx 0;
+}
+
+.sezhi {
+    width: 700rpx;
+    margin: 0 auto;
+    margin-top: 40rpx;
+}
+
+.sezhicont image {
+    border: 1rpx solid #fff;
+    width: 95rpx;
+    height: 95rpx;
+    margin-top: 20rpx;
+    margin-right: 16rpx;
+    float: left;
+}
+
+.sezhicont image.active {
+    border: 1rpx solid #f95959;
+}
+
+.sezhicont text {
+    padding: 0 24rpx;
+    line-height: 56rpx;
+    display: block;
+    float: left;
+    margin-top: 10rpx;
+    margin-right: 24rpx;
+    white-space: nowrap;
+    border-radius: 8rpx;
+    background: #f5f5f5;
+    font-size: 24rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 650rpx;
+    border: 1rpx solid #f5f5f5;
+}
+
+.sezhicont .active {
+    border-color: #ff5722;
+    background: #ff5722;
+    color: #fff;
+}
+
+.sezhicont {
+    clear: both;
+    overflow: hidden;
+}
+
+.btn-confirm {
+    background: linear-gradient(to right,#ff5722,#f33);
+    border: none;
+    width: 702rpx;
+    border-radius: 8rpx;
+    color: #fff;
+    margin: 16rpx 24rpx;
+    line-height: 40rpx;
+    padding: 16rpx 0;
+    font-size: 28rpx;
+    position: fixed;
+    bottom: 0;
+}
+
+.productxq {
+    background: #fff;
+    margin-top: 24rpx;
+}
+
+.coupontitle {
+    display: flex;
+    background: #fff;
+}
+
+.coupontitlel {
+    width: 50%;
+    text-align: center;
+    font-size: 28rpx;
+    line-height: 40rpx;
+}
+
+.coupontitlel view {
+    width: 100%;
+    margin: 0 auto;
+    line-height: 40rpx;
+    padding: 24rpx 0;
+    color: #424242;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.coupontitlel view.active::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    width: 84rpx;
+    margin-left: -42rpx;
+    bottom: 0;
+    height: 4rpx;
+    background: #FF5722;
+}
+
+.xqcont {
+    font-size: 28rpx;
+    overflow: hidden;
+}
+
+.xqattr {
+    height: 1000rpx;
+}
+
+.xqattr text {
+    font-size: 32rpx;
+    padding: 24rpx;
+    color: #212121;
+    float: left;
+    width: 100%;
+}
+
+.ruletit {
+    font-size: 32rpx;
+}
+
+.rule .guige {
+    justify-content: space-between;
+}
+
+.rule .guigecha {
+    float: right;
+}
+
+.rule .rule_text {
+    width: 702rpx;
+    margin: 0 auto;
+    padding: 10rpx 0;
+    font-size: 30rpx;
+}
+
+.poster-box-nav {
+    position: fixed;
+    bottom: 160rpx;
+    right: 24rpx;
+    width: 96rpx;
+    height: 96rpx;
+    background: #ff5722;
+    border-radius: 100%;
+    z-index: 90;
+}
+
+.poster-box-nav button {
+    border: none;
+    background: none;
+    border-radius: 0;
+    color: #fff;
+    font-size: 20rpx;
+    line-height: 48rpx;
+    padding: 24rpx 0;
+    text-align: center;
+}
+
+.poster-bg {
+    position: fixed;
+    left: 50%;
+    top: 48rpx;
+    z-index: 1001;
+    transform: translate(-50%,0%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.poster-bg .poster {
+    border-radius: 16rpx;
+    overflow: hidden;
+}
+
+.poster-bg .poster-btn {
+    width: 168rpx;
+    height: 64rpx;
+    text-align: center;
+    line-height: 64rpx;
+    color: #fff;
+    background-color: #f5222d;
+    border-radius: 160rpx;
+    margin-top: 40rpx;
+}
+
+.product-detail-activity-hint {
+    line-height: 56rpx;
+    font-size: 28rpx;
+    color: #ff221a;
+}

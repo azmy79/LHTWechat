@@ -1,0 +1,20 @@
+<view class="container {{list?'':'transparent'}}">
+    <view class="group-list {{isEnd?'isEnd':''}}">
+        <view bindtap="goFightDetail" class="item" data-activeid="{{item.ActivityId}}" data-id="{{item.ProductId}}" wx:for="{{list}}" wx:key="{{item.ActivityId}}">
+            <image mode="widthFix" src="{{item.ActivityImage}}"></image>
+            <view class="booking" mode="aspectFill" wx:if="{{item.Status==2}}">
+                <image src="/images/booking.png"></image>
+            </view>
+            <view class="info">
+                <view class="name">{{item.ProductName}}</view>
+                <view class="price" style="color:{{PrimaryColor}}">火拼价：￥<text>{{item.FightPrice}}</text>
+                    <text class="old">￥{{item.SalePrice}}</text>
+                </view>
+                <view class="tag">
+                    <image mode="aspectFill" src="/images/group-tag.png"></image>
+          {{item.MaxJoinCount}}<view>人团</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

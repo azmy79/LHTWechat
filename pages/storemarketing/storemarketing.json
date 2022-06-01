@@ -1,0 +1,7 @@
+{
+    "component": true,
+    "usingComponents": {
+        "Addtocart": "/components/addtocart/addtocart"
+    },
+    "navigationBarTitleText": "门店营销"
+}

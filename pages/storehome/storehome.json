@@ -1,0 +1,7 @@
+{
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#fff",
+    "usingComponents": {
+        "storehome": "/components/storehome/storehome"
+    }
+}

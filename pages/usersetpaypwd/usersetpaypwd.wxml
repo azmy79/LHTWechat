@@ -1,0 +1,17 @@
+<form bindsubmit="formSubmit" reportSubmit="true">
+    <view class="form-group bg-white">
+        <view class="form-group-name">设置密码</view>
+        <view class="form-group-input">
+            <input bindinput="bindpasswordTap" placeholder="请输入交易密码" placeholderStyle="color:#bdbdbd" type="password" value="{{password}}"></input>
+        </view>
+    </view>
+    <view class="form-group bg-white">
+        <view class="form-group-name">确认密码</view>
+        <view class="form-group-input">
+            <input bindinput="bindagainpasswordTap" placeholder="请再次输入交易密码" placeholderStyle="color:#bdbdbd" type="password" value="{{againPassword}}"></input>
+        </view>
+    </view>
+    <view class="btn">
+        <button class="submit" formType="submit" style="background:{{PrimaryColor}};color:{{PrimaryTxtColor}}">确认</button>
+    </view>
+</form>

@@ -1,0 +1,80 @@
+page {
+    width: 94%;
+}
+
+.giftimg {
+    box-sizing: border-box;
+    margin-bottom: 24rpx;
+}
+
+.giftimg image {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.point_info_title {
+    border-bottom: solid 1px #d7d7d7;
+    height: 40rpx;
+    text-align: center;
+    width: 100%;
+    overflow: inherit;
+    float: left;
+    margin: 16rpx 0 8rpx 0;
+    position: relative;
+}
+
+.hdbox {
+    position: relative;
+}
+
+.hd {
+    position: absolute;
+    top: 32rpx;
+    font-size: 32rpx;
+    font-weight: normal;
+    background: #fff;
+    padding: 0 16rpx;
+    left: 38%;
+}
+
+.giftContent {
+    overflow: hidden;
+    padding: 0 24rpx;
+}
+
+.giftContent text {
+    display: inline-block;
+    width: 100%;
+    line-height: 40rpx;
+    font-size: 28rpx;
+    padding: 8rpx 0;
+    color: #474747;
+}
+
+.giftContent text.fontcolor {
+    width: auto;
+    color: #ff5722;
+    margin-left: 8rpx;
+}
+
+.del {
+    text-decoration-line: line-through;
+}
+
+.wxParse {
+    margin-top: 80rpx;
+    margin-bottom: 90rpx;
+}
+
+.other-button-hover {
+    color: #fff;
+    margin-top: 16rpx;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 24rpx 0;
+    text-align: center;
+    font-size: 32rpx;
+    background: #fff;
+}

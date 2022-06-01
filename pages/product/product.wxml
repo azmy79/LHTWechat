@@ -1,0 +1,18 @@
+<productcategory id="productcategory" storeid="{{storeid}}" wx:if="{{Store_PositionRouteTo==='Platform'||Store_PositionRouteTo==='NearestStore'&&storeid}}"></productcategory>
+<block wx:if="{{Store_PositionRouteTo&&Store_PositionRouteTo!=='Platform'&&!fromLatLng}}">
+    <view class="tip" hidden="{{pageType!=0}}">
+        <view class="tip-mes">获取定位中...</view>
+        <view class="tip-submes">定位后进入门店商品</view>
+    </view>
+    <view class="tip" hidden="{{pageType!=1}}">
+        <view class="tip-mes">定位失败</view>
+        <view class="tip-submes">请重新定位并同意授权</view>
+        <view catchtap="toChooseAddr" class="button">手动定位</view>
+    </view>
+    <view class="tip" hidden="{{pageType!=2}}">
+        <view class="tip-mes">定位成功</view>
+        <view class="tip-submes">附近还没有运营中的门店</view>
+        <view catchtap="toChooseAddr" class="button">手动定位</view>
+    </view>
+</block>
+<storeproduct fromLatLng="{{fromLatLng}}" id="storeproduct" wx:if="{{Store_PositionRouteTo==='StoreList'&&fromLatLng}}"></storeproduct>
